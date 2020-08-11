@@ -1,5 +1,3 @@
-# BattGeniePublish
-
 |build| |coverage| |docs| |pypi| |zenodo| 
 
 .. inclusion-marker-do-not-remove
