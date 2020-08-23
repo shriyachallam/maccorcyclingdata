@@ -7,18 +7,18 @@ with open('HISTORY.md') as history_file:
     HISTORY = history_file.read()
 
 setup_args = dict(
-    name='BattGeniePublish',
+    name='MaccorCyclingData',
     version='0.0.1',
-    description='BattGenie Python Package for Publication',
+    description='Python Package for Publicationto perform basic functions on Maccor Battery Cycling Data',
     long_description_content_type="text/markdown",
     long_description=README + '\n\n' + HISTORY,
     license='MIT',
     packages=find_packages(),
     author='Shriya Challam',
     author_email='shriyachallam10@gmail.com',
-    keywords=['Battery', 'BatteryCycling', 'BattGenie'],
-    url='https://github.com/shriyachallam/BattGeniePublish',
-    download_url='https://pypi.org/project/battgeniepublish/'
+    keywords=['Battery', 'Battery cycling', 'BattGenie', 'Maccor],
+    url='https://github.com/shriyachallam/MaccorCyclingData',
+    download_url='https://pypi.org/project/maccorcyclingdata/'
 )
 
 install_requires = [
