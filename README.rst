@@ -1,4 +1,4 @@
-|build| |coverage| |docs| |pypi| |zenodo| 
+|docs| |pypi|
 
 .. inclusion-marker-do-not-remove
 
