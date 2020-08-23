@@ -2,7 +2,7 @@
 Code Features
 =============
 
-The main functions available in the `battgeniepublish`_ package are
+The main functions available in the `maccorcyclingdata`_ package are
 listed below in alphabetical order. The list contains the module name
 followed by the function name with the expected input parameters in
 brackets.
@@ -200,4 +200,4 @@ Headers of the ``validation_df``:
 
 If the testdata does not have any errors, this function will return the ``validation_df`` that says "there are no errors."
 
-.. _battgeniepublish: https://github.com/shriyachallam/BattGeniePublish
+.. _maccorcyclingdata: https://github.com/shriyachallam/MaccorCyclingData

@@ -14,8 +14,8 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Code overview" href="preparing.html" />
-    <link rel="prev" title="Documentation for BattGeniePublish" href="index.html" /> 
+    <link rel="next" title="Before using this package:" href="preparing.html" />
+    <link rel="prev" title="Documentation for MaccorCyclingData" href="index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -24,10 +24,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="preparing.html" title="Code overview"
+          <a href="preparing.html" title="Before using this package:"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Documentation for BattGeniePublish"
+          <a href="index.html" title="Documentation for MaccorCyclingData"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">BattGeniePublish 1 documentation</a> &#187;</li> 
       </ul>
@@ -40,60 +40,17 @@
             
   <div class="section" id="code-overview">
 <span id="overview"></span><h1>Code overview<a class="headerlink" href="#code-overview" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference external" href="https://github.com/BatLabLancaster/preparenovonix">preparenovonix</a> package prepares exported data files produced by <a class="reference external" href="http://www.novonix.ca/">Novonix</a> battery-testers by (i) cleaning them and (ii) adding derived information to the file. The package also allows reading an individual column given its name. The derived information includes:</p>
+<p>The <a class="reference external" href="https://github.com/shriyachallam/MaccorCyclingData">maccorcyclingdata</a> package prepares exported data files produced by <a class="reference external" href="http://www.maccor.com/">Maccor</a> battery cyclers by:</p>
 <ol class="arabic simple">
-<li><p>A State column with explicit information of the start and end of a
-given type of measurement. Novonix provides a Step number with a
-different value for each type of measurement, for example, 0
-corresponds to an open circuit. However, it is possible to have two
-consecutive measurements of the same type but with different
-experimental conditions, for example charging at different currents.
-These can now be set appart using the State value.</p></li>
-<li><p>A reduced protocol summarising the experimental protocol into having
-each command and corresponding experimental conditions in a single
-line. This is needed to directly relate a measurement with the
-experimental protocol. The reduced protocol is output as a string of
-arrays and it is stored as part of the header when using the
-<span class="xref std std-ref">prepare_novonix</span> function.</p></li>
-<li><p>A Protocol line column with values that assign a measurement to a
-particular line of the reduced protocol.</p></li>
-<li><p>A Loop number column with a counter of the repetitions of a given
-measurement within a loop in the experimental protocol.</p></li>
+<li><p>Importing and Cleaning Data: Within the  <a class="reference external" href="https://github.com/shriyachallam/MaccorCyclingData">maccorcyclingdata</a> package, there are functions to import testdata from the cyclers. The cleaning process includes renaming, dropping, or changing the units of certain columns.</p></li>
+<li><p>Import the Schedule File: With the <a class="reference external" href="https://github.com/shriyachallam/MaccorCyclingData">maccorcyclingdata</a> package, there is a function that imports and cleans the schedule file that is input into the <a class="reference external" href="http://www.maccor.com/">Maccor</a> cycler. This allows the schedule file to be interpreted as a usable pandas dataframe.</p></li>
+<li><p>Validating the Testdata against the Schedule file: With the <a class="reference external" href="https://github.com/shriyachallam/MaccorCyclingData">maccorcyclingdata</a> package, the testdata can be validated against the schedule file to ensure the cycler followed the correct cycling system.</p></li>
 </ol>
-<p>Combining the state and step number values makes it possible to select
-the capacities from a charge or discharge experimental step. These are
-needed for estimating the coulombic efficiency. This combination of
-state with step number also allows the computation of resistances based
-on current experimental steps or pulses. Specific cycles or individual
-sections of the experiment can be selected combining the loop number
-with either the state and step number values or the protocol line
-values.</p>
-<p>The example data provided within the repository for this code is shown
-in the figure below <span class="xref std std-ref">comparison</span>. This figure compares the raw
-Novonix data with the data after being processed by the
-<a class="reference external" href="https://github.com/BatLabLancaster/preparenovonix">preparenovonix</a> package. The example raw data contains individual
-measurements for which the experimental run time decreases. As it can be
-seen in the <span class="xref std std-ref">comparison</span>, these measurements are
-removed by the <a class="reference external" href="https://github.com/BatLabLancaster/preparenovonix">preparenovonix</a> package. The example raw data file
-also includes a failed test. The <a class="reference external" href="https://github.com/BatLabLancaster/preparenovonix">preparenovonix</a> package takes the
-capacity from the failed test and adds it to the capacities from the
-completed experiment. This shifts the result capacity curve by a
-constant value, as it can be seen in the <span class="xref std std-ref">comparison</span>. This figure also shows the
-increasing loop number when the measurements are within a repeat loop
-and the protocol line each measurement corresponds to.</p>
-<div class="section" id="plot-comparing-the-raw-and-processed-data">
-<h2>Plot comparing the raw and processed data<a class="headerlink" href="#plot-comparing-the-raw-and-processed-data" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-center">
-<img alt="Data comparison" src="../example_data/compare_vct.png" />
-</div>
-<p>Comparison of the raw battery testing data (thin dashed lines) and the
-data after being processed by the <a class="reference external" href="https://github.com/BatLabLancaster/preparenovonix">preparenovonix</a> package (thick
-solid lines), as a function of the experimental run time. The top panel
-shows the potential and capacity of the battery. The middle panel shows
-the step number, which indicates the type of measurement being done. The
-bottom panel shows the loop number and protocol line, which are only
-available after processing the raw data with the
-<a class="reference external" href="https://github.com/BatLabLancaster/preparenovonix">preparenovonix</a> package.</p>
+<div class="section" id="battgenie">
+<h2>BattGenie<a class="headerlink" href="#battgenie" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://github.com/shriyachallam/MaccorCyclingData">maccorcyclingdata</a> package was created at <a class="reference external" href="https://www.battgenie.life/">BattGenie Inc</a>.
+<a class="reference external" href="https://www.battgenie.life/">BattGenie</a> is a startup that provides efficient battery management solutions for Lithium-ion batteries for electric vehicles, consumer electronics and grid storage applications.
+Our patented technology uses physics-based battery models that are fast and more accurate compared to traditional empirical models.</p>
 </div>
 </div>
 
@@ -106,17 +63,17 @@ available after processing the raw data with the
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Code overview</a><ul>
-<li><a class="reference internal" href="#plot-comparing-the-raw-and-processed-data">Plot comparing the raw and processed data</a></li>
+<li><a class="reference internal" href="#battgenie">BattGenie</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Documentation for <code class="docutils literal notranslate"><span class="pre">BattGeniePublish</span></code></a></p>
+                        title="previous chapter">Documentation for <code class="docutils literal notranslate"><span class="pre">MaccorCyclingData</span></code></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="preparing.html"
-                        title="next chapter">Code overview</a></p>
+                        title="next chapter">Before using this package:</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -145,10 +102,10 @@ available after processing the raw data with the
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="preparing.html" title="Code overview"
+          <a href="preparing.html" title="Before using this package:"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Documentation for BattGeniePublish"
+          <a href="index.html" title="Documentation for MaccorCyclingData"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">BattGeniePublish 1 documentation</a> &#187;</li> 
       </ul>
