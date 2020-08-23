@@ -1,2 +1,2 @@
 
-documentation: https://battgeniepublish.readthedocs.io/
+documentation: https://maccorcyclingdata.readthedocs.io/
