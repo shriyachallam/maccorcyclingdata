@@ -117,7 +117,7 @@ def validation_check_max_temp(validation_df, df, max_temp, temp_tol=3):
 	validation_df = the validation dataframe where any errors will be recorded
 	df = testdata dataframe
 	max_temp = integer, the threshold for the highest temperature allowed
-
+    tol = optional input, what the tolerance should be between warning, error, and ABORT messages
 	Outputs
 	-------
 	validation_df = the validation dataframe with any errors listed
@@ -161,7 +161,7 @@ def validation_check_rest(validation_df, df, rest_steps):
     return validation_df
 
 
-def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, max_temp):
+def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, max_temp, tol=3):
 	'''
     This is a wrapper function that validates the testdata against the schedule file.
     The sub-functions that are validated are: 
@@ -181,7 +181,8 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
     cell_id = the cell id of the testdata
     time_interval = integer, the maximum interval of how often the cycler should be recording data
 	temp_interval = integer, the maximum interval of a temperature change
-    max_temp = integer, the threshold for the highest temperature allowed
+    max_temp = integer, the threshold for the highest temperature allowed\
+    tol = optional input, what the tolerance should be between warning, error, and ABORT messages
 
 	Outputs
 	-------
@@ -211,7 +212,7 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
         validation_df = validation_check_discharging(validation_df, df, discharge_steps)
         validation_df = validation_check_advanced_cycle(validation_df, df, advance_steps)
         validation_df = validation_check_max_step_num(validation_df, df, max_step)
-        validation_df = validation_check_max_temp(validation_df, df, max_temp)
+        validation_df = validation_check_max_temp(validation_df, df, max_temp, tol)
         validation_df = validation_check_time_interval(validation_df, df, time_interval)
         validation_df = validation_check_temp_interval(validation_df, df, temp_interval)
 

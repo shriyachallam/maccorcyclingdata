@@ -14,8 +14,8 @@ Documentation for ``BattGeniePublish``
 .. toctree::
    :maxdepth: 2
    
-   preparing.rst
    overview.rst
+   preparing.rst
    features.rst
 
 -------

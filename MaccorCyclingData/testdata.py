@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def import_maccor_data(file_path , file_name):
+def import_maccor_data(file_path , file_name, header=2):
 	'''
 	Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df
 	and clean it.
@@ -17,11 +17,12 @@ def import_maccor_data(file_path , file_name):
 	
 	Notes
 	-----
-	This function sets the header as the second line **
+	Optional input: set the header to a line number.
+    The default value is 2.
 
 	'''
 	
-	df = pd.read_csv(file_path+file_name,sep='\t', header = 2)  # Read data from .txt is the line the data starts on
+	df = pd.read_csv(file_path+file_name,sep='\t', header)  # Read data from .txt is the line the data starts on
 
 	df = clean_maccor_df(df)
     

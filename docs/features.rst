@@ -2,480 +2,202 @@
 Code Features
 =============
 
-The main functions available in the `battgeniepublish`_ package are
+The main functions available in the `maccorcyclingdata`_ package are
 listed below in alphabetical order. The list contains the module name
 followed by the function name with the expected input parameters in
 brackets.
 
--  ``testdata.clean_maccor_df(df)``: Given the testdata dataframe, this function will rename the headers and drop unnecessary columns.
+-  ``testdata.delete_cycle_steps(df, steps_to_delete, decrement=False)``: Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers.
 
--  ``testdata.delete_cycle_steps(df, steps_to_delete, decrement=False)``: Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function
-    will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers.
+-  ``testdata.get_cycle_data(df, Headings, cyc_range)``: This function gets the data from the specified column for each sample within the specified cyc_range.
 
--  ``testdata.get_cycle_data(df, Headings, cyc_range)``: This function gets the data specified in the "Headings" for each sample within the specified cyc_range.
-
--  ``testdata.get_index_range(df, cyc_range, cycle_step_idx)``: Given the testdata dataframe, this function returns the index range for the specified cycle range, 
-    or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.
+-  ``testdata.get_index_range(df, cyc_range, cycle_step_idx)``: Given the testdata dataframe, this function returns the index range for the specified cycle range, or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.
 
 -  ``testdata.get_num_cycles(df)``: Given the testdata dataframe, this function will return the number of cycles.
 
--  ``testdata.import_maccor_data(file_path, file_name)``: Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df
-	and clean it.
+-  ``testdata.import_maccor_data(file_path, file_name)``: Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df and clean it.
 
--  ``testdata.import_multiple_csv_data(file_path)``: Given the file path that holds multiple csv files (testdata files), this function will import and append 
-    all of the csv files to one another as one dataframe. Returns a cleaned version of that dataframe.
+-  ``testdata.import_multiple_csv_data(file_path)``: Given the file path that holds multiple csv files (testdata files), this function will import and append all of the csv files to one another as one dataframe. Returns a cleaned version of that dataframe.
 
--  ``schedules.import_schedules(file_path, file_name)``: Given the file path and file name (of the schedule file that is inputted into the Maccor Cycler), this 
-	function will import and clean the schedule file and return it as a df.
+-  ``schedules.import_schedules(file_path, file_name)``: Given the file path and file name (of the schedule file that is inputted into the Maccor Cycler), this function will import and clean the schedule file and return it as a df.
 
--  ``schedules.sort_scheduler_steps(schedule_df)``: Given the schedule_df (the df of the schedule file), this function will sort rest, charge, discharge, advance
-    cycle, and end step numbers.
-
--  ``validate.validation_check_advanced_cycle(validation_df, df, advance_steps)``: This function will validate the testdata against the advance cycle steps by making sure the cycle advances.
-
--  ``validate.validation_check_charging(validation_df, df, charge_steps)``: This function will validate the testdata against the charging steps by making sure the current is positive.
-
--  ``validate.validation_check_discharging(validation_df, df, discharge_steps)``: This function will validate the testdata against the discharging steps by making sure the current is negative.
-
--  ``validate.validation_check_max_step_num(validation_df, df, max_step)``: This function will validate the testdata against the max step by making sure no steps surpass the max.
-
--  ``validate.validation_check_max_temp(validation_df, df, max_temp, temp_tol=3)``: This function will validate the testdata against the max temperature by making sure no steps surpass the max.
-
--  ``validate.validation_check_time_interval(validation_df, df, temp_interval)``: This function will validate the testdata to make sure the temperature does not fluctuate suddenly.
-
--  ``validate.validation_check_rest(validation_df, df, rest_steps)``: This function will validate the testdata against the rest steps by making sure the current is at 0 when resting.
-
--  ``validate.validation_test_data(schedule_df, df, cell_id, time_interval, temp_interval, max_temp)``: This is a wrapper function that validates the testdata against the schedule file.
-    The sub-functions that are validated are: 
-    validation_check_rest, validation_check_charging, validation_check_discharging, validation_check_advanced_cycle, 
-    validation_check_max_step_num, validation_check_max_temp, validation_check_time_interval, validation_check_temp_interval
-
-In what follows, the above functions will be referred by simply their
-name, without stating the modules they belong to.
-
-The ``clean_maccor_df`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
+-  ``validate.validation_test_data(schedule_df, df, cell_id, time_interval, temp_interval, max_temp)``: This is a function that validates the testdata against the schedule file.
+    
+In what follows, the above functions will be referred by simply their name, without stating the modules they belong to.
 
 The ``delete_cycle_steps`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
+------------------------------------------
+The ``delete_cycle_steps`` function reads an array of the step numbers that should be deleted, ``steps_to_delete``, and deletes all rows that occur during those steps from the inputted testdata dataframe.
+This function returns the testdata dataframe itself with the steps deleted. If the boolean ``decrement`` is set to True, the function will renumber the steps at the end. The ``decrement`` boolean is optional. The default value if False.
 
 The ``get_cycle_data`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
+-------------------------------------
+The ``get_cycle_data`` function gets the data from the array of specified columns, ``Headings``, for each sample within the array of the cycle numbers that are of interest, ``cyc_range``.
+The function returns an array where the columns correspond to the specified columns and the rows corespond to the data. 
 
 The ``get_index_range`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
+-----------------------------------------
+The ``get_index_range`` function gets the index range for the array of the cycle numbers that are of interest, ``cyc_range``. 
+The optional input- an array of specific step numbers, ``cycle_step_idx``- will only find the indices for those step numbers within each specified cycle. The default value is to find the indices of all steps within each specified cycle.
+The function returns a vector of the range of df indices for the specified cycle range.
 
 The ``get_num_cycles`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
+--------------------------------------
+The ``get_num_cycles`` function finds the number of cycles given the testdata dataframe, ``df``. 
+The function returns an integer of the number of cycles in the dataframe.
 
 The ``import_maccor_data`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
+--------------------------------------
+The ``import_maccor_data`` function creates a pandas dataframe given a string of the file path, ``file_path``, and a string of the file name, ``file_name``, of a testdata dataframe. 
+The function will import and clean the testdata by renaming the headers and dropping unnecessary columns. 
+The columns must be named properly to be renamed to the following:
 
--  Open circuit storage (or rest)
+- From 'Cyc#' to 'cyc'
 
--  Constant current (dis)charge
+- From 'Step' to 'step'
 
--  Constant current - Constant Voltage (dis)charge
+- From 'TestTime(s)' to 'test_time_s'
 
--  (End) Repeat
+- From 'StepTime(s)' to 'step_time_s'
 
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
+- From 'Capacity(Ah)' to 'capacity_mah'
+
+- From 'Watt-hr' to 'energy_wh'
+
+- From 'Current(A)' to 'current_ma'
+
+- From 'Voltage(V)' to 'voltage_mv'
+
+- From 'DPt Time' to 'dpt_time'
+
+- From 'ACR' to 'acr'
+
+- From 'DCIR' to 'dcir'
+
+- From 'Temp 1' to 'thermocouple_temp_c'}
+
+- From 'EV Temp' to 'ev_temp'
+
+- From 'Unnamed: 13' to 'nnnamed'
+
+The function will delete the following columns: ``acre``, ``dcir``, ``nnnamed``.
+The function will change the datatype of the ``energy_wh`` column to numeric. 
+As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.
+
+The optional input- an integer that specifies which line is the header, ``header``- will set the header to be that line number. The default value of ``header`` is 2.
+
+The function returns a pandas dataframe of the cleaned testdata.
 
 The ``import_multiple_csv_data`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
+--------------------------------------------
+The ``import_multiple_csv_data`` function creates a pandas dataframe given a string of the file path, ``file_path``, of a directory that contains multiple csv files of testdata. 
+The function will import all files within the directory that end in .csv. Additionally, this function will append the csv files to one another depending on the order they appear in the directory.
+This function will clean the data similar to the ``import_maccor_data`` function. The function will import and clean the testdata by renaming the headers and dropping unnecessary columns. 
+The columns must be named properly to be renamed to the following:
 
--  Open circuit storage (or rest)
+- From 'Cyc#' to 'cyc'
 
--  Constant current (dis)charge
+- From 'Step' to 'step'
 
--  Constant current - Constant Voltage (dis)charge
+- From 'TestTime(s)' to 'test_time_s'
 
--  (End) Repeat
+- From 'StepTime(s)' to 'step_time_s'
 
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
+- From 'Capacity(Ah)' to 'capacity_mah'
+
+- From 'Watt-hr' to 'energy_wh'
+
+- From 'Current(A)' to 'current_ma'
+
+- From 'Voltage(V)' to 'voltage_mv'
+
+- From 'DPt Time' to 'dpt_time'
+
+- From 'ACR' to 'acr'
+
+- From 'DCIR' to 'dcir'
+
+- From 'Temp 1' to 'thermocouple_temp_c'}
+
+- From 'EV Temp' to 'ev_temp'
+
+- From 'Unnamed: 13' to 'nnnamed'
+
+The function will delete the following columns: ``acre``, ``dcir``, ``nnnamed``.
+The function will change the datatype of the ``energy_wh`` column to numeric. 
+As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.
+
+The function returns a pandas dataframe with the cleaned testdata appended to one another.
 
 The ``import_schedules`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
+--------------------------------------
+The ``import_schedules`` function creates a pandas dataframe given a string of the file path, ``file_path``, and a string of the file name, ``file_name``, of the schedule file (xlxs file) that is inputted into the Maccor Cycler. 
+The function will rename the columns to the following (in this order): 'step', 'step_type', 'step_mode', 'step_mode_value', 'step_limit', 'step_limit_value', 'step_end_type', 'step_end_type_op', 'step_end_type_value', 'goto_step', 'report_type', 'report_type_value', 'options', 'step_note'.
 
--  Open circuit storage (or rest)
+For all multiline steps (for example: steps with multiple options for the step it should go to depending on the result), this function will append those multiple lines into an array with each element being the value of each line. This allows for the function to keep each step to one line. 
+This function sets the datatype of the ``step`` and ``step_limit_value`` to integer and float respectively.
 
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
-
-The ``sort_scheduler_steps`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
-
-The ``validation_check_advanced_cycle`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
-
-The ``validation_check_charging`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
-
-The ``validation_check_discharging`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
-
-The ``validation_check_max_step_num`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
-
-The ``validation_check_max_temp`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
-
-The ``validation_check_time_interval`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
-
-The ``validation_check_rest`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
-
--  Open circuit storage (or rest)
-
--  Constant current (dis)charge
-
--  Constant current - Constant Voltage (dis)charge
-
--  (End) Repeat
-
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
+The function returns a pandas dataframe of the cleaned scheduler.
 
 The ``validation_test_data`` function
----------------------------------
-The ``reduced_protocol`` function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, ``viable_prot``. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: ``[4 : Repeat 49 times :]``. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):
+-------------------------------------------
+The ``validation_test_data`` function validates the testdata against the scheduler.
 
--  Open circuit storage (or rest)
+Parameters of this function (in this order):
 
--  Constant current (dis)charge
+- schedule_df = the dataframe of the cleaned schedule file (from the ``import_schedules`` function)
 
--  Constant current - Constant Voltage (dis)charge
+- df = testdata dataframe (from the ``import_maccor_data`` or ``import_multiple_csv_data`` functions)
 
--  (End) Repeat
+- cell_id = the cell id of the testdata (integer)
 
-The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag ``viable_prot`` is set to ``False``,
-indicating that the construction of the reduced protocol was not viable.
+- time_interval = the maximum interval of how often the cycler should be recording data in seconds (integer)
 
-.. _battgeniepublish: https://github.com/shriyachallam/BattGeniePublish
+- temp_interval = the maximum interval of a temperature change in number of degrees (integer)
+
+- max_temp = the threshold for the highest temperature allowed (integer)
+
+- tol = when making sure the temperature doesn't exceed a certain amount, this function will return either a warning, error, or ABORT message. this input specifies the tolerance should these messages. This is an optional input, the default value is 3.
+
+The erros this function checks for:
+
+- if during all the rest steps, the battery is actually resting
+
+- if during all charging steps, the battery is charging
+
+- if during all discharging steps, the battery is discharging
+
+- if during all advance cycle steps, the cycle is being advanced
+
+- if the step number never exceeds the max step number
+
+- data is collected for every ``time_interval`` given 
+
+- the temperate never jumps or drops by an interval greater than the ``temp_interval``
+
+- the temperature never goes past the max temperature
+
+For the max temperature error, there are 3 possibilities of error messages:
+
+1. warning - temperature approaching the max! (current temperature + tol > max)
+
+2. error - temperature has surpassed the max! (current temperature >= max)
+
+3. ABORT - temperature is way too hot! (current temperature > max + tol)
+
+The function returns a pandas dataframe that lists all errors, ``validation_df``.
+Headers of the ``validation_df``:
+
+1. time (the current time of when the validation occurs)
+
+2. run (tells whether the validation function is in progress or complete)
+
+3. cell_num (the cell number of the testdata)
+
+4. row_number (the row number where the error occurs)
+
+5. error (what the error is)
+
+If the testdata does not have any errors, this function will return the ``validation_df`` that says "there are no errors."
+
+.. _maccorcyclingdata: https://github.com/shriyachallam/MaccorCyclingData

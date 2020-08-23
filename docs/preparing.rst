@@ -3,7 +3,7 @@
 Code overview
 =============
 
-The `preparenovonix`_ package prepares exported data files produced by `Novonix`_ battery-testers by (i) cleaning them and (ii) adding derived information to the file. The package also allows reading an individual column given its name. The derived information includes:
+The `battgeniepublish`_ package prepares exported data files produced by `Novonix`_ battery-testers by (i) cleaning them and (ii) adding derived information to the file. The package also allows reading an individual column given its name. The derived information includes:
 
 #. A State column with explicit information of the start and end of a
    given type of measurement. Novonix provides a Step number with a
@@ -68,8 +68,6 @@ available after processing the raw data with the
 `preparenovonix`_ package.
 
 
-.. _preparenovonix: https://github.com/BatLabLancaster/preparenovonix
+.. _battgeniepublish: https://github.com/shriyachallam/BattGeniePublish
 
 .. _Novonix: http://www.novonix.ca/
-
-.. _module index: https://prepare-novonix-data.readthedocs.io/en/latest/py-modindex.html

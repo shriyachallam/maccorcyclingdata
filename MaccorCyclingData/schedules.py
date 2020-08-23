@@ -49,10 +49,6 @@ def import_schedules(file_path, file_name):
 	    
 	#set the type of the step and step_limit_value columns to int and float, the rest of the columns have the type as object, even if you force the type as a str, they remain as type object
 	df = df.astype({'step': int, 'step_limit_value': float})
-	#this sets the nan values in columns step and step_limit_value to 0
-	#df[['step','step_limit_value']] = df[['step','step_limit_value']].fillna(0)
-	#this sets the nan values in the remaining columns to blank strings
-	#df[['step_type', 'step_mode', 'step_mode_value', 'step_limit', 'step_end_type', 'step_end_type_op', 'step_end_type_value', 'goto_step', 'report_type', 'report_type_value', 'options', 'step_note']] = df[['step_type', 'step_mode', 'step_mode_value', 'step_limit', 'step_end_type', 'step_end_type_op', 'step_end_type_value', 'goto_step', 'report_type', 'report_type_value', 'options', 'step_note']].fillna('')   
 	return df
 
 def sort_scheduler_steps(schedule_df):

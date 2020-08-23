@@ -41,429 +41,139 @@ listed below in alphabetical order. The list contains the module name
 followed by the function name with the expected input parameters in
 brackets.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">testdata.clean_maccor_df(df)</span></code>: Given the testdata dataframe, this function will rename the headers and drop unnecessary columns.</p></li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">testdata.delete_cycle_steps(df,</span> <span class="pre">steps_to_delete,</span> <span class="pre">decrement=False)</span></code>: Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function</dt><dd><p>will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers.</p>
-</dd>
-</dl>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">testdata.get_cycle_data(df,</span> <span class="pre">Headings,</span> <span class="pre">cyc_range)</span></code>: This function gets the data specified in the “Headings” for each sample within the specified cyc_range.</p></li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">testdata.get_index_range(df,</span> <span class="pre">cyc_range,</span> <span class="pre">cycle_step_idx)</span></code>: Given the testdata dataframe, this function returns the index range for the specified cycle range,</dt><dd><p>or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.</p>
-</dd>
-</dl>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">testdata.delete_cycle_steps(df,</span> <span class="pre">steps_to_delete,</span> <span class="pre">decrement=False)</span></code>: Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">testdata.get_cycle_data(df,</span> <span class="pre">Headings,</span> <span class="pre">cyc_range)</span></code>: This function gets the data from the specified column for each sample within the specified cyc_range.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">testdata.get_index_range(df,</span> <span class="pre">cyc_range,</span> <span class="pre">cycle_step_idx)</span></code>: Given the testdata dataframe, this function returns the index range for the specified cycle range, or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">testdata.get_num_cycles(df)</span></code>: Given the testdata dataframe, this function will return the number of cycles.</p></li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">testdata.import_maccor_data(file_path,</span> <span class="pre">file_name)</span></code>: Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df</dt><dd><p>and clean it.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">testdata.import_multiple_csv_data(file_path)</span></code>: Given the file path that holds multiple csv files (testdata files), this function will import and append</dt><dd><p>all of the csv files to one another as one dataframe. Returns a cleaned version of that dataframe.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">schedules.import_schedules(file_path,</span> <span class="pre">file_name)</span></code>: Given the file path and file name (of the schedule file that is inputted into the Maccor Cycler), this</dt><dd><p>function will import and clean the schedule file and return it as a df.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">schedules.sort_scheduler_steps(schedule_df)</span></code>: Given the schedule_df (the df of the schedule file), this function will sort rest, charge, discharge, advance</dt><dd><p>cycle, and end step numbers.</p>
-</dd>
-</dl>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_check_advanced_cycle(validation_df,</span> <span class="pre">df,</span> <span class="pre">advance_steps)</span></code>: This function will validate the testdata against the advance cycle steps by making sure the cycle advances.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_check_charging(validation_df,</span> <span class="pre">df,</span> <span class="pre">charge_steps)</span></code>: This function will validate the testdata against the charging steps by making sure the current is positive.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_check_discharging(validation_df,</span> <span class="pre">df,</span> <span class="pre">discharge_steps)</span></code>: This function will validate the testdata against the discharging steps by making sure the current is negative.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_check_max_step_num(validation_df,</span> <span class="pre">df,</span> <span class="pre">max_step)</span></code>: This function will validate the testdata against the max step by making sure no steps surpass the max.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_check_max_temp(validation_df,</span> <span class="pre">df,</span> <span class="pre">max_temp,</span> <span class="pre">temp_tol=3)</span></code>: This function will validate the testdata against the max temperature by making sure no steps surpass the max.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_check_time_interval(validation_df,</span> <span class="pre">df,</span> <span class="pre">temp_interval)</span></code>: This function will validate the testdata to make sure the temperature does not fluctuate suddenly.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_check_rest(validation_df,</span> <span class="pre">df,</span> <span class="pre">rest_steps)</span></code>: This function will validate the testdata against the rest steps by making sure the current is at 0 when resting.</p></li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">validate.validation_test_data(schedule_df,</span> <span class="pre">df,</span> <span class="pre">cell_id,</span> <span class="pre">time_interval,</span> <span class="pre">temp_interval,</span> <span class="pre">max_temp)</span></code>: This is a wrapper function that validates the testdata against the schedule file.</dt><dd><p>The sub-functions that are validated are:
-validation_check_rest, validation_check_charging, validation_check_discharging, validation_check_advanced_cycle,
-validation_check_max_step_num, validation_check_max_temp, validation_check_time_interval, validation_check_temp_interval</p>
-</dd>
-</dl>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">testdata.import_maccor_data(file_path,</span> <span class="pre">file_name)</span></code>: Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df and clean it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">testdata.import_multiple_csv_data(file_path)</span></code>: Given the file path that holds multiple csv files (testdata files), this function will import and append all of the csv files to one another as one dataframe. Returns a cleaned version of that dataframe.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">schedules.import_schedules(file_path,</span> <span class="pre">file_name)</span></code>: Given the file path and file name (of the schedule file that is inputted into the Maccor Cycler), this function will import and clean the schedule file and return it as a df.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_test_data(schedule_df,</span> <span class="pre">df,</span> <span class="pre">cell_id,</span> <span class="pre">time_interval,</span> <span class="pre">temp_interval,</span> <span class="pre">max_temp)</span></code>: This is a function that validates the testdata against the schedule file.</p></li>
 </ul>
-<p>In what follows, the above functions will be referred by simply their
-name, without stating the modules they belong to.</p>
-<div class="section" id="the-clean-maccor-df-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">clean_maccor_df</span></code> function<a class="headerlink" href="#the-clean-maccor-df-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
-</div>
+<p>In what follows, the above functions will be referred by simply their name, without stating the modules they belong to.</p>
 <div class="section" id="the-delete-cycle-steps-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">delete_cycle_steps</span></code> function<a class="headerlink" href="#the-delete-cycle-steps-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">delete_cycle_steps</span></code> function reads an array of the step numbers that should be deleted, <code class="docutils literal notranslate"><span class="pre">steps_to_delete</span></code>, and deletes all rows that occur during those steps from the inputted testdata dataframe.
+This function returns the testdata dataframe itself with the steps deleted. If the boolean <code class="docutils literal notranslate"><span class="pre">decrement</span></code> is set to True, the function will renumber the steps at the end. The <code class="docutils literal notranslate"><span class="pre">decrement</span></code> boolean is optional. The default value if False.</p>
 </div>
 <div class="section" id="the-get-cycle-data-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function<a class="headerlink" href="#the-get-cycle-data-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function gets the data from the array of specified columns, <code class="docutils literal notranslate"><span class="pre">Headings</span></code>, for each sample within the array of the cycle numbers that are of interest, <code class="docutils literal notranslate"><span class="pre">cyc_range</span></code>.
+The function returns an array where the columns correspond to the specified columns and the rows corespond to the data.</p>
 </div>
 <div class="section" id="the-get-index-range-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">get_index_range</span></code> function<a class="headerlink" href="#the-get-index-range-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_index_range</span></code> function gets the index range for the array of the cycle numbers that are of interest, <code class="docutils literal notranslate"><span class="pre">cyc_range</span></code>.
+The optional input- an array of specific step numbers, <code class="docutils literal notranslate"><span class="pre">cycle_step_idx</span></code>- will only find the indices for those step numbers within each specified cycle. The default value is to find the indices of all steps within each specified cycle.
+The function returns a vector of the range of df indices for the specified cycle range.</p>
 </div>
 <div class="section" id="the-get-num-cycles-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">get_num_cycles</span></code> function<a class="headerlink" href="#the-get-num-cycles-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_num_cycles</span></code> function finds the number of cycles given the testdata dataframe, <code class="docutils literal notranslate"><span class="pre">df</span></code>.
+The function returns an integer of the number of cycles in the dataframe.</p>
 </div>
 <div class="section" id="the-import-maccor-data-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> function<a class="headerlink" href="#the-import-maccor-data-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> function creates a pandas dataframe given a string of the file path, <code class="docutils literal notranslate"><span class="pre">file_path</span></code>, and a string of the file name, <code class="docutils literal notranslate"><span class="pre">file_name</span></code>, of a testdata dataframe.
+The function will import and clean the testdata by renaming the headers and dropping unnecessary columns.
+The columns must be named properly to be renamed to the following:</p>
 <ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
+<li><p>From ‘Cyc#’ to ‘cyc’</p></li>
+<li><p>From ‘Step’ to ‘step’</p></li>
+<li><p>From ‘TestTime(s)’ to ‘test_time_s’</p></li>
+<li><p>From ‘StepTime(s)’ to ‘step_time_s’</p></li>
+<li><p>From ‘Capacity(Ah)’ to ‘capacity_mah’</p></li>
+<li><p>From ‘Watt-hr’ to ‘energy_wh’</p></li>
+<li><p>From ‘Current(A)’ to ‘current_ma’</p></li>
+<li><p>From ‘Voltage(V)’ to ‘voltage_mv’</p></li>
+<li><p>From ‘DPt Time’ to ‘dpt_time’</p></li>
+<li><p>From ‘ACR’ to ‘acr’</p></li>
+<li><p>From ‘DCIR’ to ‘dcir’</p></li>
+<li><p>From ‘Temp 1’ to ‘thermocouple_temp_c’}</p></li>
+<li><p>From ‘EV Temp’ to ‘ev_temp’</p></li>
+<li><p>From ‘Unnamed: 13’ to ‘nnnamed’</p></li>
 </ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
+<p>The function will delete the following columns: <code class="docutils literal notranslate"><span class="pre">acre</span></code>, <code class="docutils literal notranslate"><span class="pre">dcir</span></code>, <code class="docutils literal notranslate"><span class="pre">nnnamed</span></code>.
+The function will change the datatype of the <code class="docutils literal notranslate"><span class="pre">energy_wh</span></code> column to numeric.
+As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.</p>
+<p>The optional input- an integer that specifies which line is the header, <code class="docutils literal notranslate"><span class="pre">header</span></code>- will set the header to be that line number. The default value of <code class="docutils literal notranslate"><span class="pre">header</span></code> is 2.</p>
+<p>The function returns a pandas dataframe of the cleaned testdata.</p>
 </div>
 <div class="section" id="the-import-multiple-csv-data-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">import_multiple_csv_data</span></code> function<a class="headerlink" href="#the-import-multiple-csv-data-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">import_multiple_csv_data</span></code> function creates a pandas dataframe given a string of the file path, <code class="docutils literal notranslate"><span class="pre">file_path</span></code>, of a directory that contains multiple csv files of testdata.
+The function will import all files within the directory that end in .csv. Additionally, this function will append the csv files to one another depending on the order they appear in the directory.
+This function will clean the data similar to the <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> function. The function will import and clean the testdata by renaming the headers and dropping unnecessary columns.
+The columns must be named properly to be renamed to the following:</p>
 <ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
+<li><p>From ‘Cyc#’ to ‘cyc’</p></li>
+<li><p>From ‘Step’ to ‘step’</p></li>
+<li><p>From ‘TestTime(s)’ to ‘test_time_s’</p></li>
+<li><p>From ‘StepTime(s)’ to ‘step_time_s’</p></li>
+<li><p>From ‘Capacity(Ah)’ to ‘capacity_mah’</p></li>
+<li><p>From ‘Watt-hr’ to ‘energy_wh’</p></li>
+<li><p>From ‘Current(A)’ to ‘current_ma’</p></li>
+<li><p>From ‘Voltage(V)’ to ‘voltage_mv’</p></li>
+<li><p>From ‘DPt Time’ to ‘dpt_time’</p></li>
+<li><p>From ‘ACR’ to ‘acr’</p></li>
+<li><p>From ‘DCIR’ to ‘dcir’</p></li>
+<li><p>From ‘Temp 1’ to ‘thermocouple_temp_c’}</p></li>
+<li><p>From ‘EV Temp’ to ‘ev_temp’</p></li>
+<li><p>From ‘Unnamed: 13’ to ‘nnnamed’</p></li>
 </ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
+<p>The function will delete the following columns: <code class="docutils literal notranslate"><span class="pre">acre</span></code>, <code class="docutils literal notranslate"><span class="pre">dcir</span></code>, <code class="docutils literal notranslate"><span class="pre">nnnamed</span></code>.
+The function will change the datatype of the <code class="docutils literal notranslate"><span class="pre">energy_wh</span></code> column to numeric.
+As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.</p>
+<p>The function returns a pandas dataframe with the cleaned testdata appended to one another.</p>
 </div>
 <div class="section" id="the-import-schedules-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function<a class="headerlink" href="#the-import-schedules-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
-</div>
-<div class="section" id="the-sort-scheduler-steps-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">sort_scheduler_steps</span></code> function<a class="headerlink" href="#the-sort-scheduler-steps-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
-</div>
-<div class="section" id="the-validation-check-advanced-cycle-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">validation_check_advanced_cycle</span></code> function<a class="headerlink" href="#the-validation-check-advanced-cycle-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
-</div>
-<div class="section" id="the-validation-check-charging-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">validation_check_charging</span></code> function<a class="headerlink" href="#the-validation-check-charging-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
-</div>
-<div class="section" id="the-validation-check-discharging-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">validation_check_discharging</span></code> function<a class="headerlink" href="#the-validation-check-discharging-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
-</div>
-<div class="section" id="the-validation-check-max-step-num-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">validation_check_max_step_num</span></code> function<a class="headerlink" href="#the-validation-check-max-step-num-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
-</div>
-<div class="section" id="the-validation-check-max-temp-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">validation_check_max_temp</span></code> function<a class="headerlink" href="#the-validation-check-max-temp-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
-</div>
-<div class="section" id="the-validation-check-time-interval-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">validation_check_time_interval</span></code> function<a class="headerlink" href="#the-validation-check-time-interval-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
-</div>
-<div class="section" id="the-validation-check-rest-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">validation_check_rest</span></code> function<a class="headerlink" href="#the-validation-check-rest-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
-<ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
-</ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function creates a pandas dataframe given a string of the file path, <code class="docutils literal notranslate"><span class="pre">file_path</span></code>, and a string of the file name, <code class="docutils literal notranslate"><span class="pre">file_name</span></code>, of the schedule file (xlxs file) that is inputted into the Maccor Cycler.
+The function will rename the columns to the following (in this order): ‘step’, ‘step_type’, ‘step_mode’, ‘step_mode_value’, ‘step_limit’, ‘step_limit_value’, ‘step_end_type’, ‘step_end_type_op’, ‘step_end_type_value’, ‘goto_step’, ‘report_type’, ‘report_type_value’, ‘options’, ‘step_note’.</p>
+<p>For all multiline steps (for example: steps with multiple options for the step it should go to depending on the result), this function will append those multiple lines into an array with each element being the value of each line. This allows for the function to keep each step to one line.
+This function sets the datatype of the <code class="docutils literal notranslate"><span class="pre">step</span></code> and <code class="docutils literal notranslate"><span class="pre">step_limit_value</span></code> to integer and float respectively.</p>
+<p>The function returns a pandas dataframe of the cleaned scheduler.</p>
 </div>
 <div class="section" id="the-validation-test-data-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">validation_test_data</span></code> function<a class="headerlink" href="#the-validation-test-data-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">reduced_protocol</span></code> function reads the complete header from the input file and generates (or reads)
-the reduced protocol. This function returns the reduce protocol itself
-and a boolean flag, <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code>. The reduced protocol consist of an
-array of strings. Each string contains a line number, a command from the
-experimental protocol and the corresponding experimental conditions (if
-aplicable); for example: <code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">:</span> <span class="pre">Repeat</span> <span class="pre">49</span> <span class="pre">times</span> <span class="pre">:]</span></code>. Only commands
-referring to the following processes will appear in the reduced
-protocol (note that the commands corresponding to incrementing the cycle counter and global emergency limits are ignored in the reduced protocol as there are no measurements associated with those):</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">validation_test_data</span></code> function validates the testdata against the scheduler.</p>
+<p>Parameters of this function (in this order):</p>
 <ul class="simple">
-<li><p>Open circuit storage (or rest)</p></li>
-<li><p>Constant current (dis)charge</p></li>
-<li><p>Constant current - Constant Voltage (dis)charge</p></li>
-<li><p>(End) Repeat</p></li>
+<li><p>schedule_df = the dataframe of the cleaned schedule file (from the <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function)</p></li>
+<li><p>df = testdata dataframe (from the <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> or <code class="docutils literal notranslate"><span class="pre">import_multiple_csv_data</span></code> functions)</p></li>
+<li><p>cell_id = the cell id of the testdata (integer)</p></li>
+<li><p>time_interval = the maximum interval of how often the cycler should be recording data in seconds (integer)</p></li>
+<li><p>temp_interval = the maximum interval of a temperature change in number of degrees (integer)</p></li>
+<li><p>max_temp = the threshold for the highest temperature allowed (integer)</p></li>
+<li><p>tol = when making sure the temperature doesn’t exceed a certain amount, this function will return either a warning, error, or ABORT message. this input specifies the tolerance should these messages. This is an optional input, the default value is 3.</p></li>
 </ul>
-<p>The reduced protocol is tested against the number of unique measurements
-in the file, determined using the column State. If the number of
-measurements expected from the protocol is less than the actual number
-of measurements, the flag <code class="docutils literal notranslate"><span class="pre">viable_prot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
-indicating that the construction of the reduced protocol was not viable.</p>
+<p>The erros this function checks for:</p>
+<ul class="simple">
+<li><p>if during all the rest steps, the battery is actually resting</p></li>
+<li><p>if during all charging steps, the battery is charging</p></li>
+<li><p>if during all discharging steps, the battery is discharging</p></li>
+<li><p>if during all advance cycle steps, the cycle is being advanced</p></li>
+<li><p>if the step number never exceeds the max step number</p></li>
+<li><p>data is collected for every <code class="docutils literal notranslate"><span class="pre">time_interval</span></code> given</p></li>
+<li><p>the temperate never jumps or drops by an interval greater than the <code class="docutils literal notranslate"><span class="pre">temp_interval</span></code></p></li>
+<li><p>the temperature never goes past the max temperature</p></li>
+</ul>
+<p>For the max temperature error, there are 3 possibilities of error messages:</p>
+<ol class="arabic simple">
+<li><p>warning - temperature approaching the max! (current temperature + tol &gt; max)</p></li>
+<li><p>error - temperature has surpassed the max! (current temperature &gt;= max)</p></li>
+<li><p>ABORT - temperature is way too hot! (current temperature &gt; max + tol)</p></li>
+</ol>
+<p>The function returns a pandas dataframe that lists all errors, <code class="docutils literal notranslate"><span class="pre">validation_df</span></code>.
+Headers of the <code class="docutils literal notranslate"><span class="pre">validation_df</span></code>:</p>
+<ol class="arabic simple">
+<li><p>time (the current time of when the validation occurs)</p></li>
+<li><p>run (tells whether the validation function is in progress or complete)</p></li>
+<li><p>cell_num (the cell number of the testdata)</p></li>
+<li><p>row_number (the row number where the error occurs)</p></li>
+<li><p>error (what the error is)</p></li>
+</ol>
+<p>If the testdata does not have any errors, this function will return the <code class="docutils literal notranslate"><span class="pre">validation_df</span></code> that says “there are no errors.”</p>
 </div>
 </div>
 
@@ -476,7 +186,6 @@ indicating that the construction of the reduced protocol was not viable.</p>
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Code Features</a><ul>
-<li><a class="reference internal" href="#the-clean-maccor-df-function">The <code class="docutils literal notranslate"><span class="pre">clean_maccor_df</span></code> function</a></li>
 <li><a class="reference internal" href="#the-delete-cycle-steps-function">The <code class="docutils literal notranslate"><span class="pre">delete_cycle_steps</span></code> function</a></li>
 <li><a class="reference internal" href="#the-get-cycle-data-function">The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function</a></li>
 <li><a class="reference internal" href="#the-get-index-range-function">The <code class="docutils literal notranslate"><span class="pre">get_index_range</span></code> function</a></li>
@@ -484,14 +193,6 @@ indicating that the construction of the reduced protocol was not viable.</p>
 <li><a class="reference internal" href="#the-import-maccor-data-function">The <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> function</a></li>
 <li><a class="reference internal" href="#the-import-multiple-csv-data-function">The <code class="docutils literal notranslate"><span class="pre">import_multiple_csv_data</span></code> function</a></li>
 <li><a class="reference internal" href="#the-import-schedules-function">The <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function</a></li>
-<li><a class="reference internal" href="#the-sort-scheduler-steps-function">The <code class="docutils literal notranslate"><span class="pre">sort_scheduler_steps</span></code> function</a></li>
-<li><a class="reference internal" href="#the-validation-check-advanced-cycle-function">The <code class="docutils literal notranslate"><span class="pre">validation_check_advanced_cycle</span></code> function</a></li>
-<li><a class="reference internal" href="#the-validation-check-charging-function">The <code class="docutils literal notranslate"><span class="pre">validation_check_charging</span></code> function</a></li>
-<li><a class="reference internal" href="#the-validation-check-discharging-function">The <code class="docutils literal notranslate"><span class="pre">validation_check_discharging</span></code> function</a></li>
-<li><a class="reference internal" href="#the-validation-check-max-step-num-function">The <code class="docutils literal notranslate"><span class="pre">validation_check_max_step_num</span></code> function</a></li>
-<li><a class="reference internal" href="#the-validation-check-max-temp-function">The <code class="docutils literal notranslate"><span class="pre">validation_check_max_temp</span></code> function</a></li>
-<li><a class="reference internal" href="#the-validation-check-time-interval-function">The <code class="docutils literal notranslate"><span class="pre">validation_check_time_interval</span></code> function</a></li>
-<li><a class="reference internal" href="#the-validation-check-rest-function">The <code class="docutils literal notranslate"><span class="pre">validation_check_rest</span></code> function</a></li>
 <li><a class="reference internal" href="#the-validation-test-data-function">The <code class="docutils literal notranslate"><span class="pre">validation_test_data</span></code> function</a></li>
 </ul>
 </li>
