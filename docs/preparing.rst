@@ -1,6 +1,6 @@
 .. _peparing:
 
-Before using this package:
+Preparing MACCOR Data
 ================================
 
 The `maccorcyclingdata`_ package is to be used on raw data output from the `Maccor`_ Battery Cyclers. 

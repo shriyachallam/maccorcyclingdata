@@ -51,6 +51,17 @@ brackets.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_test_data(schedule_df,</span> <span class="pre">df,</span> <span class="pre">cell_id,</span> <span class="pre">time_interval,</span> <span class="pre">temp_interval,</span> <span class="pre">max_temp)</span></code>: This is a function that validates the testdata against the schedule file.</p></li>
 </ul>
 <p>In what follows, the above functions will be referred by simply their name, without stating the modules they belong to.</p>
+<div class="section" id="flow-chart">
+<span id="chart"></span><h2>Flow chart<a class="headerlink" href="#flow-chart" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center">
+<img alt="Flow chart" src="_images/flowchart.png" />
+</div>
+<p>Flow chart for the <a class="reference external" href="https://github.com/shriyachallam/MaccorCyclingData">maccorcyclingdata</a> package with all the functionality of
+all the functions presented here. In this chart rounder rectangles indicate the start
+and end of processes, rectangles indicate questions to determine the next step, and
+parallelograms indicate functions.
+Note that for simplicity not all the decisions made in the code are shown here.</p>
+</div>
 <div class="section" id="the-delete-cycle-steps-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">delete_cycle_steps</span></code> function<a class="headerlink" href="#the-delete-cycle-steps-function" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">delete_cycle_steps</span></code> function reads an array of the step numbers that should be deleted, <code class="docutils literal notranslate"><span class="pre">steps_to_delete</span></code>, and deletes all rows that occur during those steps from the inputted testdata dataframe.
@@ -186,6 +197,7 @@ Headers of the <code class="docutils literal notranslate"><span class="pre">vali
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Code Features</a><ul>
+<li><a class="reference internal" href="#flow-chart">Flow chart</a></li>
 <li><a class="reference internal" href="#the-delete-cycle-steps-function">The <code class="docutils literal notranslate"><span class="pre">delete_cycle_steps</span></code> function</a></li>
 <li><a class="reference internal" href="#the-get-cycle-data-function">The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function</a></li>
 <li><a class="reference internal" href="#the-get-index-range-function">The <code class="docutils literal notranslate"><span class="pre">get_index_range</span></code> function</a></li>

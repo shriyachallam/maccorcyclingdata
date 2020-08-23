@@ -25,6 +25,20 @@ brackets.
     
 In what follows, the above functions will be referred by simply their name, without stating the modules they belong to.
 
+.. _chart:
+
+Flow chart
+----------
+.. figure:: flowchart.png
+   :align: center
+   :alt: Flow chart
+
+Flow chart for the `maccorcyclingdata`_ package with all the functionality of
+all the functions presented here. In this chart rounder rectangles indicate the start 
+and end of processes, rectangles indicate questions to determine the next step, and 
+parallelograms indicate functions. 
+Note that for simplicity not all the decisions made in the code are shown here.
+
 The ``delete_cycle_steps`` function
 ------------------------------------------
 The ``delete_cycle_steps`` function reads an array of the step numbers that should be deleted, ``steps_to_delete``, and deletes all rows that occur during those steps from the inputted testdata dataframe.
