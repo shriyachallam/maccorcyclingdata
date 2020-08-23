@@ -39,12 +39,8 @@ The functions in the package can be used after importing testdata, schedules, va
 Compatibility
 -------------
 
-If you encounter issues running the code for
-any version of Novonix software report an issue. Note that an example
-file will be needed in order to improve the code.
-
-The raw testdata and schedule file that this package is used on shoudl be csv files.
-Please export your raw testdata from the `MACCOR`_ battery cyclers with columns named and ordered as the following:
+The raw testdata and schedule file that this package is used on must be csv files. The example uses data exported from ______ model of `MACCOR`_ battery cyclers.
+As long the raw testdata from the `MACCOR`_ battery cyclers has columns named and ordered as the following, this package should work:
 
 #. 'Cyc#'
 
@@ -74,6 +70,7 @@ Please export your raw testdata from the `MACCOR`_ battery cyclers with columns 
 
 #. 'Unnamed: 13'
 
+If you encounter any issues running the code for any MACCOR model report an issue. Note that an example file will be needed in order to improve the code.
 
 .. _MACCOR: http://www.maccor.com/
 
