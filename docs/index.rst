@@ -15,7 +15,7 @@ Documentation for ``MaccorCyclingData``
    :maxdepth: 2
    
    readme_include.rst
-   preparing.rst
+   overview.rst
    features.rst
 
 -------
