@@ -5,7 +5,7 @@
 Preparing MACCOR Data
 ======================
 
-The **maccorcyclingdata** package is to be used on the raw data output from the `MACCOR`_ battery cyclers and the schedule file input into the 'MACCOR'_ battery cyclers. The package can also be used to validate the testdata by comparing it against the schedules.
+The **maccorcyclingdata** package is to be used on the raw data output from the `MACCOR`_ battery cyclers and the schedule file input into the `MACCOR`_ battery cyclers. The package can also be used to validate the testdata by comparing it against the schedules.
 
 Example
 -------
