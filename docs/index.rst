@@ -14,7 +14,7 @@ Documentation for ``MaccorCyclingData``
 .. toctree::
    :maxdepth: 2
    
-   overview.rst
+   readme_include.rst
    preparing.rst
    features.rst
 
