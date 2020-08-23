@@ -81,10 +81,9 @@ Please export your raw testdata from the `MACCOR`_ battery cyclers with columns 
 
 .. _repository: https://github.com/shriyachallam/maccorcyclingdata
 
-	     
 .. |docs| image:: https://readthedocs.org/projects/maccorcyclingdata/badge/?version=latest
-:target: https://maccorcyclingdata.readthedocs.io/en/latest/?badge=latest
-:alt: Documentation Status
+    :target: https://maccorcyclingdata.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 .. |pypi| image:: https://img.shields.io/pypi/v/preparenovonix.svg
     :target: https://pypi.org/project/maccorcyclingdata/
