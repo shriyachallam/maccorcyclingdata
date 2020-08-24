@@ -8,7 +8,7 @@ maccorcyclingdata.testdata module
 ----------------------------------------
 
 .. automodule:: maccorcyclingdata.testdata
-    :members:
+    :members: 
     :undoc-members:
     :show-inheritance:
 
@@ -24,15 +24,6 @@ maccorcyclingdata.validate module
 -------------------------------------
 
 .. automodule:: maccorcyclingdata.validate
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
------------------
-
-.. automodule:: maccorcyclingdata
     :members:
     :undoc-members:
     :show-inheritance:

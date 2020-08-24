@@ -1,117 +1,717 @@
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta charset="utf-8" />
-    <title>maccorcyclingdata package &#8212; BattGeniePublish 1 documentation</title>
-    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>maccorcyclingdata package &mdash; BattGeniePublish 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="maccorcyclingdata" href="modules.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="modules.html" title="maccorcyclingdata"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">BattGeniePublish 1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">maccorcyclingdata</a> &#187;</li> 
-      </ul>
-    </div>  
+</head>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> BattGeniePublish
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Documentation for maccorcyclingdata</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme_include.html">Preparing MACCOR Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Code overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Code Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">maccorcyclingdata</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">maccorcyclingdata package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-maccorcyclingdata.testdata">maccorcyclingdata.testdata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-maccorcyclingdata.schedules">maccorcyclingdata.schedules module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-maccorcyclingdata.validate">maccorcyclingdata.validate module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BattGeniePublish</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">maccorcyclingdata</a> &raquo;</li>
+        
+      <li>maccorcyclingdata package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/maccorcyclingdata.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="maccorcyclingdata-package">
 <h1>maccorcyclingdata package<a class="headerlink" href="#maccorcyclingdata-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="maccorcyclingdata-testdata-module">
-<h2>maccorcyclingdata.testdata module<a class="headerlink" href="#maccorcyclingdata-testdata-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-maccorcyclingdata.testdata">
+<span id="maccorcyclingdata-testdata-module"></span><h2>maccorcyclingdata.testdata module<a class="headerlink" href="#module-maccorcyclingdata.testdata" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="maccorcyclingdata.testdata.clean_maccor_df">
+<code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">clean_maccor_df</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#clean_maccor_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.clean_maccor_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the testdata dataframe, this function will rename the headers and drop unnecessary columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df</strong> – The cleaned pandas df of the testdata</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Maccor mislabels the Voltage column (as of 5/05/2020) so this function also changes the units of Voltage.</p>
+<p>Changes the datatype of the Watt-hr column to numeric</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.testdata</span> <span class="kn">import</span> <span class="n">clean_maccor_df</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_maccor_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="maccorcyclingdata-schedules-module">
-<h2>maccorcyclingdata.schedules module<a class="headerlink" href="#maccorcyclingdata-schedules-module" title="Permalink to this headline">¶</a></h2>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.testdata.delete_cycle_steps">
+<code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">delete_cycle_steps</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">steps_to_delete</em>, <em class="sig-param">decrement=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#delete_cycle_steps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.delete_cycle_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function
+will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>steps_to_delete</strong> (<em>array</em>) – An array that has the step numbers you want to delete</p></li>
+<li><p><strong>decrement</strong> (<em>boolean</em>) – If set to True, would shift cycle steps to adjust for the deleted steps</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df</strong> – The dataframe with the corresponding steps deleted</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.testdata</span> <span class="kn">import</span> <span class="n">delete_cycle_steps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delete_cycle_steps</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">steps_to_delete</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="maccorcyclingdata-validate-module">
-<h2>maccorcyclingdata.validate module<a class="headerlink" href="#maccorcyclingdata-validate-module" title="Permalink to this headline">¶</a></h2>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.testdata.get_cycle_data">
+<code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">get_cycle_data</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">Headings</em>, <em class="sig-param">cyc_range</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#get_cycle_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.get_cycle_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function gets the data specified in the “Headings” for each sample within the specified cyc_range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>Headings</strong> (<em>array</em>) – An array with the headers you want the data for</p></li>
+<li><p><strong>cyc_range</strong> (<em>array</em>) – An array of the cycle numbers you want data for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – A numpy array where the columns correspond to the headings and the rows correspond to the data point</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.testdata</span> <span class="kn">import</span> <span class="n">get_cycle_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_cycle_data</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">Headings</span><span class="p">,</span> <span class="n">cyc_range</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.testdata.get_index_range">
+<code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">get_index_range</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">cyc_range</em>, <em class="sig-param">cycle_step_idx=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#get_index_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.get_index_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the testdata dataframe, this function returns the index range for the specified cycle range,
+or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>cyc_range</strong> (<em>array</em>) – An array of the cycles you want the indices for</p></li>
+<li><p><strong>cycle_step_idx</strong> (<em>array</em>) – The step numbers that you want the indices of. Default value is all steps within each cycle.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>index_range</strong> – A vector of the range of df indices for the specified cycle range</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>vector</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.testdata</span> <span class="kn">import</span> <span class="n">get_index_range</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_index_range</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cyc_range</span><span class="p">,</span> <span class="n">cycle_step_idx</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.testdata.get_num_cycles">
+<code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">get_num_cycles</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#get_num_cycles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.get_num_cycles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the testdata dataframe, this function will return the number of cycles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>number_of_cycles</strong> – An integer of the number of cycles in the dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.testdata</span> <span class="kn">import</span> <span class="n">get_num_cycles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_num_cycles</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.testdata.import_maccor_data">
+<code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">import_maccor_data</code><span class="sig-paren">(</span><em class="sig-param">file_path</em>, <em class="sig-param">file_name</em>, <em class="sig-param">header=2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#import_maccor_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.import_maccor_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df
+and clean it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<em>string</em>) – File path</p></li>
+<li><p><strong>file_name</strong> (<em>string</em>) – Filename</p></li>
+<li><p><strong>header</strong> (<em>integer</em>) – Optional input that sets the header to a line number (default=2)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df</strong> – The cleaned testdata file as a pandas df</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.testdata</span> <span class="kn">import</span> <span class="n">import_maccor_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">import_maccor_data</span><span class="p">(</span><span class="s1">&#39;example_data/&#39;</span><span class="p">,</span><span class="s1">&#39;example_data.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.testdata.import_multiple_csv_data">
+<code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">import_multiple_csv_data</code><span class="sig-paren">(</span><em class="sig-param">file_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#import_multiple_csv_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.import_multiple_csv_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the file path that holds multiple csv files (testdata files), this function will import and append
+all of the csv files to one another as one dataframe. Returns a cleaned version of that dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>string</em>) – File path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df</strong> – All of the cleaned csv files appended to one another as a pandas df</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function will append the csv files to one another depending on the order they appear in the directory.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.testdata</span> <span class="kn">import</span> <span class="n">import_multiple_csv_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">import_multiple_csv_data</span><span class="p">(</span><span class="s1">&#39;./example_data/split_data/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-maccorcyclingdata.schedules">
+<span id="maccorcyclingdata-schedules-module"></span><h2>maccorcyclingdata.schedules module<a class="headerlink" href="#module-maccorcyclingdata.schedules" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="maccorcyclingdata.schedules.import_schedules">
+<code class="sig-prename descclassname">maccorcyclingdata.schedules.</code><code class="sig-name descname">import_schedules</code><span class="sig-paren">(</span><em class="sig-param">file_path</em>, <em class="sig-param">file_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/schedules.html#import_schedules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.schedules.import_schedules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the file path and file name (of the schedule file that is inputted into the Maccor Cycler), this
+function will import and clean the schedule file and return it as a df.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<em>string</em>) – File path</p></li>
+<li><p><strong>file_name</strong> (<em>string</em>) – Filename</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df</strong> – A cleaned schedule df</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.schedules</span> <span class="kn">import</span> <span class="n">import_schedules</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">import_schedules</span><span class="p">(</span><span class="s1">&#39;./example_data/&#39;</span><span class="p">,</span> <span class="s1">&#39;schedule.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.schedules.sort_scheduler_steps">
+<code class="sig-prename descclassname">maccorcyclingdata.schedules.</code><code class="sig-name descname">sort_scheduler_steps</code><span class="sig-paren">(</span><em class="sig-param">schedule_df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/schedules.html#sort_scheduler_steps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.schedules.sort_scheduler_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the schedule_df (the df of the schedule file), this function will sort rest, charge, discharge, advance
+cycle, and end step numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>schedule_df</strong> (<em>pandas dataframe</em>) – The cleaned dataframe of the schedule file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>rest_steps</strong> (<em>array</em>) – An array of the steps from the schedule file that correlate to rest steps</p></li>
+<li><p><strong>charge_steps</strong> (<em>array</em>) – An array of the steps from the schedule file that correlate to charging steps</p></li>
+<li><p><strong>advance_steps</strong> (<em>array</em>) – An array of the steps from the schedule file that correlate to steps when the cycle is advanced</p></li>
+<li><p><strong>discharge_steps</strong> (<em>array</em>) – An array of the steps from the schedule file that correlate to discharging steps</p></li>
+<li><p><strong>end_steps</strong> (<em>array</em>) – An array of the steps from the schedule file that correlate to ending steps</p></li>
+<li><p><strong>max_step</strong> (<em>integer</em>) – The last step from the schedule file</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.schedules</span> <span class="kn">import</span> <span class="n">sort_scheduler_steps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sort_scheduler_steps</span><span class="p">(</span><span class="n">schedule_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-maccorcyclingdata.validate">
+<span id="maccorcyclingdata-validate-module"></span><h2>maccorcyclingdata.validate module<a class="headerlink" href="#module-maccorcyclingdata.validate" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="maccorcyclingdata.validate.validate_test_data">
+<code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validate_test_data</code><span class="sig-paren">(</span><em class="sig-param">schedule_df</em>, <em class="sig-param">df</em>, <em class="sig-param">cell_id</em>, <em class="sig-param">time_interval</em>, <em class="sig-param">temp_interval</em>, <em class="sig-param">max_temp</em>, <em class="sig-param">tol=3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validate_test_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validate_test_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a wrapper function that validates the testdata against the schedule file.
+The sub-modules that are validated are:</p>
+<ul class="simple">
+<li><p>validation_check_rest(validation_df, df, rest_steps)</p></li>
+<li><p>validation_check_charging(validation_df, df, charge_steps)</p></li>
+<li><p>validation_check_discharging(validation_df, df, discharge_steps)</p></li>
+<li><p>validation_check_advanced_cycle(validation_df, df, advance_steps)</p></li>
+<li><p>validation_check_max_step_num(validation_df, df, max_step)</p></li>
+<li><p>validation_check_max_temp(validation_df, df, max_temp)</p></li>
+<li><p>validation_check_time_interval(validation_df, df, time_interval)</p></li>
+<li><p>validation_check_temp_interval(validation_df, df, temp_interval)</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>schedule_df</strong> (<em>pandas dataframe</em>) – The dataframe of the cleaned schedule file</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>
+<li><p><strong>time_interval</strong> (<em>integer</em>) – The maximum interval of how often the cycler should be recording data</p></li>
+<li><p><strong>temp_interval</strong> (<em>integer</em>) – The maximum interval of a temperature change</p></li>
+<li><p><strong>max_temp</strong> (<em>integer</em>) – The threshold for the highest temperature allowed</p></li>
+<li><p><strong>tol</strong> (<em>integer</em>) – Sets the tolerance between warning, error, and ABORT messages. Default is 3 degrees.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>validation_df</strong> – The validation dataframe with any errors (if any) listed
+Headers of the validation_df:</p>
+<ol class="arabic simple">
+<li><p>time (the current time of when the validation occurs)</p></li>
+<li><p>run (tells whether the validation function is in progress or complete)</p></li>
+<li><p>cell_num (the cell number of the testdata)</p></li>
+<li><p>row_number (the row number where the error occurs)</p></li>
+<li><p>error (what the error is)</p></li>
+</ol>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>There are 3 possibilities of error messages:</p>
+<ol class="arabic simple">
+<li><p>warning - temperature approaching the max! (current temperature + tol &gt; max)</p></li>
+<li><p>error - temperature has surpassed the max! (current temperature &gt;= max)</p></li>
+<li><p>ABORT - temperature is way too hot! (current temperature &gt; max + tol)</p></li>
+</ol>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.validate</span> <span class="kn">import</span> <span class="n">validate_test_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validate_test_data</span><span class="p">(</span><span class="n">schedule_df</span> <span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.validate.validation_check_advanced_cycle">
+<code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validation_check_advanced_cycle</code><span class="sig-paren">(</span><em class="sig-param">validation_df</em>, <em class="sig-param">df</em>, <em class="sig-param">advance_steps</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validation_check_advanced_cycle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validation_check_advanced_cycle" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will validate the testdata against the advance cycle steps by making sure the cycle advances</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>advance_steps</strong> (<em>array</em>) – An array of the advance_cycle steps from the schedule file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>validation_df</strong> – The validation dataframe with any errors listed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.validate</span> <span class="kn">import</span> <span class="n">validation_check_advanced_cycle</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validation_check_advanced_cycle</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.validate.validation_check_charging">
+<code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validation_check_charging</code><span class="sig-paren">(</span><em class="sig-param">validation_df</em>, <em class="sig-param">df</em>, <em class="sig-param">charge_steps</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validation_check_charging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validation_check_charging" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will validate the testdata against the charging steps by making sure the current is positive</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>charge_steps</strong> (<em>array</em>) – An array of the charging steps from the schedule file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>validation_df</strong> – The validation dataframe with any errors listed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.validate</span> <span class="kn">import</span> <span class="n">validation_check_charging</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validation_check_charging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.validate.validation_check_discharging">
+<code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validation_check_discharging</code><span class="sig-paren">(</span><em class="sig-param">validation_df</em>, <em class="sig-param">df</em>, <em class="sig-param">discharge_steps</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validation_check_discharging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validation_check_discharging" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will validate the testdata against the discharging steps by making sure the current is negative</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>discharge_steps</strong> (<em>array</em>) – An array of the discharging steps from the schedule file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>validation_df</strong> – The validation dataframe with any errors listed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.validate</span> <span class="kn">import</span> <span class="n">validation_check_discharging</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validation_check_discharging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.validate.validation_check_max_step_num">
+<code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validation_check_max_step_num</code><span class="sig-paren">(</span><em class="sig-param">validation_df</em>, <em class="sig-param">df</em>, <em class="sig-param">max_step</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validation_check_max_step_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validation_check_max_step_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will validate the testdata against the max step by making sure no steps surpass the max.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>max_step</strong> (<em>integer</em>) – The last step from the schedule file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>validation_df</strong> – The validation dataframe with any errors listed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.validate</span> <span class="kn">import</span> <span class="n">validation_check_max_step_num</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validation_check_max_step_num</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.validate.validation_check_max_temp">
+<code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validation_check_max_temp</code><span class="sig-paren">(</span><em class="sig-param">validation_df</em>, <em class="sig-param">df</em>, <em class="sig-param">max_temp</em>, <em class="sig-param">temp_tol=3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validation_check_max_temp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validation_check_max_temp" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will validate the testdata against the max temperature by making sure no steps surpass the max.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>max_temp</strong> (<em>integer</em>) – The threshold for the highest temperature allowed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>validation_df</strong> – The validation dataframe with any errors listed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>There are 3 possibilities of error messages:</p>
+<ol class="arabic simple">
+<li><p>warning - temperature approaching the max! (current temperature + tol &gt; max)</p></li>
+<li><p>error - temperature has surpassed the max! (current temperature &gt;= max)</p></li>
+<li><p>ABORT - temperature is way too hot! (current temperature &gt; max + tol)</p></li>
+</ol>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.validate</span> <span class="kn">import</span> <span class="n">validation_check_max_temp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validation_check_max_temp</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.validate.validation_check_rest">
+<code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validation_check_rest</code><span class="sig-paren">(</span><em class="sig-param">validation_df</em>, <em class="sig-param">df</em>, <em class="sig-param">rest_steps</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validation_check_rest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validation_check_rest" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will validate the testdata against the rest steps by making sure the current is at 0 when resting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>rest_steps</strong> (<em>array</em>) – An array of the rest steps from the schedule file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>validation_df</strong> – The validation dataframe with any errors listed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.validate</span> <span class="kn">import</span> <span class="n">validation_check_rest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validation_check_rest</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="maccorcyclingdata.validate.validation_check_time_interval">
+<code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validation_check_time_interval</code><span class="sig-paren">(</span><em class="sig-param">validation_df</em>, <em class="sig-param">df</em>, <em class="sig-param">temp_interval</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validation_check_time_interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validation_check_time_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will validate the testdata to make sure the temperature does not fluctuate suddenly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>temp_interval</strong> (<em>integer</em>) – The maximum interval with any errors listed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>validation_df</strong> – The validation dataframe with any errors listed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">maccorcyclingdata.validate</span> <span class="kn">import</span> <span class="n">validation_check_time_interval</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validation_check_time_interval</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 </div>
 
 
+           </div>
+           
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">maccorcyclingdata package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#maccorcyclingdata-testdata-module">maccorcyclingdata.testdata module</a></li>
-<li><a class="reference internal" href="#maccorcyclingdata-schedules-module">maccorcyclingdata.schedules module</a></li>
-<li><a class="reference internal" href="#maccorcyclingdata-validate-module">maccorcyclingdata.validate module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
-</ul>
-</li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="maccorcyclingdata" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="modules.html"
-                        title="previous chapter">maccorcyclingdata</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/source/maccorcyclingdata.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, shriyachallam
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="modules.html" title="maccorcyclingdata"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">BattGeniePublish 1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >maccorcyclingdata</a> &#187;</li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2020, shriyachallam.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
 </html>
