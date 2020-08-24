@@ -214,4 +214,4 @@ Headers of the ``validation_df``:
 
 If the testdata does not have any errors, this function will return the ``validation_df`` that says "there are no errors."
 
-.. _maccorcyclingdata: https://github.com/shriyachallam/MaccorCyclingData
+.. _maccorcyclingdata: https://github.com/shriyachallam/maccorcyclingdata

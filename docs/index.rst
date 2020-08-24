@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Documentation for ``MaccorCyclingData``
-====================================
+=========================================
 
 .. toctree::
    :hidden:
@@ -17,6 +17,7 @@ Documentation for ``MaccorCyclingData``
    readme_include.rst
    overview.rst
    features.rst
+   source/modules.rst
 
 -------
 	     

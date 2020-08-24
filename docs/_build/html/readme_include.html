@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>&lt;no title&gt; &#8212; BattGeniePublish 1 documentation</title>
+    <title>Preparing MACCOR Data &#8212; BattGeniePublish 1 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Code overview" href="overview.html" />
-    <link rel="prev" title="Documentation for preparenovonix" href="index.html" /> 
+    <link rel="prev" title="Documentation for MaccorCyclingData" href="index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,7 +27,7 @@
           <a href="overview.html" title="Code overview"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Documentation for preparenovonix"
+          <a href="index.html" title="Documentation for MaccorCyclingData"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">BattGeniePublish 1 documentation</a> &#187;</li> 
       </ul>
@@ -38,16 +38,72 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  
+  <div class="section" id="preparing-maccor-data">
+<h1>Preparing MACCOR Data<a class="headerlink" href="#preparing-maccor-data" title="Permalink to this headline">¶</a></h1>
+<p>The <strong>maccorcyclingdata</strong> package is to be used on the raw data output from the <a class="reference external" href="http://www.maccor.com/">MACCOR</a> battery cyclers and the schedule file input into the <a class="reference external" href="http://www.maccor.com/">MACCOR</a> battery cyclers. The package can also be used to validate the testdata by comparing it against the schedules.</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>example.ipynb</strong> provides examples where all the functions are used on the given example data.
+To run this example, simply open and run each cell in the example Jupyter Notebok provided.</p>
+</div>
+<div class="section" id="requirements-and-installation">
+<h2>Requirements and Installation<a class="headerlink" href="#requirements-and-installation" title="Permalink to this headline">¶</a></h2>
+<p>This code has been developed in Python 3.7.6 and it is compatible with Python above 3.5 versions. The code has been tested to run in Windows, OSX and Linux operating systems.</p>
+<p>This code uses numpy and pandas as specified in docs/requirements.txt.</p>
+<p>The code can be run directly from a cloned GitHub <a class="reference external" href="https://github.com/shriyachallam/maccorcyclingdata">repository</a> or it can also be installed as a python <a class="reference external" href="https://pypi.org/project/maccorcyclingdata/">package</a> through pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">maccorcyclingdata</span>
+</pre></div>
+</div>
+<p>The functions in the package can be used after importing testdata, schedules, validate for example as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maccorcyclingdata.testdata</span> <span class="k">as</span> <span class="nn">testdata</span>
+<span class="kn">import</span> <span class="nn">maccorcyclingdata.schedules</span> <span class="k">as</span> <span class="nn">schedules</span>
+<span class="kn">import</span> <span class="nn">maccorcyclingdata.validate</span> <span class="k">as</span> <span class="nn">testdata</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compatibility">
+<span id="compability"></span><h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
+<p>The raw testdata and schedule file that this package is used on must be csv files. The example uses data exported from ______ model of <a class="reference external" href="http://www.maccor.com/">MACCOR</a> battery cyclers.
+As long the raw testdata from the <a class="reference external" href="http://www.maccor.com/">MACCOR</a> battery cyclers has columns named and ordered as the following, this package should work:</p>
+<ol class="arabic simple">
+<li><p>‘Cyc#’</p></li>
+<li><p>‘Step’</p></li>
+<li><p>‘TestTime(s)’</p></li>
+<li><p>‘StepTime(s)’</p></li>
+<li><p>‘Capacity(Ah)’</p></li>
+<li><p>‘Watt-hr’</p></li>
+<li><p>‘Current(A)’</p></li>
+<li><p>‘Voltage(V)’</p></li>
+<li><p>‘DPt Time’</p></li>
+<li><p>‘ACR’</p></li>
+<li><p>‘DCIR’</p></li>
+<li><p>‘Temp 1’</p></li>
+<li><p>‘EV Temp’</p></li>
+<li><p>‘Unnamed: 13’</p></li>
+</ol>
+<p>If you encounter any issues running the code for any MACCOR model report an issue. Note that an example file will be needed in order to improve the code.</p>
+</div>
+</div>
+
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Preparing MACCOR Data</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#requirements-and-installation">Requirements and Installation</a></li>
+<li><a class="reference internal" href="#compatibility">Compatibility</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Documentation for <code class="docutils literal notranslate"><span class="pre">preparenovonix</span></code></a></p>
+                        title="previous chapter">Documentation for <code class="docutils literal notranslate"><span class="pre">MaccorCyclingData</span></code></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="overview.html"
                         title="next chapter">Code overview</a></p>
@@ -82,7 +138,7 @@
           <a href="overview.html" title="Code overview"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Documentation for preparenovonix"
+          <a href="index.html" title="Documentation for MaccorCyclingData"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">BattGeniePublish 1 documentation</a> &#187;</li> 
       </ul>
