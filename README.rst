@@ -39,8 +39,9 @@ The functions in the package can be used after importing testdata, schedules, va
 Compatibility
 -------------
 
-The raw testdata and schedule file that this package is used on must be csv files. The example uses data exported from ______ model of `MACCOR`_ battery cyclers.
-As long the raw testdata from the `MACCOR`_ battery cyclers has columns named and ordered as the following, this package should work:
+The raw testdata and schedule file that this package is used on must be csv files. Additionally, the first column of both files should be the header of the datatable.
+The example uses data exported from ______ model of `MACCOR`_ battery cyclers.
+As long the raw testdata from the `MACCOR`_ battery cyclers has columns named as the following, this package should work:
 
 #. 'Cyc#'
 
@@ -52,24 +53,17 @@ As long the raw testdata from the `MACCOR`_ battery cyclers has columns named an
 
 #. 'Capacity(Ah)'
 
-#. 'Watt-hr'
-
 #. 'Current(A)'
 
 #. 'Voltage(V)'
 
 #. 'DPt Time'
 
-#. 'ACR'
-
-#. 'DCIR'
-
 #. 'Temp 1'
 
 #. 'EV Temp'
 
-#. 'Unnamed: 13'
-
+If the following columns may also exist (but must be names as the following): ``ACR``, ``DCIR``, ``Watt-hr``, and ``nnnamed``.
 If you encounter any issues running the code for any MACCOR model report an issue. Note that an example file will be needed in order to improve the code.
 
 .. _MACCOR: http://www.maccor.com/

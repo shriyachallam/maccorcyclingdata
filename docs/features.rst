@@ -9,19 +9,17 @@ brackets.
 
 -  ``testdata.delete_cycle_steps(df, steps_to_delete, decrement=False)``: Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers.
 
--  ``testdata.get_cycle_data(df, Headings, cyc_range)``: This function gets the data from the specified column for each sample within the specified cyc_range.
-
--  ``testdata.get_index_range(df, cyc_range, cycle_step_idx)``: Given the testdata dataframe, this function returns the index range for the specified cycle range, or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.
+-  ``testdata.get_cycle_data(df, Headings, cyc_range, cycle_step_idx=0)``: This function gets the data from the specified column for each sample within the specified cyc_range.
 
 -  ``testdata.get_num_cycles(df)``: Given the testdata dataframe, this function will return the number of cycles.
 
--  ``testdata.import_maccor_data(file_path, file_name)``: Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df and clean it.
+-  ``testdata.import_maccor_data(file_path, file_name, header=0)``: Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df and clean it.
 
 -  ``testdata.import_multiple_csv_data(file_path)``: Given the file path that holds multiple csv files (testdata files), this function will import and append all of the csv files to one another as one dataframe. Returns a cleaned version of that dataframe.
 
 -  ``schedules.import_schedules(file_path, file_name)``: Given the file path and file name (of the schedule file that is inputted into the Maccor Cycler), this function will import and clean the schedule file and return it as a df.
 
--  ``validate.validation_test_data(schedule_df, df, cell_id, time_interval, temp_interval, max_temp)``: This is a function that validates the testdata against the schedule file.
+-  ``validate.validate_test_data(schedule_df, df, cell_id, time_interval, temp_interval, max_temp)``: This is a function that validates the testdata against the schedule file.
     
 In what follows, the above functions will be referred by simply their name, without stating the modules they belong to.
 
@@ -44,21 +42,16 @@ The ``delete_cycle_steps`` function
 The ``delete_cycle_steps`` function reads an array of the step numbers that should be deleted, ``steps_to_delete``, and deletes all rows that occur during those steps from the inputted testdata dataframe.
 This function returns the testdata dataframe itself with the steps deleted. If the boolean ``decrement`` is set to True, the function will renumber the steps at the end. The ``decrement`` boolean is optional. The default value if False.
 
-The ``get_cycle_data`` function
--------------------------------------
-The ``get_cycle_data`` function gets the data from the array of specified columns, ``Headings``, for each sample within the array of the cycle numbers that are of interest, ``cyc_range``.
-The function returns an array where the columns correspond to the specified columns and the rows corespond to the data. 
-
-The ``get_index_range`` function
------------------------------------------
-The ``get_index_range`` function gets the index range for the array of the cycle numbers that are of interest, ``cyc_range``. 
-The optional input- an array of specific step numbers, ``cycle_step_idx``- will only find the indices for those step numbers within each specified cycle. The default value is to find the indices of all steps within each specified cycle.
-The function returns a vector of the range of df indices for the specified cycle range.
-
 The ``get_num_cycles`` function
 --------------------------------------
 The ``get_num_cycles`` function finds the number of cycles given the testdata dataframe, ``df``. 
-The function returns an integer of the number of cycles in the dataframe.
+The function returns an integer of the number of cycles in the dataframe. This function assumes that the first cycle is cycle 0.
+
+The ``get_cycle_data`` function
+-------------------------------------
+The ``get_cycle_data`` function gets the data from the array of specified columns, ``Headings``, for each sample within the array of the cycle numbers that are of interest, ``cyc_range``.
+It can also get the data for specific steps within each cycle if the ``cycle_step_idx`` parameter is input.
+This function returns a pandas dataframe that has the data for the specified headers at the specified cycles and steps.
 
 The ``import_maccor_data`` function
 --------------------------------------
@@ -76,29 +69,20 @@ The columns must be named properly to be renamed to the following:
 
 - From 'Capacity(Ah)' to 'capacity_mah'
 
-- From 'Watt-hr' to 'energy_wh'
-
 - From 'Current(A)' to 'current_ma'
 
 - From 'Voltage(V)' to 'voltage_mv'
 
 - From 'DPt Time' to 'dpt_time'
 
-- From 'ACR' to 'acr'
-
-- From 'DCIR' to 'dcir'
-
 - From 'Temp 1' to 'thermocouple_temp_c'}
 
 - From 'EV Temp' to 'ev_temp'
 
-- From 'Unnamed: 13' to 'nnnamed'
-
-The function will delete the following columns: ``acre``, ``dcir``, ``nnnamed``.
-The function will change the datatype of the ``energy_wh`` column to numeric. 
+If the following columns exist, the function will delete these columns: ``ACR``, ``DCIR``, ``Watt-hr``, and ``nnnamed``.
 As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.
 
-The optional input- an integer that specifies which line is the header, ``header``- will set the header to be that line number. The default value of ``header`` is 2.
+The optional input- an integer that specifies which line is the header, ``header``- will set the header to be that line number. The default value of ``header`` is 0.
 
 The function returns a pandas dataframe of the cleaned testdata.
 
@@ -119,33 +103,24 @@ The columns must be named properly to be renamed to the following:
 
 - From 'Capacity(Ah)' to 'capacity_mah'
 
-- From 'Watt-hr' to 'energy_wh'
-
 - From 'Current(A)' to 'current_ma'
 
 - From 'Voltage(V)' to 'voltage_mv'
 
 - From 'DPt Time' to 'dpt_time'
 
-- From 'ACR' to 'acr'
-
-- From 'DCIR' to 'dcir'
-
 - From 'Temp 1' to 'thermocouple_temp_c'}
 
 - From 'EV Temp' to 'ev_temp'
 
-- From 'Unnamed: 13' to 'nnnamed'
-
-The function will delete the following columns: ``acre``, ``dcir``, ``nnnamed``.
-The function will change the datatype of the ``energy_wh`` column to numeric. 
+If the following columns exist, the function will delete these columns: ``ACR``, ``DCIR``, ``Watt-hr``, and ``nnnamed``.
 As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.
 
 The function returns a pandas dataframe with the cleaned testdata appended to one another.
 
 The ``import_schedules`` function
 --------------------------------------
-The ``import_schedules`` function creates a pandas dataframe given a string of the file path, ``file_path``, and a string of the file name, ``file_name``, of the schedule file (xlxs file) that is inputted into the Maccor Cycler. 
+The ``import_schedules`` function creates a pandas dataframe given a string of the file path, ``file_path``, and a string of the file name, ``file_name``, of the schedule file (csv file) that is inputted into the Maccor Cycler. 
 The function will rename the columns to the following (in this order): 'step', 'step_type', 'step_mode', 'step_mode_value', 'step_limit', 'step_limit_value', 'step_end_type', 'step_end_type_op', 'step_end_type_value', 'goto_step', 'report_type', 'report_type_value', 'options', 'step_note'.
 
 For all multiline steps (for example: steps with multiple options for the step it should go to depending on the result), this function will append those multiple lines into an array with each element being the value of each line. This allows for the function to keep each step to one line. 
@@ -153,9 +128,9 @@ This function sets the datatype of the ``step`` and ``step_limit_value`` to inte
 
 The function returns a pandas dataframe of the cleaned scheduler.
 
-The ``validation_test_data`` function
+The ``validate_test_data`` function
 -------------------------------------------
-The ``validation_test_data`` function validates the testdata against the scheduler.
+The ``validate_test_data`` function validates the testdata against the scheduler.
 
 Parameters of this function (in this order):
 
@@ -198,7 +173,7 @@ For the max temperature error, there are 3 possibilities of error messages:
 2. error - temperature has surpassed the max! (current temperature >= max)
 
 3. ABORT - temperature is way too hot! (current temperature > max + tol)
-
+ 
 The function returns a pandas dataframe that lists all errors, ``validation_df``.
 Headers of the ``validation_df``:
 

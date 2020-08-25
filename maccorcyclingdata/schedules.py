@@ -19,13 +19,18 @@ def import_schedules(file_path, file_name):
     df : pandas dataframe
         A cleaned schedule df
 
+    Notes
+    ------
+    The schedule file should be input as a csv.
+    
     Examples
     ---------
-    >>> from maccorcyclingdata.schedules import import_schedules
-    >>> import_schedules('./example_data/', 'schedule.csv')
+    >>> import maccorcyclingdata.schedules as schedules
+    >>> schedule_df = schedules.import_schedules('example_data/','schedule.csv')
+    >>> schedule_df.head(5)
     """
 
-    df = pd.read_excel(file_path + file_name) #create a df from the xlxs
+    df = pd.read_csv(file_path + file_name)
     df = df.dropna(how='all') #delete the rows that are completely blank
     df.columns = ['step', 'step_type', 'step_mode', 'step_mode_value', 'step_limit', 'step_limit_value', 'step_end_type', 'step_end_type_op', 'step_end_type_value', 'goto_step', 'report_type', 'report_type_value', 'options', 'step_note'] #rename the column headers
     df = df.reset_index(drop=True) #reset the df index
@@ -91,8 +96,8 @@ def sort_scheduler_steps(schedule_df):
 
     Examples
     ---------
-    >>> from maccorcyclingdata.schedules import sort_scheduler_steps
-    >>> sort_scheduler_steps(schedule_df)
+    >>> import maccorcyclingdata.schedules as schedules
+    >>> rest_steps, charge_steps, advance_steps, discharge_steps, end_steps, max_step = sort_scheduler_steps(schedule_df)
     """
 
     rest_steps = []
