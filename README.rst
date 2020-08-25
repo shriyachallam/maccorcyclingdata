@@ -1,4 +1,4 @@
-|docs| |pypi|
+|docs|
 
 .. inclusion-marker-do-not-remove
 
@@ -16,7 +16,7 @@ To run this example, simply open and run each cell in the example Jupyter Notebo
 Requirements and Installation
 -----------------------------
 
-This code has been developed in Python 3.7.6 and it is compatible with Python above 3.5 versions. The code has been tested to run in Windows, OSX and Linux operating systems. 
+This code has been developed in Python 3.7.6. The code has been tested to run in Windows operating systems. 
 
 This code uses numpy and pandas as specified in docs/requirements.txt.
 
@@ -40,7 +40,7 @@ Compatibility
 -------------
 
 The raw testdata and schedule file that this package is used on must be csv files. Additionally, the first column of both files should be the header of the datatable.
-The example uses data exported from ______ model of `MACCOR`_ battery cyclers.
+The example uses data exported from `MACCOR`_ battery cyclers.
 As long the raw testdata from the `MACCOR`_ battery cyclers has columns named as the following, this package should work:
 
 #. 'Cyc#'
@@ -75,6 +75,3 @@ If you encounter any issues running the code for any MACCOR model report an issu
 .. |docs| image:: https://readthedocs.org/projects/maccorcyclingdata/badge/?version=latest
     :target: https://maccorcyclingdata.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
-
-.. |pypi| image:: https://img.shields.io/pypi/v/preparenovonix.svg
-    :target: https://pypi.org/project/maccorcyclingdata/
