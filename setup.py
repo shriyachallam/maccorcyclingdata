@@ -10,23 +10,23 @@ setup_args = dict(
     name='maccorcyclingdata',
     version='0.0.1',
     description='Python Package for Publicationto perform basic functions on Maccor Battery Cycling Data',
-    long_description_content_type="text/markdown",
-    long_description=README + '\n\n' + HISTORY,
+    long_description_content_type="text/x-rst",
+    long_description=README,
     license='MIT',
     packages=find_packages(),
     author='Shriya Challam',
     author_email='shriyachallam10@gmail.com',
-    keywords=['Battery', 'Battery cycling', 'Maccor],
+    keywords=['Battery', 'Battery cycling', 'Maccor', 'Pythn'],
     url='https://github.com/shriyachallam/maccorcyclingdata',
-    download_url='https://pypi.org/project/maccorcyclingdata/'
+    download_url='https://pypi.org/project/maccorcyclingdata/',
+    include_package_data=True
 )
 
 install_requires = [
     #list all dependencies needed
-    'pandas',
-    'numpy',
-    'matlab.pyplot'
+    'pandas>=1.0.1',
+    'numpy>=1.18.1',
 ]
 
 if __name__ == '__main__':
-    setup(**setup_args, install_requires=install_requires, include_package_data=True)
+    setup(**setup_args, install_requires=install_requires)
