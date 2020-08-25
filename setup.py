@@ -1,5 +1,6 @@
+import pathlib
 from setuptools import setup, find_packages
-
+HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.rst").read_text()
 
 setup_args = dict(
