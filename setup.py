@@ -1,10 +1,6 @@
 from setuptools import setup, find_packages
 
-with open('README.md') as readme_file:
-    README = readme_file.read()
-
-with open('HISTORY.md') as history_file:
-    HISTORY = history_file.read()
+README = (HERE / "README.rst").read_text()
 
 setup_args = dict(
     name='maccorcyclingdata',
