@@ -12,11 +12,12 @@ Example
 
 The **example.ipynb** provides examples where all the functions are used on the given example data. 
 To run this example, simply open and run each cell in the example Jupyter Notebok provided.
+In the ``example_data`` directory, there is example testdata and an example schedule file to show how the data columns should be formatted.
 
 Requirements and Installation
 -----------------------------
 
-This code has been developed in Python 3.7.6. The code has been tested to run in Windows operating systems. 
+This code has been developed in Python 3.7.6. The code has been tested to run in Windows, Linux, and macOS. 
 
 This code uses numpy and pandas as specified in docs/requirements.txt.
 
@@ -32,7 +33,7 @@ The functions in the package can be used after importing testdata, schedules, va
 
    import maccorcyclingdata.testdata as testdata
    import maccorcyclingdata.schedules as schedules
-   import maccorcyclingdata.validate as testdata
+   import maccorcyclingdata.validate as validate
 
 .. _compability:
 
@@ -41,29 +42,60 @@ Compatibility
 
 The raw testdata and schedule file that this package is used on must be csv files. Additionally, the first column of both files should be the header of the datatable.
 The example uses data exported from `MACCOR`_ battery cyclers.
-As long the raw testdata from the `MACCOR`_ battery cyclers has columns named as the following, this package should work:
+The raw testdata should be exported with columns in the following order and with the following units (the names can be anything since the **import_maccor_data** function will rename all columns):
 
-#. 'Cyc#'
+#. Cycle Number
 
-#. 'Step'
+#. Step Number 
 
-#. 'TestTime(s)'
+#. Total Test Time (seconds)
 
-#. 'StepTime(s)'
+#. Step Time (seconds)
 
-#. 'Capacity(Ah)'
+#. Capacity (mAh)
 
-#. 'Current(A)'
+#. Current (mA)
 
-#. 'Voltage(V)'
+#. Voltage (V)
 
-#. 'DPt Time'
+#. DPt Time (seconds)
 
-#. 'Temp 1'
+#. Temperature (Celsius)
 
-#. 'EV Temp'
+#. EV Temperature (Celsius)
 
-If the following columns may also exist (but must be names as the following): ``ACR``, ``DCIR``, ``Watt-hr``, and ``nnnamed``.
+The following columns may also exist, but must be named as the following: ``ACR``, ``DCIR``, ``Watt-hr``, and ``nnnamed``. 
+
+The schedule should have columns in the following order (the names can be anything since the **import_schedules** function will rename all columns):
+
+#. Step Number
+
+#. Step Type
+
+#. Step Mode Type
+
+#. Step Mode Value
+
+#. Step Limit Type
+
+#. Step Limit Value
+
+#. End Type
+
+#. Operator (=, <=, >=)
+
+#. End Type Value
+
+#. Goto Step Number
+
+#. Report Type
+
+#. Report Type Value
+
+#. Options
+
+#. Step Note
+
 If you encounter any issues running the code for any MACCOR model report an issue. Note that an example file will be needed in order to improve the code.
 
 .. _MACCOR: http://www.maccor.com/

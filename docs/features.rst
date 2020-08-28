@@ -57,30 +57,29 @@ The ``import_maccor_data`` function
 --------------------------------------
 The ``import_maccor_data`` function creates a pandas dataframe given a string of the file path, ``file_path``, and a string of the file name, ``file_name``, of a testdata dataframe. 
 The function will import and clean the testdata by renaming the headers and dropping unnecessary columns. 
-The columns must be named properly to be renamed to the following:
+The raw testdata should be imported with columns in the following order and with the following units (the names of the columns can be anything):
 
-- From 'Cyc#' to 'cyc'
+#. Cycle Number
 
-- From 'Step' to 'step'
+#. Step Number 
 
-- From 'TestTime(s)' to 'test_time_s'
+#. Total Test Time (seconds)
 
-- From 'StepTime(s)' to 'step_time_s'
+#. Step Time (seconds)
 
-- From 'Capacity(Ah)' to 'capacity_mah'
+#. Capacity (mAh)
 
-- From 'Current(A)' to 'current_ma'
+#. Current (mA)
 
-- From 'Voltage(V)' to 'voltage_mv'
+#. Voltage (V)
 
-- From 'DPt Time' to 'dpt_time'
+#. DPt Time (seconds)
 
-- From 'Temp 1' to 'thermocouple_temp_c'}
+#. Temperature (Celsius)
 
-- From 'EV Temp' to 'ev_temp'
+#. EV Temperature (Celsius)
 
 If the following columns exist, the function will delete these columns: ``ACR``, ``DCIR``, ``Watt-hr``, and ``nnnamed``.
-As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.
 
 The optional input- an integer that specifies which line is the header, ``header``- will set the header to be that line number. The default value of ``header`` is 0.
 
@@ -90,37 +89,43 @@ The ``import_multiple_csv_data`` function
 --------------------------------------------
 The ``import_multiple_csv_data`` function creates a pandas dataframe given a string of the file path, ``file_path``, of a directory that contains multiple csv files of testdata. 
 The function will import all files within the directory that end in .csv. Additionally, this function will append the csv files to one another depending on the order they appear in the directory.
-This function will clean the data similar to the ``import_maccor_data`` function. The function will import and clean the testdata by renaming the headers and dropping unnecessary columns. 
-The columns must be named properly to be renamed to the following:
-
-- From 'Cyc#' to 'cyc'
-
-- From 'Step' to 'step'
-
-- From 'TestTime(s)' to 'test_time_s'
-
-- From 'StepTime(s)' to 'step_time_s'
-
-- From 'Capacity(Ah)' to 'capacity_mah'
-
-- From 'Current(A)' to 'current_ma'
-
-- From 'Voltage(V)' to 'voltage_mv'
-
-- From 'DPt Time' to 'dpt_time'
-
-- From 'Temp 1' to 'thermocouple_temp_c'}
-
-- From 'EV Temp' to 'ev_temp'
-
-If the following columns exist, the function will delete these columns: ``ACR``, ``DCIR``, ``Watt-hr``, and ``nnnamed``.
-As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.
+This function will clean the data similar to the ``import_maccor_data`` function.
 
 The function returns a pandas dataframe with the cleaned testdata appended to one another.
 
 The ``import_schedules`` function
 --------------------------------------
 The ``import_schedules`` function creates a pandas dataframe given a string of the file path, ``file_path``, and a string of the file name, ``file_name``, of the schedule file (csv file) that is inputted into the Maccor Cycler. 
+The schedule should have columns in the following order (the names can be anything since they will be renamed):
+
+#. Step Number
+
+#. Step Type
+
+#. Step Mode Type
+
+#. Step Mode Value
+
+#. Step Limit Type
+
+#. Step Limit Value
+
+#. End Type
+
+#. Operator (=, <=, >=)
+
+#. End Type Value
+
+#. Goto Step Number
+
+#. Report Type
+
+#. Report Type Value
+
+#. Options
+
+#. Step Note
+
 The function will rename the columns to the following (in this order): 'step', 'step_type', 'step_mode', 'step_mode_value', 'step_limit', 'step_limit_value', 'step_end_type', 'step_end_type_op', 'step_end_type_value', 'goto_step', 'report_type', 'report_type_value', 'options', 'step_note'.
 
 For all multiline steps (for example: steps with multiple options for the step it should go to depending on the result), this function will append those multiple lines into an array with each element being the value of each line. This allows for the function to keep each step to one line. 
@@ -145,6 +150,8 @@ Parameters of this function (in this order):
 - temp_interval = the maximum interval of a temperature change in number of degrees (integer)
 
 - max_temp = the threshold for the highest temperature allowed (integer)
+
+- discharge_neg = True if the current of the testdata was exported as negative during discharge steps (boolean)
 
 - tol = when making sure the temperature doesn't exceed a certain amount, this function will return either a warning, error, or ABORT message. this input specifies the tolerance should these messages. This is an optional input, the default value is 3.
 

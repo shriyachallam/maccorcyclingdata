@@ -16,7 +16,9 @@ setup_args = dict(
     keywords=['Battery', 'Battery cycling', 'Maccor', 'Python'],
     url='https://github.com/shriyachallam/maccorcyclingdata',
     download_url='https://pypi.org/project/maccorcyclingdata/',
-    include_package_data=True
+    include_package_data=True,
+    test_suite='nose.collector',
+    tests_require=['nose'],
 )
 
 install_requires = [

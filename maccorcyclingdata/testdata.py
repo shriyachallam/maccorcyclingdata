@@ -14,10 +14,10 @@ def import_maccor_data(file_path , file_name, header=0):
 
     file_name : string
         Filename
-
+    
     header : integer
         Optional input that sets the header to a line number (default=2)
-
+    
     Returns
     --------
     df : pandas dataframe
@@ -76,7 +76,7 @@ def import_multiple_csv_data(file_path):
 
 def clean_maccor_df(df):
     """
-    Given the testdata dataframe, this function will rename the headers and drop unnecessary columns. 
+    Given the testdata dataframe, this function will rename the headers and drop unnecessary columns. It will also change some of the units to match the column name and will remove all commas.
 
     Parameters
     -----------
@@ -90,7 +90,6 @@ def clean_maccor_df(df):
 
     Notes
     -----
-    Maccor mislabels the Voltage column (as of 5/05/2020) so this function also changes the units of Voltage.
     If the following columns exist, the function will delete these: ``ACR``, ``DCIR``, ``Watt-hr``, and ``nnnamed``.
     Examples
     ---------
@@ -98,29 +97,19 @@ def clean_maccor_df(df):
     >>> df = testdata.clean_maccor_df(df)
     >>> df.head(5)
     """
-
-    # Rename various columns to use
-    df.rename(columns={'Cyc#':'cyc'}, inplace=True)
-    df.rename(columns={'Step':'step'}, inplace=True)
-    df.rename(columns={'TestTime(s)':'test_time_s'}, inplace=True)
-    df.rename(columns={'StepTime(s)':'step_time_s'}, inplace=True)
-    df.rename(columns={'Capacity(Ah)':'capacity_mah'}, inplace=True)
+    
     if 'Watt-hr' in df.columns:
         df = df.drop(columns=['Watt-hr']) 
-    df.rename(columns={'Current(A)':'current_ma'}, inplace=True)
-    df.rename(columns={'Voltage(V)':'voltage_mv'}, inplace=True)
-    df.rename(columns={'DPt Time':'dpt_time'}, inplace=True)
     if 'ACR' in df.columns:
         df = df.drop(columns=['ACR']) 
     if 'DCIR' in df.columns:
         df = df.drop(columns=['DCIR']) 
-    df.rename(columns={'Temp 1':'thermocouple_temp_c'}, inplace=True)
-    df.rename(columns={'EV Temp':'ev_temp'}, inplace=True)
     if 'Unnamed: 13' in df.columns:
         df = df.drop(columns=['Unnamed: 13']) 
+    df.replace(',','', regex=True, inplace=True)
+    df.columns = ['cyc', 'step', 'test_time_s', 'step_time_s', 'capacity_mah', 'current_ma', 'voltage_v', 'dpt_time', 'thermocouple_temp_c', 'ev_temp'] #rename the column headers
 
-    # Change the units
-    df['voltage_mv'] = df['voltage_mv'] * 1e3
+    df[["cyc", "step", "test_time_s", "capacity_mah", "current_ma", "voltage_v", "thermocouple_temp_c", "ev_temp"]] = df[["cyc", "step", "test_time_s", "capacity_mah", "current_ma", "voltage_v", "thermocouple_temp_c", "ev_temp"]].apply(pd.to_numeric)
     
     return df
 
@@ -196,7 +185,7 @@ def get_index_range(df, cyc_range, cycle_step_idx = []):
     """
     
     # If we are passed a cycle step index, then we provide the indicies for only that step.
-    if cycle_step_idx:
+    if len(cycle_step_idx) > 0:
         index_range = []
         # There is probably a better way to do this, but it works and the number of cycles is never that high
         for i in range(cyc_range[0],cyc_range[1]+1):  # Need the '+1' so that we include the upper cycle.
@@ -233,7 +222,7 @@ def get_cycle_data(df, Headings , cyc_range, cycle_step_idx=[]):
     Examples
     ---------
     >>> from maccorcyclingdata.testdata import get_cycle_data
-    >>> data = testdata.get_cycle_data(df, ['current_ma', 'voltage_mv'], [1, 3, 5], [12])
+    >>> data = testdata.get_cycle_data(df, ['current_ma', 'voltage_v'], [1, 3, 5], [12])
     >>> print(data[:6])
     """
 
@@ -248,7 +237,7 @@ def get_cycle_data(df, Headings , cyc_range, cycle_step_idx=[]):
     data_df['step'] = df['step'][index_range].values
 
     for i in range(0,len(Headings)):
-        data[:,i] = df[Headings[i]][index_range].values
+        data[:,i] = df[Headings[i]][index_range]
         data_df[Headings[i]] = data[:,i]
 
     return data_df
