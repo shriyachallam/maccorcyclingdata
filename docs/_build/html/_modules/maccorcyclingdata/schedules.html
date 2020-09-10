@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>maccorcyclingdata.schedules &mdash; BattGeniePublish 1 documentation</title>
+  <title>maccorcyclingdata.schedules &mdash; maccorcyclingdata 1 documentation</title>
   
 
   
@@ -49,7 +49,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> BattGeniePublish
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> maccorcyclingdata
           
 
           
@@ -103,7 +103,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">BattGeniePublish</a>
+          <a href="../../index.html">maccorcyclingdata</a>
         
       </nav>
 
@@ -173,17 +173,21 @@
 <span class="sd">    df : pandas dataframe</span>
 <span class="sd">        A cleaned schedule df</span>
 
+<span class="sd">    Notes</span>
+<span class="sd">    ------</span>
+<span class="sd">    The schedule file should be input as a csv.</span>
+<span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.schedules import import_schedules</span>
-<span class="sd">    &gt;&gt;&gt; import_schedules(&#39;./example_data/&#39;, &#39;schedule.csv&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.schedules as schedules</span>
+<span class="sd">    &gt;&gt;&gt; schedule_df = schedules.import_schedules(&#39;example_data/&#39;,&#39;schedule.csv&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; schedule_df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file_path</span> <span class="o">+</span> <span class="n">file_name</span><span class="p">)</span> <span class="c1">#create a df from the xlxs</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span> <span class="o">+</span> <span class="n">file_name</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span> <span class="c1">#delete the rows that are completely blank</span>
     <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="s1">&#39;step_type&#39;</span><span class="p">,</span> <span class="s1">&#39;step_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;step_mode_value&#39;</span><span class="p">,</span> <span class="s1">&#39;step_limit&#39;</span><span class="p">,</span> <span class="s1">&#39;step_limit_value&#39;</span><span class="p">,</span> <span class="s1">&#39;step_end_type&#39;</span><span class="p">,</span> <span class="s1">&#39;step_end_type_op&#39;</span><span class="p">,</span> <span class="s1">&#39;step_end_type_value&#39;</span><span class="p">,</span> <span class="s1">&#39;goto_step&#39;</span><span class="p">,</span> <span class="s1">&#39;report_type&#39;</span><span class="p">,</span> <span class="s1">&#39;report_type_value&#39;</span><span class="p">,</span> <span class="s1">&#39;options&#39;</span><span class="p">,</span> <span class="s1">&#39;step_note&#39;</span><span class="p">]</span> <span class="c1">#rename the column headers</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#reset the df index</span>
-        
     <span class="c1">#this section of the function creates an array that has the indices of the row where the multi-row step starts    </span>
     <span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span> 
@@ -192,25 +196,27 @@
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span> <span class="c1">#iterates through the array backwards (however, since the multi-line steps are not just two lines long and can be three/four/etc lines long, if the values are consecutive it means it is still a part of the previous multi-line group so it needs to be deleted)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="o">==</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">del</span> <span class="n">arr</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-    
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">:</span>
         <span class="c1">#the only columns that have multi-line steps are end_type, op, value, and goto, so make an array for each of those columns (the arrays hold the value of the first line of multi-line step group)</span>
         <span class="n">end_type</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step_end_type&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">]]</span>
         <span class="n">op</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step_end_type_op&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">]]</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step_end_type_value&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">]]</span>
         <span class="n">goto</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;goto_step&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">]]</span>
-        <span class="k">while</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]):</span> <span class="c1">#each time the line after the first line of the multi-line group has a null value at the step it is appended to the arrays with respect to the column, once the next line returns a not null value at the step column, it means it has moved on to the next step</span>
-            <span class="n">end_type</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step_end_type&#39;</span><span class="p">][</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
-            <span class="n">op</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step_end_type_op&#39;</span><span class="p">][</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
-            <span class="n">value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step_end_type_value&#39;</span><span class="p">][</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
-            <span class="n">goto</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;goto_step&#39;</span><span class="p">][</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x</span><span class="p">]])</span> <span class="c1">#delete the row whose values were just appended to the arrays</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#by resetting the index the while loop is activated again</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">ind</span><span class="p">]):</span> <span class="c1">#each time the line after the first line of the multi-line group has a null value at the step it is appended to the arrays with respect to the column, once the next line returns a not null value at the step column, it means it has moved on to the next step</span>
+            <span class="n">end_type</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step_end_type&#39;</span><span class="p">][</span><span class="n">ind</span><span class="p">])</span>
+            <span class="n">op</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step_end_type_op&#39;</span><span class="p">][</span><span class="n">ind</span><span class="p">])</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step_end_type_value&#39;</span><span class="p">][</span><span class="n">ind</span> <span class="p">])</span>
+            <span class="n">goto</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;goto_step&#39;</span><span class="p">][</span><span class="n">ind</span><span class="p">])</span>
+            <span class="c1">#df = df.drop([df.index[ind]]) #delete the row whose values were just appended to the arrays</span>
+            <span class="n">ind</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">df_update</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;step_end_type&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">end_type</span><span class="p">],</span> <span class="s1">&#39;step_end_type_op&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">op</span><span class="p">],</span> <span class="s1">&#39;step_end_type_value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">value</span><span class="p">],</span> <span class="s1">&#39;goto_step&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">goto</span><span class="p">]},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
         <span class="n">df</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">df_update</span><span class="p">)</span> <span class="c1">#add the arrays into their respective places in the original df</span>
-        
-    <span class="c1">#set the type of the step and step_limit_value columns to int and float, the rest of the columns have the type as object, even if you force the type as a str, they remain as type object</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;step_limit_value&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">})</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">])</span>
+    <span class="c1">#set the type of the step columns to int</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">})</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#reset the df index</span>
     <span class="k">return</span> <span class="n">df</span></div>
 
 <div class="viewcode-block" id="sort_scheduler_steps"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.schedules.sort_scheduler_steps">[docs]</a><span class="k">def</span> <span class="nf">sort_scheduler_steps</span><span class="p">(</span><span class="n">schedule_df</span><span class="p">):</span>
@@ -245,8 +251,8 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.schedules import sort_scheduler_steps</span>
-<span class="sd">    &gt;&gt;&gt; sort_scheduler_steps(schedule_df)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.schedules as schedules</span>
+<span class="sd">    &gt;&gt;&gt; rest_steps, charge_steps, advance_steps, discharge_steps, end_steps, max_step = sort_scheduler_steps(schedule_df)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">rest_steps</span> <span class="o">=</span> <span class="p">[]</span>
@@ -266,6 +272,7 @@
         <span class="k">if</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s1">&#39;step_type&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;End&quot;</span><span class="p">:</span>
             <span class="n">end_steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>        
         <span class="n">max_step</span> <span class="o">=</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
     <span class="k">return</span> <span class="n">rest_steps</span><span class="p">,</span> <span class="n">charge_steps</span><span class="p">,</span> <span class="n">advance_steps</span><span class="p">,</span> <span class="n">discharge_steps</span><span class="p">,</span> <span class="n">end_steps</span><span class="p">,</span> <span class="n">max_step</span></div>
 </pre></div>
 

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>maccorcyclingdata.testdata &mdash; BattGeniePublish 1 documentation</title>
+  <title>maccorcyclingdata.testdata &mdash; maccorcyclingdata 1 documentation</title>
   
 
   
@@ -49,7 +49,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> BattGeniePublish
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> maccorcyclingdata
           
 
           
@@ -103,7 +103,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">BattGeniePublish</a>
+          <a href="../../index.html">maccorcyclingdata</a>
         
       </nav>
 
@@ -154,10 +154,11 @@
   <h1>Source code for maccorcyclingdata.testdata</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-<div class="viewcode-block" id="import_maccor_data"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.import_maccor_data">[docs]</a><span class="k">def</span> <span class="nf">import_maccor_data</span><span class="p">(</span><span class="n">file_path</span> <span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<div class="viewcode-block" id="import_maccor_data"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.import_maccor_data">[docs]</a><span class="k">def</span> <span class="nf">import_maccor_data</span><span class="p">(</span><span class="n">file_path</span> <span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df</span>
+<span class="sd">    Given the file path and file name of the testdata file, this function will import the csv file as a pandas df</span>
 <span class="sd">    and clean it.</span>
 
 <span class="sd">    Parameters</span>
@@ -167,10 +168,10 @@
 
 <span class="sd">    file_name : string</span>
 <span class="sd">        Filename</span>
-
+<span class="sd">    </span>
 <span class="sd">    header : integer</span>
 <span class="sd">        Optional input that sets the header to a line number (default=2)</span>
-
+<span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
 <span class="sd">    df : pandas dataframe</span>
@@ -178,12 +179,12 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.testdata import import_maccor_data</span>
-<span class="sd">    &gt;&gt;&gt; import_maccor_data(&#39;example_data/&#39;,&#39;example_data.csv&#39;, header=3)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.testdata as testdata</span>
+<span class="sd">    &gt;&gt;&gt; df = testdata.import_maccor_data(&#39;example_data/&#39;, &#39;testdata.csv&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="o">+</span><span class="n">file_name</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="c1"># Read data from .txt is the line the data starts on</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="o">+</span><span class="n">file_name</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">header</span><span class="p">))</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">clean_maccor_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span></div>
 
@@ -208,19 +209,20 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.testdata import import_multiple_csv_data</span>
-<span class="sd">    &gt;&gt;&gt; import_multiple_csv_data(&#39;./example_data/split_data/&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.testdata as testdata</span>
+<span class="sd">    &gt;&gt;&gt; mult_df = testdata.import_multiple_csv_data(&#39;example_data/multiple_csv/&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; mult_df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
     <span class="c1"># r=root, d=directories, f = files</span>
     <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
         <span class="c1"># We only want to parse files that are CSVs</span>
-        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span> <span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span> <span class="p">(</span><span class="s1">&#39;.CSV&#39;</span><span class="p">)</span> <span class="p">)</span> <span class="p">]</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span> <span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">)</span> <span class="p">)</span> <span class="p">]</span>
         <span class="n">files</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-            <span class="n">temp_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="o">+</span><span class="n">file</span><span class="p">)</span> <span class="c1"># Read data from .csv file</span>
+            <span class="n">file_loc</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="o">+</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">temp_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_loc</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_df</span><span class="p">,</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">clean_maccor_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span></div>
@@ -228,7 +230,7 @@
 
 <div class="viewcode-block" id="clean_maccor_df"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.clean_maccor_df">[docs]</a><span class="k">def</span> <span class="nf">clean_maccor_df</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given the testdata dataframe, this function will rename the headers and drop unnecessary columns. </span>
+<span class="sd">    Given the testdata dataframe, this function will rename the headers and drop unnecessary columns. It will also change some of the units to match the column name and will remove all commas.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
@@ -242,39 +244,26 @@
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    Maccor mislabels the Voltage column (as of 5/05/2020) so this function also changes the units of Voltage.</span>
-
-<span class="sd">    Changes the datatype of the Watt-hr column to numeric</span>
-
+<span class="sd">    If the following columns exist, the function will delete these: ``ACR``, ``DCIR``, ``Watt-hr``, and ``nnnamed``.</span>
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.testdata import clean_maccor_df</span>
-<span class="sd">    &gt;&gt;&gt; clean_maccor_df(df)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.testdata as testdata</span>
+<span class="sd">    &gt;&gt;&gt; df = testdata.clean_maccor_df(df)</span>
+<span class="sd">    &gt;&gt;&gt; df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Watt-hr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Watt-hr&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
-
-    <span class="c1"># Rename various columns to use</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Cyc#&#39;</span><span class="p">:</span><span class="s1">&#39;cyc&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Step&#39;</span><span class="p">:</span><span class="s1">&#39;step&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;TestTime(s)&#39;</span><span class="p">:</span><span class="s1">&#39;test_time_s&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;StepTime(s)&#39;</span><span class="p">:</span><span class="s1">&#39;step_time_s&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Capacity(Ah)&#39;</span><span class="p">:</span><span class="s1">&#39;capacity_mah&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Watt-hr&#39;</span><span class="p">:</span><span class="s1">&#39;energy_wh&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Current(A)&#39;</span><span class="p">:</span><span class="s1">&#39;current_ma&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Voltage(V)&#39;</span><span class="p">:</span><span class="s1">&#39;voltage_mv&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DPt Time&#39;</span><span class="p">:</span><span class="s1">&#39;dpt_time&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ACR&#39;</span><span class="p">:</span><span class="s1">&#39;acr&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DCIR&#39;</span><span class="p">:</span><span class="s1">&#39;dcir&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Temp 1&#39;</span><span class="p">:</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;EV Temp&#39;</span><span class="p">:</span><span class="s1">&#39;ev_temp&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Unnamed: 13&#39;</span><span class="p">:</span><span class="s1">&#39;nnnamed&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     
-    <span class="c1"># drop the ones we dont want</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;acr&#39;</span><span class="p">,</span> <span class="s1">&#39;dcir&#39;</span><span class="p">,</span> <span class="s1">&#39;nnnamed&#39;</span><span class="p">])</span> 
-    
-    <span class="c1"># Change the units</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">voltage_mv</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">voltage_mv</span> <span class="o">*</span> <span class="mf">1e3</span>
+    <span class="k">if</span> <span class="s1">&#39;Watt-hr&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Watt-hr&#39;</span><span class="p">])</span> 
+    <span class="k">if</span> <span class="s1">&#39;ACR&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ACR&#39;</span><span class="p">])</span> 
+    <span class="k">if</span> <span class="s1">&#39;DCIR&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DCIR&#39;</span><span class="p">])</span> 
+    <span class="k">if</span> <span class="s1">&#39;Unnamed: 13&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Unnamed: 13&#39;</span><span class="p">])</span> 
+    <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">,</span> <span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="s1">&#39;test_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;step_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity_mah&#39;</span><span class="p">,</span> <span class="s1">&#39;current_ma&#39;</span><span class="p">,</span> <span class="s1">&#39;voltage_v&#39;</span><span class="p">,</span> <span class="s1">&#39;dpt_time&#39;</span><span class="p">,</span> <span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">,</span> <span class="s1">&#39;ev_temp&#39;</span><span class="p">]</span> <span class="c1">#rename the column headers</span>
+
+    <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;cyc&quot;</span><span class="p">,</span> <span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="s2">&quot;test_time_s&quot;</span><span class="p">,</span> <span class="s2">&quot;capacity_mah&quot;</span><span class="p">,</span> <span class="s2">&quot;current_ma&quot;</span><span class="p">,</span> <span class="s2">&quot;voltage_v&quot;</span><span class="p">,</span> <span class="s2">&quot;thermocouple_temp_c&quot;</span><span class="p">,</span> <span class="s2">&quot;ev_temp&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;cyc&quot;</span><span class="p">,</span> <span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="s2">&quot;test_time_s&quot;</span><span class="p">,</span> <span class="s2">&quot;capacity_mah&quot;</span><span class="p">,</span> <span class="s2">&quot;current_ma&quot;</span><span class="p">,</span> <span class="s2">&quot;voltage_v&quot;</span><span class="p">,</span> <span class="s2">&quot;thermocouple_temp_c&quot;</span><span class="p">,</span> <span class="s2">&quot;ev_temp&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">df</span></div>
 
@@ -301,18 +290,22 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.testdata import delete_cycle_steps</span>
-<span class="sd">    &gt;&gt;&gt; delete_cycle_steps(df, steps_to_delete, True)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.testdata as testdata</span>
+<span class="sd">    &gt;&gt;&gt; del_df = testdata.delete_cycle_steps(df, [1], True)</span>
+<span class="sd">    &gt;&gt;&gt; del_df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">steps_to_delete</span><span class="p">:</span>
         <span class="n">to_be_deleted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">]</span>
-    
-        <span class="k">if</span> <span class="n">decrement</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">to_be_deleted</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">decrement</span><span class="p">:</span>
+        <span class="n">steps_to_delete</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> 
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">steps_to_delete</span><span class="p">:</span>
             <span class="n">to_be_shifted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">]</span>
-            <span class="n">all_values_larger</span> <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">to_be_shifted</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">to_be_shifted</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_values_larger</span>
-            
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">to_be_deleted</span><span class="p">)</span>  
+            <span class="n">mini</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">to_be_shifted</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">gap</span> <span class="o">=</span> <span class="n">mini</span><span class="o">-</span><span class="n">x</span>
+            <span class="n">all_values_larger</span> <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">to_be_shifted</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">-</span> <span class="n">gap</span><span class="p">)</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">to_be_shifted</span><span class="p">,</span> <span class="s1">&#39;step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_values_larger</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>           
     <span class="k">return</span> <span class="n">df</span></div>
@@ -341,22 +334,23 @@
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
 <span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.testdata import get_index_range</span>
-<span class="sd">    &gt;&gt;&gt; get_index_range(df, cyc_range, cycle_step_idx)</span>
+<span class="sd">    &gt;&gt;&gt; ind = testdata.get_cycle_data(df, [1, 3, 5], [12])</span>
+<span class="sd">    &gt;&gt;&gt; print(ind[:6])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="c1"># If we are passed a cycle step index, then we provide the indicies for only that step.</span>
-    <span class="k">if</span> <span class="n">cycle_step_idx</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cycle_step_idx</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">index_range</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># There is probably a better way to do this, but it works and the number of cycles is never that high</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cyc_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">cyc_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>  <span class="c1"># Need the &#39;+1&#39; so that we include the upper cycle.</span>
             <span class="n">index_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">index_range</span><span class="p">,</span>
-                                       <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cyc#&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Step&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cycle_step_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">0</span><span class="p">][:])</span>
+                                       <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cycle_step_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">0</span><span class="p">][:])</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">index_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cyc#&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">cyc_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cyc#&#39;</span><span class="p">]</span><span class="o">&lt;=</span> <span class="n">cyc_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">))[</span><span class="mi">0</span><span class="p">][:]</span>
+        <span class="n">index_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">cyc_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">]</span><span class="o">&lt;=</span> <span class="n">cyc_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">))[</span><span class="mi">0</span><span class="p">][:]</span>
 
     <span class="k">return</span> <span class="n">index_range</span></div>
 
-<div class="viewcode-block" id="get_cycle_data"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.get_cycle_data">[docs]</a><span class="k">def</span> <span class="nf">get_cycle_data</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">Headings</span> <span class="p">,</span> <span class="n">cyc_range</span><span class="p">):</span>
+<div class="viewcode-block" id="get_cycle_data"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.get_cycle_data">[docs]</a><span class="k">def</span> <span class="nf">get_cycle_data</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">Headings</span> <span class="p">,</span> <span class="n">cyc_range</span><span class="p">,</span> <span class="n">cycle_step_idx</span><span class="o">=</span><span class="p">[]):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function gets the data specified in the &quot;Headings&quot; for each sample within the specified cyc_range.</span>
 <span class="sd">    </span>
@@ -371,26 +365,36 @@
 <span class="sd">    cyc_range : array</span>
 <span class="sd">        An array of the cycle numbers you want data for</span>
 
+<span class="sd">    cycle_step_idx : array</span>
+<span class="sd">        The step numbers within each cycle that you want the data for. Default value is all steps within each cycle.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
-<span class="sd">    data : array</span>
-<span class="sd">        A numpy array where the columns correspond to the headings and the rows correspond to the data point</span>
+<span class="sd">    data_df : pandas dataframe</span>
+<span class="sd">        A pandas dataframe that has the data for the specified headers at the specified cycles and steps.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
 <span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.testdata import get_cycle_data</span>
-<span class="sd">    &gt;&gt;&gt; get_cycle_data(df, Headings, cyc_range)</span>
+<span class="sd">    &gt;&gt;&gt; data = testdata.get_cycle_data(df, [&#39;current_ma&#39;, &#39;voltage_v&#39;], [1, 3, 5], [12])</span>
+<span class="sd">    &gt;&gt;&gt; print(data[:6])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Find the index range for the specified cycle(s)</span>
-    <span class="n">index_range</span> <span class="o">=</span> <span class="n">get_index_range</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">cyc_range</span><span class="p">)</span>
- 
+    <span class="n">index_range</span> <span class="o">=</span> <span class="n">get_index_range</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">cyc_range</span><span class="p">,</span> <span class="n">cycle_step_idx</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># Create a numpy array to hold the headings values Each column will be a heading, each row will be a data point</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">index_range</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">Headings</span><span class="p">)])</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">Headings</span><span class="p">)):</span>
-            <span class="n">data</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">Headings</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="n">index_range</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 
-    <span class="k">return</span> <span class="n">data</span></div>
+    <span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">][</span><span class="n">index_range</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">index_range</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">Headings</span><span class="p">)):</span>
+        <span class="n">data</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">Headings</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="n">index_range</span><span class="p">]</span>
+        <span class="n">data_df</span><span class="p">[</span><span class="n">Headings</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">data_df</span></div>
 
 <div class="viewcode-block" id="get_num_cycles"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.get_num_cycles">[docs]</a><span class="k">def</span> <span class="nf">get_num_cycles</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -402,9 +406,13 @@
 <span class="sd">        The testdata dataframe</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    --------</span>
+<span class="sd">    --------                                   </span>
 <span class="sd">    number_of_cycles : integer</span>
 <span class="sd">        An integer of the number of cycles in the dataframe</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    ------</span>
+<span class="sd">    This function assumes that the first cycle is cycle 0.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
@@ -412,7 +420,7 @@
 <span class="sd">    &gt;&gt;&gt; get_num_cycles(df)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">number_of_cycles</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cyc#&#39;</span><span class="p">]))</span>
+    <span class="n">number_of_cycles</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">number_of_cycles</span> </div>
 
 </pre></div>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Code Features &mdash; BattGeniePublish 1 documentation</title>
+  <title>Code Features &mdash; maccorcyclingdata 1 documentation</title>
   
 
   
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> BattGeniePublish
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> maccorcyclingdata
           
 
           
@@ -83,7 +83,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation for MaccorCyclingData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation for maccorcyclingdata</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme_include.html">Preparing MACCOR Data</a></li>
@@ -91,13 +91,12 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Code Features</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#flow-chart">Flow chart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-delete-cycle-steps-function">The <code class="docutils literal notranslate"><span class="pre">delete_cycle_steps</span></code> function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-get-cycle-data-function">The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-get-index-range-function">The <code class="docutils literal notranslate"><span class="pre">get_index_range</span></code> function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-get-num-cycles-function">The <code class="docutils literal notranslate"><span class="pre">get_num_cycles</span></code> function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-get-cycle-data-function">The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-import-maccor-data-function">The <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-import-multiple-csv-data-function">The <code class="docutils literal notranslate"><span class="pre">import_multiple_csv_data</span></code> function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-import-schedules-function">The <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-validation-test-data-function">The <code class="docutils literal notranslate"><span class="pre">validation_test_data</span></code> function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-validate-test-data-function">The <code class="docutils literal notranslate"><span class="pre">validate_test_data</span></code> function</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="source/modules.html">maccorcyclingdata</a></li>
@@ -116,7 +115,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">BattGeniePublish</a>
+          <a href="index.html">maccorcyclingdata</a>
         
       </nav>
 
@@ -174,13 +173,12 @@ followed by the function name with the expected input parameters in
 brackets.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">testdata.delete_cycle_steps(df,</span> <span class="pre">steps_to_delete,</span> <span class="pre">decrement=False)</span></code>: Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">testdata.get_cycle_data(df,</span> <span class="pre">Headings,</span> <span class="pre">cyc_range)</span></code>: This function gets the data from the specified column for each sample within the specified cyc_range.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">testdata.get_index_range(df,</span> <span class="pre">cyc_range,</span> <span class="pre">cycle_step_idx)</span></code>: Given the testdata dataframe, this function returns the index range for the specified cycle range, or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">testdata.get_cycle_data(df,</span> <span class="pre">Headings,</span> <span class="pre">cyc_range,</span> <span class="pre">cycle_step_idx=0)</span></code>: This function gets the data from the specified column for each sample within the specified cyc_range.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">testdata.get_num_cycles(df)</span></code>: Given the testdata dataframe, this function will return the number of cycles.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">testdata.import_maccor_data(file_path,</span> <span class="pre">file_name)</span></code>: Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df and clean it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">testdata.import_maccor_data(file_path,</span> <span class="pre">file_name,</span> <span class="pre">header=0)</span></code>: Given the file_path and file name of the testdata .csv file, this function will import the csv datafile as a df and clean it.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">testdata.import_multiple_csv_data(file_path)</span></code>: Given the file path that holds multiple csv files (testdata files), this function will import and append all of the csv files to one another as one dataframe. Returns a cleaned version of that dataframe.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">schedules.import_schedules(file_path,</span> <span class="pre">file_name)</span></code>: Given the file path and file name (of the schedule file that is inputted into the Maccor Cycler), this function will import and clean the schedule file and return it as a df.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validate.validation_test_data(schedule_df,</span> <span class="pre">df,</span> <span class="pre">cell_id,</span> <span class="pre">time_interval,</span> <span class="pre">temp_interval,</span> <span class="pre">max_temp)</span></code>: This is a function that validates the testdata against the schedule file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">validate.validate_test_data(schedule_df,</span> <span class="pre">df,</span> <span class="pre">cell_id,</span> <span class="pre">time_interval,</span> <span class="pre">temp_interval,</span> <span class="pre">max_temp,</span> <span class="pre">discharge_neg,</span> <span class="pre">temp_tol=3,</span> <span class="pre">char_tol=2)</span></code>: This is a function that validates the testdata against the schedule file.</p></li>
 </ul>
 <p>In what follows, the above functions will be referred by simply their name, without stating the modules they belong to.</p>
 <div class="section" id="flow-chart">
@@ -199,87 +197,73 @@ Note that for simplicity not all the decisions made in the code are shown here.<
 <p>The <code class="docutils literal notranslate"><span class="pre">delete_cycle_steps</span></code> function reads an array of the step numbers that should be deleted, <code class="docutils literal notranslate"><span class="pre">steps_to_delete</span></code>, and deletes all rows that occur during those steps from the inputted testdata dataframe.
 This function returns the testdata dataframe itself with the steps deleted. If the boolean <code class="docutils literal notranslate"><span class="pre">decrement</span></code> is set to True, the function will renumber the steps at the end. The <code class="docutils literal notranslate"><span class="pre">decrement</span></code> boolean is optional. The default value if False.</p>
 </div>
-<div class="section" id="the-get-cycle-data-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function<a class="headerlink" href="#the-get-cycle-data-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function gets the data from the array of specified columns, <code class="docutils literal notranslate"><span class="pre">Headings</span></code>, for each sample within the array of the cycle numbers that are of interest, <code class="docutils literal notranslate"><span class="pre">cyc_range</span></code>.
-The function returns an array where the columns correspond to the specified columns and the rows corespond to the data.</p>
-</div>
-<div class="section" id="the-get-index-range-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">get_index_range</span></code> function<a class="headerlink" href="#the-get-index-range-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">get_index_range</span></code> function gets the index range for the array of the cycle numbers that are of interest, <code class="docutils literal notranslate"><span class="pre">cyc_range</span></code>.
-The optional input- an array of specific step numbers, <code class="docutils literal notranslate"><span class="pre">cycle_step_idx</span></code>- will only find the indices for those step numbers within each specified cycle. The default value is to find the indices of all steps within each specified cycle.
-The function returns a vector of the range of df indices for the specified cycle range.</p>
-</div>
 <div class="section" id="the-get-num-cycles-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">get_num_cycles</span></code> function<a class="headerlink" href="#the-get-num-cycles-function" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">get_num_cycles</span></code> function finds the number of cycles given the testdata dataframe, <code class="docutils literal notranslate"><span class="pre">df</span></code>.
-The function returns an integer of the number of cycles in the dataframe.</p>
+The function returns an integer of the number of cycles in the dataframe. This function assumes that the first cycle is cycle 0.</p>
+</div>
+<div class="section" id="the-get-cycle-data-function">
+<h2>The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function<a class="headerlink" href="#the-get-cycle-data-function" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_cycle_data</span></code> function gets the data from the array of specified columns, <code class="docutils literal notranslate"><span class="pre">Headings</span></code>, for each sample within the array of the cycle numbers that are of interest, <code class="docutils literal notranslate"><span class="pre">cyc_range</span></code>.
+It can also get the data for specific steps within each cycle if the <code class="docutils literal notranslate"><span class="pre">cycle_step_idx</span></code> parameter is input.
+This function returns a pandas dataframe that has the data for the specified headers at the specified cycles and steps.</p>
 </div>
 <div class="section" id="the-import-maccor-data-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> function<a class="headerlink" href="#the-import-maccor-data-function" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> function creates a pandas dataframe given a string of the file path, <code class="docutils literal notranslate"><span class="pre">file_path</span></code>, and a string of the file name, <code class="docutils literal notranslate"><span class="pre">file_name</span></code>, of a testdata dataframe.
 The function will import and clean the testdata by renaming the headers and dropping unnecessary columns.
-The columns must be named properly to be renamed to the following:</p>
-<ul class="simple">
-<li><p>From ‘Cyc#’ to ‘cyc’</p></li>
-<li><p>From ‘Step’ to ‘step’</p></li>
-<li><p>From ‘TestTime(s)’ to ‘test_time_s’</p></li>
-<li><p>From ‘StepTime(s)’ to ‘step_time_s’</p></li>
-<li><p>From ‘Capacity(Ah)’ to ‘capacity_mah’</p></li>
-<li><p>From ‘Watt-hr’ to ‘energy_wh’</p></li>
-<li><p>From ‘Current(A)’ to ‘current_ma’</p></li>
-<li><p>From ‘Voltage(V)’ to ‘voltage_mv’</p></li>
-<li><p>From ‘DPt Time’ to ‘dpt_time’</p></li>
-<li><p>From ‘ACR’ to ‘acr’</p></li>
-<li><p>From ‘DCIR’ to ‘dcir’</p></li>
-<li><p>From ‘Temp 1’ to ‘thermocouple_temp_c’}</p></li>
-<li><p>From ‘EV Temp’ to ‘ev_temp’</p></li>
-<li><p>From ‘Unnamed: 13’ to ‘nnnamed’</p></li>
-</ul>
-<p>The function will delete the following columns: <code class="docutils literal notranslate"><span class="pre">acre</span></code>, <code class="docutils literal notranslate"><span class="pre">dcir</span></code>, <code class="docutils literal notranslate"><span class="pre">nnnamed</span></code>.
-The function will change the datatype of the <code class="docutils literal notranslate"><span class="pre">energy_wh</span></code> column to numeric.
-As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.</p>
-<p>The optional input- an integer that specifies which line is the header, <code class="docutils literal notranslate"><span class="pre">header</span></code>- will set the header to be that line number. The default value of <code class="docutils literal notranslate"><span class="pre">header</span></code> is 2.</p>
+The raw testdata should be imported with columns in the following order and with the following units (the names of the columns can be anything):</p>
+<ol class="arabic simple">
+<li><p>Cycle Number</p></li>
+<li><p>Step Number</p></li>
+<li><p>Total Test Time (seconds)</p></li>
+<li><p>Step Time (seconds)</p></li>
+<li><p>Capacity (mAh)</p></li>
+<li><p>Current (mA)</p></li>
+<li><p>Voltage (V)</p></li>
+<li><p>DPt Time (seconds)</p></li>
+<li><p>Temperature (Celsius)</p></li>
+<li><p>EV Temperature (Celsius)</p></li>
+</ol>
+<p>If the following columns exist, the function will delete these columns: <code class="docutils literal notranslate"><span class="pre">ACR</span></code>, <code class="docutils literal notranslate"><span class="pre">DCIR</span></code>, <code class="docutils literal notranslate"><span class="pre">Watt-hr</span></code>, and <code class="docutils literal notranslate"><span class="pre">nnnamed</span></code>.</p>
+<p>The optional input- an integer that specifies which line is the header, <code class="docutils literal notranslate"><span class="pre">header</span></code>- will set the header to be that line number. The default value of <code class="docutils literal notranslate"><span class="pre">header</span></code> is 0.</p>
 <p>The function returns a pandas dataframe of the cleaned testdata.</p>
 </div>
 <div class="section" id="the-import-multiple-csv-data-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">import_multiple_csv_data</span></code> function<a class="headerlink" href="#the-import-multiple-csv-data-function" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">import_multiple_csv_data</span></code> function creates a pandas dataframe given a string of the file path, <code class="docutils literal notranslate"><span class="pre">file_path</span></code>, of a directory that contains multiple csv files of testdata.
 The function will import all files within the directory that end in .csv. Additionally, this function will append the csv files to one another depending on the order they appear in the directory.
-This function will clean the data similar to the <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> function. The function will import and clean the testdata by renaming the headers and dropping unnecessary columns.
-The columns must be named properly to be renamed to the following:</p>
-<ul class="simple">
-<li><p>From ‘Cyc#’ to ‘cyc’</p></li>
-<li><p>From ‘Step’ to ‘step’</p></li>
-<li><p>From ‘TestTime(s)’ to ‘test_time_s’</p></li>
-<li><p>From ‘StepTime(s)’ to ‘step_time_s’</p></li>
-<li><p>From ‘Capacity(Ah)’ to ‘capacity_mah’</p></li>
-<li><p>From ‘Watt-hr’ to ‘energy_wh’</p></li>
-<li><p>From ‘Current(A)’ to ‘current_ma’</p></li>
-<li><p>From ‘Voltage(V)’ to ‘voltage_mv’</p></li>
-<li><p>From ‘DPt Time’ to ‘dpt_time’</p></li>
-<li><p>From ‘ACR’ to ‘acr’</p></li>
-<li><p>From ‘DCIR’ to ‘dcir’</p></li>
-<li><p>From ‘Temp 1’ to ‘thermocouple_temp_c’}</p></li>
-<li><p>From ‘EV Temp’ to ‘ev_temp’</p></li>
-<li><p>From ‘Unnamed: 13’ to ‘nnnamed’</p></li>
-</ul>
-<p>The function will delete the following columns: <code class="docutils literal notranslate"><span class="pre">acre</span></code>, <code class="docutils literal notranslate"><span class="pre">dcir</span></code>, <code class="docutils literal notranslate"><span class="pre">nnnamed</span></code>.
-The function will change the datatype of the <code class="docutils literal notranslate"><span class="pre">energy_wh</span></code> column to numeric.
-As of 5/05/2020, Maccor mislabels the Voltage column so this function also changes the units of Voltage.</p>
+This function will clean the data similar to the <code class="docutils literal notranslate"><span class="pre">import_maccor_data</span></code> function.</p>
 <p>The function returns a pandas dataframe with the cleaned testdata appended to one another.</p>
 </div>
 <div class="section" id="the-import-schedules-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function<a class="headerlink" href="#the-import-schedules-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function creates a pandas dataframe given a string of the file path, <code class="docutils literal notranslate"><span class="pre">file_path</span></code>, and a string of the file name, <code class="docutils literal notranslate"><span class="pre">file_name</span></code>, of the schedule file (xlxs file) that is inputted into the Maccor Cycler.
-The function will rename the columns to the following (in this order): ‘step’, ‘step_type’, ‘step_mode’, ‘step_mode_value’, ‘step_limit’, ‘step_limit_value’, ‘step_end_type’, ‘step_end_type_op’, ‘step_end_type_value’, ‘goto_step’, ‘report_type’, ‘report_type_value’, ‘options’, ‘step_note’.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function creates a pandas dataframe given a string of the file path, <code class="docutils literal notranslate"><span class="pre">file_path</span></code>, and a string of the file name, <code class="docutils literal notranslate"><span class="pre">file_name</span></code>, of the schedule file (csv file) that is inputted into the Maccor Cycler.
+The schedule should have columns in the following order (the names can be anything since they will be renamed):</p>
+<ol class="arabic simple">
+<li><p>Step Number</p></li>
+<li><p>Step Type</p></li>
+<li><p>Step Mode Type</p></li>
+<li><p>Step Mode Value</p></li>
+<li><p>Step Limit Type</p></li>
+<li><p>Step Limit Value</p></li>
+<li><p>End Type</p></li>
+<li><p>Operator (=, &lt;=, &gt;=)</p></li>
+<li><p>End Type Value</p></li>
+<li><p>Goto Step Number</p></li>
+<li><p>Report Type</p></li>
+<li><p>Report Type Value</p></li>
+<li><p>Options</p></li>
+<li><p>Step Note</p></li>
+</ol>
+<p>The function will rename the columns to the following (in this order): ‘step’, ‘step_type’, ‘step_mode’, ‘step_mode_value’, ‘step_limit’, ‘step_limit_value’, ‘step_end_type’, ‘step_end_type_op’, ‘step_end_type_value’, ‘goto_step’, ‘report_type’, ‘report_type_value’, ‘options’, ‘step_note’.</p>
 <p>For all multiline steps (for example: steps with multiple options for the step it should go to depending on the result), this function will append those multiple lines into an array with each element being the value of each line. This allows for the function to keep each step to one line.
 This function sets the datatype of the <code class="docutils literal notranslate"><span class="pre">step</span></code> and <code class="docutils literal notranslate"><span class="pre">step_limit_value</span></code> to integer and float respectively.</p>
 <p>The function returns a pandas dataframe of the cleaned scheduler.</p>
 </div>
-<div class="section" id="the-validation-test-data-function">
-<h2>The <code class="docutils literal notranslate"><span class="pre">validation_test_data</span></code> function<a class="headerlink" href="#the-validation-test-data-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">validation_test_data</span></code> function validates the testdata against the scheduler.</p>
+<div class="section" id="the-validate-test-data-function">
+<h2>The <code class="docutils literal notranslate"><span class="pre">validate_test_data</span></code> function<a class="headerlink" href="#the-validate-test-data-function" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">validate_test_data</span></code> function validates the testdata against the scheduler.</p>
 <p>Parameters of this function (in this order):</p>
 <ul class="simple">
 <li><p>schedule_df = the dataframe of the cleaned schedule file (from the <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function)</p></li>
@@ -288,9 +272,11 @@ This function sets the datatype of the <code class="docutils literal notranslate
 <li><p>time_interval = the maximum interval of how often the cycler should be recording data in seconds (integer)</p></li>
 <li><p>temp_interval = the maximum interval of a temperature change in number of degrees (integer)</p></li>
 <li><p>max_temp = the threshold for the highest temperature allowed (integer)</p></li>
-<li><p>tol = when making sure the temperature doesn’t exceed a certain amount, this function will return either a warning, error, or ABORT message. this input specifies the tolerance should these messages. This is an optional input, the default value is 3.</p></li>
+<li><p>discharge_neg = True if the current of the testdata was exported as negative during discharge steps (boolean)</p></li>
+<li><p>temp_tol = when making sure the temperature doesn’t exceed a certain amount, this function will return either a warning, error, or ABORT message. this input specifies the tolerance should these messages. This is an optional input, the default value is 3.</p></li>
+<li><p>charg_tol = when checking whether the current matches the value specified in the scheduler, this input specifies how much tolerance (how much the current is allowed to waiver by). This is an optional input, the default value is 2.</p></li>
 </ul>
-<p>The erros this function checks for:</p>
+<p>The errors this function checks for:</p>
 <ul class="simple">
 <li><p>if during all the rest steps, the battery is actually resting</p></li>
 <li><p>if during all charging steps, the battery is charging</p></li>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>maccorcyclingdata.validate &mdash; BattGeniePublish 1 documentation</title>
+  <title>maccorcyclingdata.validate &mdash; maccorcyclingdata 1 documentation</title>
   
 
   
@@ -49,7 +49,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> BattGeniePublish
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> maccorcyclingdata
           
 
           
@@ -103,7 +103,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">BattGeniePublish</a>
+          <a href="../../index.html">maccorcyclingdata</a>
         
       </nav>
 
@@ -154,9 +154,47 @@
   <h1>Source code for maccorcyclingdata.validate</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">maccorcyclingdata.schedules</span> <span class="kn">import</span> <span class="n">sort_scheduler_steps</span>
 
-<div class="viewcode-block" id="validation_check_time_interval"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_time_interval">[docs]</a><span class="k">def</span> <span class="nf">validation_check_time_interval</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">temp_interval</span><span class="p">):</span>
+<div class="viewcode-block" id="validation_check_time_interval"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_time_interval">[docs]</a><span class="k">def</span> <span class="nf">validation_check_time_interval</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function will validate the testdata to make sure data was collected regularly at the correct time interval.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    validation_df : pandas dataframe</span>
+<span class="sd">        The validation dataframe where any errors will be recorded</span>
+
+<span class="sd">    df : pandas dataframe</span>
+<span class="sd">        The testdata dataframe</span>
+<span class="sd">    </span>
+<span class="sd">    time_interval : integer</span>
+<span class="sd">        The time interval between data point. How often data should be collected.</span>
+
+<span class="sd">    i : integer</span>
+<span class="sd">        An integer of the index where you want to validate</span>
+
+<span class="sd">    cell_id : integer</span>
+<span class="sd">        The cell id of the testdata</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    --------</span>
+<span class="sd">    validation_df : pandas dataframe</span>
+<span class="sd">        The validation dataframe with any errors listed    </span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    ---------</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.validate as validate</span>
+<span class="sd">    &gt;&gt;&gt; validation_df = validate.validation_check_time_interval(validation_df, df, 10, i, 1)</span>
+<span class="sd">    &gt;&gt;&gt; validation_df</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;test_time_s&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;test_time_s&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">time_interval</span><span class="p">):</span>
+        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;anomaly - more than &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">time_interval</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; seconds has passed since the last collected data&#39;</span><span class="p">)},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   
+    
+    <span class="k">return</span> <span class="n">validation_df</span></div>
+
+<div class="viewcode-block" id="validation_check_temp_interval"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_temp_interval">[docs]</a><span class="k">def</span> <span class="nf">validation_check_temp_interval</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">temp_interval</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function will validate the testdata to make sure the temperature does not fluctuate suddenly.</span>
 
@@ -169,8 +207,14 @@
 <span class="sd">        The testdata dataframe</span>
 <span class="sd">    </span>
 <span class="sd">    temp_interval : integer</span>
-<span class="sd">        The maximum interval with any errors listed</span>
+<span class="sd">        The maximum temperature change allowed between two data points.</span>
 
+<span class="sd">    i : integer</span>
+<span class="sd">        An integer of the index where you want to validate</span>
+
+<span class="sd">    cell_id : integer</span>
+<span class="sd">        The cell id of the testdata</span>
+<span class="sd">        </span>
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
 <span class="sd">    validation_df : pandas dataframe</span>
@@ -178,17 +222,17 @@
 <span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.validate import validation_check_time_interval</span>
-<span class="sd">    &gt;&gt;&gt; validation_check_time_interval(validation_df, df, 5)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.validate as validate</span>
+<span class="sd">    &gt;&gt;&gt; validation_df = validate.validation_check_temp_interval(validation_df, df, 10, i, 1)</span>
+<span class="sd">    &gt;&gt;&gt; validation_df</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">temp_interval</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">temp_interval</span><span class="p">)):</span>
-                <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;anomaly - jump in temperature (more than 5 degrees)&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">temp_interval</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">temp_interval</span><span class="p">)):</span>
+        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;anomaly - jump in temperature (more than &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">temp_interval</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; degrees)&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
          
     <span class="k">return</span> <span class="n">validation_df</span></div>
 
-<div class="viewcode-block" id="validation_check_advanced_cycle"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_advanced_cycle">[docs]</a><span class="k">def</span> <span class="nf">validation_check_advanced_cycle</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">advance_steps</span><span class="p">):</span>
+<div class="viewcode-block" id="validation_check_advanced_cycle"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_advanced_cycle">[docs]</a><span class="k">def</span> <span class="nf">validation_check_advanced_cycle</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function will validate the testdata against the advance cycle steps by making sure the cycle advances</span>
 
@@ -199,10 +243,13 @@
 
 <span class="sd">    df : pandas dataframe</span>
 <span class="sd">        The testdata dataframe</span>
-<span class="sd">    </span>
-<span class="sd">    advance_steps : array</span>
-<span class="sd">        An array of the advance_cycle steps from the schedule file</span>
 
+<span class="sd">    i : integer</span>
+<span class="sd">        An integer of the index where you want to validate</span>
+
+<span class="sd">    cell_id : integer</span>
+<span class="sd">        The cell id of the testdata</span>
+<span class="sd">        </span>
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
 <span class="sd">    validation_df : pandas dataframe</span>
@@ -210,18 +257,18 @@
 <span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.validate import validation_check_advanced_cycle</span>
-<span class="sd">    &gt;&gt;&gt; validation_check_advanced_cycle(validation_df, df, [2, 4, 5])</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.validate as validate</span>
+<span class="sd">    &gt;&gt;&gt; validation_df = validate.validation_check_advanced_cycle(validation_df, df, i, 1)</span>
+<span class="sd">    &gt;&gt;&gt; validation_df</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">advance_steps</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - the cycle did not advance properly&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - the cycle did not advance properly&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">validation_df</span></div>
 
-<div class="viewcode-block" id="validation_check_charging"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_charging">[docs]</a><span class="k">def</span> <span class="nf">validation_check_charging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">charge_steps</span><span class="p">):</span>
+<div class="viewcode-block" id="validation_check_charging"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_charging">[docs]</a><span class="k">def</span> <span class="nf">validation_check_charging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">schedule_df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">,</span> <span class="n">char_tol</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function will validate the testdata against the charging steps by making sure the current is positive</span>
+<span class="sd">    This function will validate the testdata against the charging steps by making sure the current is within 5 of the schedule file&#39;s instructions</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
@@ -230,10 +277,19 @@
 
 <span class="sd">    df : pandas dataframe</span>
 <span class="sd">        The testdata dataframe</span>
-<span class="sd">    </span>
-<span class="sd">    charge_steps : array</span>
-<span class="sd">        An array of the charging steps from the schedule file</span>
 
+<span class="sd">    schedule_df : pandas dataframe</span>
+<span class="sd">        The dataframe of the cleaned schedule file</span>
+
+<span class="sd">    i : integer</span>
+<span class="sd">        An integer of the index where you want to validate</span>
+
+<span class="sd">    cell_id : integer</span>
+<span class="sd">        The cell id of the testdata</span>
+<span class="sd">    </span>
+<span class="sd">    char_tol : integer</span>
+<span class="sd">        Sets the tolerance between the current/discharging current values and the set value in the schedule file. Default is 2.</span>
+<span class="sd">        </span>
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
 <span class="sd">    validation_df : pandas dataframe</span>
@@ -241,17 +297,39 @@
 <span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.validate import validation_check_charging</span>
-<span class="sd">    &gt;&gt;&gt; validation_check_charging(validation_df, df, [1, 3])</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.validate as validate</span>
+<span class="sd">    &gt;&gt;&gt; validation_df = validate.validation_check_charging(validation_df, df, schedule_df, i, 1)</span>
+<span class="sd">    &gt;&gt;&gt; validation_df</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">charge_steps</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;current_ma&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - current is negative during charging&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s1">&#39;step_mode&#39;</span><span class="p">][</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">mode_value</span> <span class="o">=</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s1">&#39;step_mode_value&#39;</span><span class="p">][</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">limit</span> <span class="o">=</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s1">&#39;step_limit&#39;</span><span class="p">][</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">limit_value</span> <span class="o">=</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s1">&#39;step_limit_value&#39;</span><span class="p">][</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Current&#39;</span><span class="p">:</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;current_ma&#39;</span>
+        <span class="n">mode_value</span> <span class="o">=</span> <span class="n">mode_value</span> <span class="o">*</span> <span class="mi">1000</span>
+        <span class="k">if</span> <span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mode</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="n">char_tol</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">mode_value</span><span class="p">)</span> <span class="ow">or</span> <span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mode</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">char_tol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">mode_value</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">validation_df</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Voltage&#39;</span><span class="p">:</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;voltage_v&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mode</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="n">mode_value</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">validation_df</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">limit</span> <span class="o">==</span> <span class="s1">&#39;Current&#39;</span><span class="p">:</span>
+            <span class="n">limit</span> <span class="o">=</span> <span class="s1">&#39;current_ma&#39;</span>
+            <span class="n">limit_value</span> <span class="o">=</span> <span class="n">limit_value</span> <span class="o">*</span> <span class="mi">1000</span>
+            <span class="k">if</span> <span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">limit</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="n">char_tol</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">limit_value</span><span class="p">)</span> <span class="ow">or</span> <span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">limit</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">char_tol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">limit_value</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">validation_df</span>
+        <span class="k">elif</span> <span class="n">limit</span> <span class="o">==</span> <span class="s1">&#39;Voltage&#39;</span><span class="p">:</span>
+            <span class="n">limit</span> <span class="o">=</span> <span class="s1">&#39;voltage_v&#39;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">limit</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="n">limit_value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">validation_df</span>
+    
+    <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cell_id</span><span class="p">),</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; is at the wrong value&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">validation_df</span></div>
 
-
-<div class="viewcode-block" id="validation_check_discharging"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_discharging">[docs]</a><span class="k">def</span> <span class="nf">validation_check_discharging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">discharge_steps</span><span class="p">):</span>
+<div class="viewcode-block" id="validation_check_discharging"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_discharging">[docs]</a><span class="k">def</span> <span class="nf">validation_check_discharging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">schedule_df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">,</span> <span class="n">discharge_neg</span><span class="p">,</span> <span class="n">char_tol</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function will validate the testdata against the discharging steps by making sure the current is negative</span>
 
@@ -262,9 +340,21 @@
 
 <span class="sd">    df : pandas dataframe</span>
 <span class="sd">        The testdata dataframe</span>
-<span class="sd">    </span>
-<span class="sd">    discharge_steps : array</span>
-<span class="sd">        An array of the discharging steps from the schedule file</span>
+
+<span class="sd">    schedule_df : pandas dataframe</span>
+<span class="sd">        The dataframe of the cleaned schedule file</span>
+
+<span class="sd">    i : integer</span>
+<span class="sd">        An integer of the index where you want to validate</span>
+
+<span class="sd">    cell_id : integer</span>
+<span class="sd">        The cell id of the testdata</span>
+
+<span class="sd">    discharge_neg : boolean</span>
+<span class="sd">        Set to True if the current is exported as negative during discharge steps.</span>
+<span class="sd">        </span>
+<span class="sd">    char_tol : integer</span>
+<span class="sd">        Sets the tolerance between the current/discharging current values and the set value in the schedule file. Default is 2.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
@@ -273,16 +363,45 @@
 <span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.validate import validation_check_discharging</span>
-<span class="sd">    &gt;&gt;&gt; validation_check_discharging(validation_df, df, [6, 7])</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.validate as validate</span>
+<span class="sd">    &gt;&gt;&gt; validation_df = validate.validation_check_discharging(validation_df, df, schedule_df, i, 1, True)</span>
+<span class="sd">    &gt;&gt;&gt; validation_df</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">discharge_steps</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;current_ma&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - current is positive during discharging&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s1">&#39;step_mode&#39;</span><span class="p">][</span><span class="n">step</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">mode_value</span> <span class="o">=</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s1">&#39;step_mode_value&#39;</span><span class="p">][</span><span class="n">step</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">limit</span> <span class="o">=</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s1">&#39;step_limit&#39;</span><span class="p">][</span><span class="n">step</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">limit_value</span> <span class="o">=</span> <span class="n">schedule_df</span><span class="p">[</span><span class="s1">&#39;step_limit_value&#39;</span><span class="p">][</span><span class="n">step</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Current&#39;</span><span class="p">:</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;current_ma&#39;</span>
+        <span class="n">mode_value</span> <span class="o">=</span> <span class="n">mode_value</span> <span class="o">*</span> <span class="mi">1000</span>
+        <span class="k">if</span> <span class="n">discharge_neg</span><span class="p">:</span>
+            <span class="n">mode_value</span> <span class="o">=</span> <span class="o">-</span><span class="n">mode_value</span>
+        <span class="k">if</span> <span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mode</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="n">char_tol</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">mode_value</span><span class="p">)</span> <span class="ow">or</span> <span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mode</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">char_tol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">mode_value</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">validation_df</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Voltage&#39;</span><span class="p">:</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;voltage_v&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mode</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="n">mode_value</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">validation_df</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">limit</span> <span class="o">==</span> <span class="s1">&#39;Current&#39;</span><span class="p">:</span>
+            <span class="n">limit</span> <span class="o">=</span> <span class="s1">&#39;current_ma&#39;</span>
+            <span class="n">limit_value</span> <span class="o">=</span> <span class="n">limit_value</span> <span class="o">*</span> <span class="mi">1000</span>
+            <span class="k">if</span> <span class="n">discharge_neg</span><span class="p">:</span>
+                <span class="n">limit_value</span> <span class="o">=</span> <span class="o">-</span><span class="n">limit_value</span>
+            <span class="k">if</span> <span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">limit</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="n">char_tol</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">limit_value</span><span class="p">)</span> <span class="ow">or</span> <span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">limit</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">char_tol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">limit_value</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">validation_df</span>
+        <span class="k">elif</span> <span class="n">limit</span> <span class="o">==</span> <span class="s1">&#39;Voltage&#39;</span><span class="p">:</span>
+            <span class="n">limit</span> <span class="o">=</span> <span class="s1">&#39;voltage_v&#39;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">limit</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="n">limit_value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">validation_df</span>
+
+    <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">)),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cell_id</span><span class="p">),</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; is at the wrong value&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">validation_df</span></div>
 
-<div class="viewcode-block" id="validation_check_max_step_num"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_max_step_num">[docs]</a><span class="k">def</span> <span class="nf">validation_check_max_step_num</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">max_step</span><span class="p">):</span>
+<div class="viewcode-block" id="validation_check_max_step_num"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_max_step_num">[docs]</a><span class="k">def</span> <span class="nf">validation_check_max_step_num</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">max_step</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function will validate the testdata against the max step by making sure no steps surpass the max.</span>
 
@@ -297,6 +416,12 @@
 <span class="sd">    max_step : integer</span>
 <span class="sd">        The last step from the schedule file</span>
 
+<span class="sd">    i : integer</span>
+<span class="sd">        An integer of the index where you want to validate</span>
+
+<span class="sd">    cell_id : integer</span>
+<span class="sd">        The cell id of the testdata</span>
+<span class="sd">        </span>
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
 <span class="sd">    validation_df : pandas dataframe</span>
@@ -304,15 +429,16 @@
 <span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.validate import validation_check_max_step_num</span>
-<span class="sd">    &gt;&gt;&gt; validation_check_max_step_num(validation_df, df, 23)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.validate as validate</span>
+<span class="sd">    &gt;&gt;&gt; validation_df = validate.validation_check_max_step_num(validation_df, df, max_step, i, 1)</span>
+<span class="sd">    &gt;&gt;&gt; validation_df</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_step</span><span class="p">:</span>
-            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - this step number surpasses the steps in scheduler&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - this step number surpasses the steps in scheduler&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">validation_df</span></div>
 
-<div class="viewcode-block" id="validation_check_max_temp"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_max_temp">[docs]</a><span class="k">def</span> <span class="nf">validation_check_max_temp</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">max_temp</span><span class="p">,</span> <span class="n">temp_tol</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<div class="viewcode-block" id="validation_check_max_temp"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_max_temp">[docs]</a><span class="k">def</span> <span class="nf">validation_check_max_temp</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">max_temp</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">,</span> <span class="n">temp_tol</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function will validate the testdata against the max temperature by making sure no steps surpass the max.</span>
 
@@ -327,6 +453,12 @@
 <span class="sd">    max_temp : integer</span>
 <span class="sd">        The threshold for the highest temperature allowed</span>
 
+<span class="sd">    i : integer</span>
+<span class="sd">        An integer of the index where you want to validate</span>
+
+<span class="sd">    cell_id : integer</span>
+<span class="sd">        The cell id of the testdata</span>
+<span class="sd">        </span>
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
 <span class="sd">    validation_df : pandas dataframe</span>
@@ -345,19 +477,20 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.validate import validation_check_max_temp</span>
-<span class="sd">    &gt;&gt;&gt; validation_check_max_temp(validation_df, df, 40, 4)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.validate as validate</span>
+<span class="sd">    &gt;&gt;&gt; validation_df = validate.validation_check_max_temp(validation_df, df, 30, i, 1, 3)</span>
+<span class="sd">    &gt;&gt;&gt; validation_df</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="p">((</span><span class="n">max_temp</span><span class="o">-</span><span class="n">tol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">max_temp</span><span class="o">+</span><span class="n">tol</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">max_temp</span><span class="o">-</span><span class="n">temp_tol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">max_temp</span><span class="o">+</span><span class="n">temp_tol</span><span class="p">)):</span>
         <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - temperature has surpassed the max!&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">max_temp</span><span class="o">+</span><span class="n">tol</span><span class="p">)):</span>
+    <span class="k">elif</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">max_temp</span><span class="o">+</span><span class="n">temp_tol</span><span class="p">)):</span>
         <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;ABORT - temperature is way too hot!&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="p">((</span><span class="n">max_temp</span><span class="o">-</span><span class="n">tol</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])):</span>
+    <span class="k">elif</span> <span class="p">((</span><span class="n">max_temp</span><span class="o">-</span><span class="n">temp_tol</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])):</span>
         <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;warning - temperature approaching the max!&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">validation_df</span></div>
 
-<div class="viewcode-block" id="validation_check_rest"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_rest">[docs]</a><span class="k">def</span> <span class="nf">validation_check_rest</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">rest_steps</span><span class="p">):</span>
+<div class="viewcode-block" id="validation_check_rest"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validation_check_rest">[docs]</a><span class="k">def</span> <span class="nf">validation_check_rest</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function will validate the testdata against the rest steps by making sure the current is at 0 when resting.</span>
 
@@ -368,9 +501,12 @@
 
 <span class="sd">    df : pandas dataframe</span>
 <span class="sd">        The testdata dataframe</span>
-<span class="sd">    </span>
-<span class="sd">    rest_steps : array</span>
-<span class="sd">        An array of the rest steps from the schedule file</span>
+
+<span class="sd">    i : integer</span>
+<span class="sd">        An integer of the index where you want to validate</span>
+
+<span class="sd">    cell_id : integer</span>
+<span class="sd">        The cell id of the testdata</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
@@ -379,36 +515,36 @@
 <span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.validate import validation_check_rest</span>
-<span class="sd">    &gt;&gt;&gt; validation_check_rest(validation_df, df, 40, [8, 9])</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.validate as validate</span>
+<span class="sd">    &gt;&gt;&gt; validation_df = validate.validation_check_rest_steps(validation_df, df, i, 1)</span>
+<span class="sd">    &gt;&gt;&gt; validation_df</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">rest_steps</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;current_ma&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - current is not at 0 during rest step&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;current_ma&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;in progress&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;error - current is not at 0 during rest step&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">validation_df</span></div>
 
 
-<div class="viewcode-block" id="validate_test_data"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validate_test_data">[docs]</a><span class="k">def</span> <span class="nf">validate_test_data</span><span class="p">(</span><span class="n">schedule_df</span> <span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="n">temp_interval</span><span class="p">,</span> <span class="n">max_temp</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<div class="viewcode-block" id="validate_test_data"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.validate.validate_test_data">[docs]</a><span class="k">def</span> <span class="nf">validate_test_data</span><span class="p">(</span><span class="n">schedule_df</span> <span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="n">temp_interval</span><span class="p">,</span> <span class="n">max_temp</span><span class="p">,</span> <span class="n">discharge_neg</span><span class="p">,</span> <span class="n">temp_tol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">char_tol</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a wrapper function that validates the testdata against the schedule file.</span>
 <span class="sd">    The sub-modules that are validated are: </span>
 
-<span class="sd">    - validation_check_rest(validation_df, df, rest_steps)</span>
+<span class="sd">    - validation_check_rest(validation_df, df, i, cell_id)</span>
 
-<span class="sd">    - validation_check_charging(validation_df, df, charge_steps)</span>
+<span class="sd">    - validation_check_charging(validation_df, df, schedule_df, i, cell_id)</span>
 
-<span class="sd">    - validation_check_discharging(validation_df, df, discharge_steps)</span>
+<span class="sd">    - validation_check_discharging(validation_df, df, schedule_df, i, cell_id, discharge_neg)</span>
 
-<span class="sd">    - validation_check_advanced_cycle(validation_df, df, advance_steps)</span>
+<span class="sd">    - validation_check_advanced_cycle(validation_df, df, i, cell_id)</span>
 
-<span class="sd">    - validation_check_max_step_num(validation_df, df, max_step)</span>
+<span class="sd">    - validation_check_max_step_num(validation_df, df, max_step, i, cell_id)</span>
 
-<span class="sd">    - validation_check_max_temp(validation_df, df, max_temp)</span>
+<span class="sd">    - validation_check_max_temp(validation_df, df, max_temp, i, cell_id, tol=3)</span>
 
-<span class="sd">    - validation_check_time_interval(validation_df, df, time_interval)</span>
+<span class="sd">    - validation_check_time_interval(validation_df, df, time_interval, i, cell_id)</span>
 
-<span class="sd">    - validation_check_temp_interval(validation_df, df, temp_interval)</span>
+<span class="sd">    - validation_check_temp_interval(validation_df, df, temp_interval, i, cell_id)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
@@ -430,8 +566,14 @@
 <span class="sd">    max_temp : integer</span>
 <span class="sd">        The threshold for the highest temperature allowed</span>
 
-<span class="sd">    tol : integer</span>
+<span class="sd">    discharge_neg : boolean</span>
+<span class="sd">        Set to True if the current was exported as negative during discharge steps.</span>
+
+<span class="sd">    temp_tol : integer</span>
 <span class="sd">        Sets the tolerance between warning, error, and ABORT messages. Default is 3 degrees.</span>
+<span class="sd">        </span>
+<span class="sd">    char_tol : integer</span>
+<span class="sd">        Sets the tolerance between the current/discharging current values and the set value in the schedule file. Default is 2.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
@@ -451,38 +593,45 @@
 
 <span class="sd">    Notes</span>
 <span class="sd">    ------</span>
+<span class="sd">    Depending on the size of your testdata and schedules, this function may take much longer to run.</span>
+<span class="sd">    </span>
 <span class="sd">    There are 3 possibilities of error messages:</span>
 
-<span class="sd">    1. warning - temperature approaching the max! (current temperature + tol &gt; max)</span>
+<span class="sd">    1. warning - temperature approaching the max! (current temperature + temp_tol &gt; max)</span>
 
 <span class="sd">    2. error - temperature has surpassed the max! (current temperature &gt;= max)</span>
 
-<span class="sd">    3. ABORT - temperature is way too hot! (current temperature &gt; max + tol)</span>
+<span class="sd">    3. ABORT - temperature is way too hot! (current temperature &gt; max + temp_tol)</span>
 
 
 <span class="sd">    Examples</span>
 <span class="sd">    ---------</span>
-<span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.validate import validate_test_data</span>
-<span class="sd">    &gt;&gt;&gt; validate_test_data(schedule_df , df, 7, 5, 5, 40, 4)</span>
+<span class="sd">    &gt;&gt;&gt; import maccorcyclingdata.validate as validate</span>
+<span class="sd">    &gt;&gt;&gt; validation_df = validate.validate_test_data(schedule_df, df, 1, 10, 30, True, 5)</span>
+<span class="sd">    &gt;&gt;&gt; validation_df</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">,</span> <span class="s2">&quot;cell_num&quot;</span><span class="p">,</span> <span class="s2">&quot;row_number&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">]</span>
     <span class="n">validation_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">column_names</span><span class="p">)</span>
     <span class="n">rest_steps</span><span class="p">,</span> <span class="n">charge_steps</span><span class="p">,</span> <span class="n">advance_steps</span><span class="p">,</span> <span class="n">discharge_steps</span><span class="p">,</span> <span class="n">end_steps</span><span class="p">,</span> <span class="n">max_step</span> <span class="o">=</span> <span class="n">sort_scheduler_steps</span><span class="p">(</span><span class="n">schedule_df</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span> 
-        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_rest</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">rest_steps</span><span class="p">)</span>
-        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_charging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">charge_steps</span><span class="p">)</span>
-        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_discharging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">discharge_steps</span><span class="p">)</span>
-        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_advanced_cycle</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">advance_steps</span><span class="p">)</span>
-        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_max_step_num</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">max_step</span><span class="p">)</span>
-        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_max_temp</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">max_temp</span><span class="p">,</span> <span class="n">tol</span><span class="p">)</span>
-        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_time_interval</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">)</span>
-        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_temp_interval</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">temp_interval</span><span class="p">)</span>
-
+        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">rest_steps</span><span class="p">:</span>
+            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_rest</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">charge_steps</span><span class="p">:</span>
+            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_charging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">schedule_df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">,</span> <span class="n">char_tol</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">discharge_steps</span><span class="p">:</span>
+            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_discharging</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">schedule_df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">,</span> <span class="n">discharge_neg</span><span class="p">,</span> <span class="n">char_tol</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">advance_steps</span><span class="p">:</span>
+            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_advanced_cycle</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">)</span>
+        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_max_step_num</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">max_step</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">)</span>
+        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_max_temp</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">max_temp</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">,</span> <span class="n">temp_tol</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_time_interval</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">)</span>
+            <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_check_temp_interval</span><span class="p">(</span><span class="n">validation_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">temp_interval</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;run complete&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;there are no errors&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;run complete&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cell_id</span><span class="p">),</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;there are no errors&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">validation_df</span>
-    <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;run complete&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="n">cell_id</span><span class="p">,</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;errors listed above&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">validation_df</span> <span class="o">=</span> <span class="n">validation_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">),</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;run complete&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cell_id</span><span class="p">),</span> <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;errors listed above&#39;</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">validation_df</span></div>
 </pre></div>
 

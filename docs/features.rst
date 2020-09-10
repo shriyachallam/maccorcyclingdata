@@ -19,7 +19,7 @@ brackets.
 
 -  ``schedules.import_schedules(file_path, file_name)``: Given the file path and file name (of the schedule file that is inputted into the Maccor Cycler), this function will import and clean the schedule file and return it as a df.
 
--  ``validate.validate_test_data(schedule_df, df, cell_id, time_interval, temp_interval, max_temp)``: This is a function that validates the testdata against the schedule file.
+-  ``validate.validate_test_data(schedule_df, df, cell_id, time_interval, temp_interval, max_temp, discharge_neg, temp_tol=3, char_tol=2)``: This is a function that validates the testdata against the schedule file.
     
 In what follows, the above functions will be referred by simply their name, without stating the modules they belong to.
 
@@ -153,9 +153,11 @@ Parameters of this function (in this order):
 
 - discharge_neg = True if the current of the testdata was exported as negative during discharge steps (boolean)
 
-- tol = when making sure the temperature doesn't exceed a certain amount, this function will return either a warning, error, or ABORT message. this input specifies the tolerance should these messages. This is an optional input, the default value is 3.
+- temp_tol = when making sure the temperature doesn't exceed a certain amount, this function will return either a warning, error, or ABORT message. this input specifies the tolerance should these messages. This is an optional input, the default value is 3.
 
-The erros this function checks for:
+- charg_tol = when checking whether the current matches the value specified in the scheduler, this input specifies how much tolerance (how much the current is allowed to waiver by). This is an optional input, the default value is 2.
+
+The errors this function checks for:
 
 - if during all the rest steps, the battery is actually resting
 

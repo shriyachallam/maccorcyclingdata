@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Preparing MACCOR Data &mdash; BattGeniePublish 1 documentation</title>
+  <title>Preparing MACCOR Data &mdash; maccorcyclingdata 1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Code overview" href="overview.html" />
-    <link rel="prev" title="Documentation for MaccorCyclingData" href="index.html" /> 
+    <link rel="prev" title="Documentation for maccorcyclingdata" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> BattGeniePublish
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> maccorcyclingdata
           
 
           
@@ -83,7 +83,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation for MaccorCyclingData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation for maccorcyclingdata</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Preparing MACCOR Data</a><ul>
@@ -110,7 +110,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">BattGeniePublish</a>
+          <a href="index.html">maccorcyclingdata</a>
         
       </nav>
 
@@ -166,11 +166,12 @@
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>The <strong>example.ipynb</strong> provides examples where all the functions are used on the given example data.
-To run this example, simply open and run each cell in the example Jupyter Notebok provided.</p>
+To run this example, simply open and run each cell in the example Jupyter Notebok provided.
+In the <code class="docutils literal notranslate"><span class="pre">example_data</span></code> directory, there is example testdata and an example schedule file to show how the data columns should be formatted.</p>
 </div>
 <div class="section" id="requirements-and-installation">
 <h2>Requirements and Installation<a class="headerlink" href="#requirements-and-installation" title="Permalink to this headline">¶</a></h2>
-<p>This code has been developed in Python 3.7.6 and it is compatible with Python above 3.5 versions. The code has been tested to run in Windows, OSX and Linux operating systems.</p>
+<p>This code has been developed in Python 3.7.6. The code has been tested to run in Windows, Linux, and macOS.</p>
 <p>This code uses numpy and pandas as specified in docs/requirements.txt.</p>
 <p>The code can be run directly from a cloned GitHub <a class="reference external" href="https://github.com/shriyachallam/maccorcyclingdata">repository</a> or it can also be installed as a python <a class="reference external" href="https://pypi.org/project/maccorcyclingdata/">package</a> through pip:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">maccorcyclingdata</span>
@@ -179,29 +180,44 @@ To run this example, simply open and run each cell in the example Jupyter Notebo
 <p>The functions in the package can be used after importing testdata, schedules, validate for example as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maccorcyclingdata.testdata</span> <span class="k">as</span> <span class="nn">testdata</span>
 <span class="kn">import</span> <span class="nn">maccorcyclingdata.schedules</span> <span class="k">as</span> <span class="nn">schedules</span>
-<span class="kn">import</span> <span class="nn">maccorcyclingdata.validate</span> <span class="k">as</span> <span class="nn">testdata</span>
+<span class="kn">import</span> <span class="nn">maccorcyclingdata.validate</span> <span class="k">as</span> <span class="nn">validate</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="compatibility">
 <span id="compability"></span><h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
-<p>The raw testdata and schedule file that this package is used on must be csv files. The example uses data exported from ______ model of <a class="reference external" href="http://www.maccor.com/">MACCOR</a> battery cyclers.
-As long the raw testdata from the <a class="reference external" href="http://www.maccor.com/">MACCOR</a> battery cyclers has columns named and ordered as the following, this package should work:</p>
+<p>The raw testdata and schedule file that this package is used on must be csv files. Additionally, the first column of both files should be the header of the datatable.
+The example uses data exported from <a class="reference external" href="http://www.maccor.com/">MACCOR</a> battery cyclers.
+The raw testdata should be exported with columns in the following order and with the following units (the names can be anything since the <strong>import_maccor_data</strong> function will rename all columns):</p>
 <ol class="arabic simple">
-<li><p>‘Cyc#’</p></li>
-<li><p>‘Step’</p></li>
-<li><p>‘TestTime(s)’</p></li>
-<li><p>‘StepTime(s)’</p></li>
-<li><p>‘Capacity(Ah)’</p></li>
-<li><p>‘Watt-hr’</p></li>
-<li><p>‘Current(A)’</p></li>
-<li><p>‘Voltage(V)’</p></li>
-<li><p>‘DPt Time’</p></li>
-<li><p>‘ACR’</p></li>
-<li><p>‘DCIR’</p></li>
-<li><p>‘Temp 1’</p></li>
-<li><p>‘EV Temp’</p></li>
-<li><p>‘Unnamed: 13’</p></li>
+<li><p>Cycle Number</p></li>
+<li><p>Step Number</p></li>
+<li><p>Total Test Time (seconds)</p></li>
+<li><p>Step Time (seconds)</p></li>
+<li><p>Capacity (mAh)</p></li>
+<li><p>Current (mA)</p></li>
+<li><p>Voltage (V)</p></li>
+<li><p>DPt Time (seconds)</p></li>
+<li><p>Temperature (Celsius)</p></li>
+<li><p>EV Temperature (Celsius)</p></li>
+</ol>
+<p>The following columns may also exist, but must be named as the following: <code class="docutils literal notranslate"><span class="pre">ACR</span></code>, <code class="docutils literal notranslate"><span class="pre">DCIR</span></code>, <code class="docutils literal notranslate"><span class="pre">Watt-hr</span></code>, and <code class="docutils literal notranslate"><span class="pre">nnnamed</span></code>.</p>
+<p>The schedule should have columns in the following order (the names can be anything since the <strong>import_schedules</strong> function will rename all columns):</p>
+<ol class="arabic simple">
+<li><p>Step Number</p></li>
+<li><p>Step Type</p></li>
+<li><p>Step Mode Type</p></li>
+<li><p>Step Mode Value</p></li>
+<li><p>Step Limit Type</p></li>
+<li><p>Step Limit Value</p></li>
+<li><p>End Type</p></li>
+<li><p>Operator (=, &lt;=, &gt;=)</p></li>
+<li><p>End Type Value</p></li>
+<li><p>Goto Step Number</p></li>
+<li><p>Report Type</p></li>
+<li><p>Report Type Value</p></li>
+<li><p>Options</p></li>
+<li><p>Step Note</p></li>
 </ol>
 <p>If you encounter any issues running the code for any MACCOR model report an issue. Note that an example file will be needed in order to improve the code.</p>
 </div>
@@ -218,7 +234,7 @@ As long the raw testdata from the <a class="reference external" href="http://www
         <a href="overview.html" class="btn btn-neutral float-right" title="Code overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Documentation for MaccorCyclingData" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Documentation for maccorcyclingdata" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

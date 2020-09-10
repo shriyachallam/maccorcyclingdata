@@ -112,7 +112,7 @@ def validation_check_advanced_cycle(validation_df, df, i, cell_id):
         validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - the cycle did not advance properly'}, ignore_index=True)
     return validation_df
 
-def validation_check_charging(validation_df, df, schedule_df, i, cell_id):
+def validation_check_charging(validation_df, df, schedule_df, i, cell_id, char_tol=2):
     """
     This function will validate the testdata against the charging steps by making sure the current is within 5 of the schedule file's instructions
 
@@ -132,6 +132,9 @@ def validation_check_charging(validation_df, df, schedule_df, i, cell_id):
 
     cell_id : integer
         The cell id of the testdata
+    
+    char_tol : integer
+        Sets the tolerance between the current/discharging current values and the set value in the schedule file. Default is 2.
         
     Returns
     --------
@@ -152,24 +155,27 @@ def validation_check_charging(validation_df, df, schedule_df, i, cell_id):
     if mode == 'Current':
         mode = 'current_ma'
         mode_value = mode_value * 1000
+        if ((round(df[mode][i]) + char_tol) >= mode_value) or ((round(df[mode][i]) - char_tol) <= mode_value):
+            return validation_df
     elif mode == 'Voltage':
         mode = 'voltage_v'
+        if (round(df[mode][i], 1)) == mode_value:
+            return validation_df
     if not pd.isna(limit):
         if limit == 'Current':
             limit = 'current_ma'
             limit_value = limit_value * 1000
+            if ((round(df[limit][i]) + char_tol) >= limit_value) or ((round(df[limit][i]) - char_tol) <= limit_value):
+                return validation_df
         elif limit == 'Voltage':
             limit = 'voltage_v'
+            if (round(df[limit][i], 1)) == limit_value:
+                return validation_df
     
-    if ((df[mode][i] + 1) > mode_value) or ((df[mode][i] - 1) < mode_value):
-        return validation_df
-    elif ((df[limit][i] + 1) > limit_value) or ((df[limit][i] - 1) < limit_value):
-        return validation_df
-    else:
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - ' + mode + 'is at the wrong value'}, ignore_index=True)
-        return validation_df
+    validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': str(cell_id), 'row_number': str(i), 'error': 'error - ' + str(mode) + ' is at the wrong value'}, ignore_index=True)
+    return validation_df
 
-def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, discharge_neg):
+def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, discharge_neg, char_tol=2):
     """
     This function will validate the testdata against the discharging steps by making sure the current is negative
 
@@ -192,6 +198,9 @@ def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, dis
 
     discharge_neg : boolean
         Set to True if the current is exported as negative during discharge steps.
+        
+    char_tol : integer
+        Sets the tolerance between the current/discharging current values and the set value in the schedule file. Default is 2.
 
     Returns
     --------
@@ -206,20 +215,6 @@ def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, dis
     """
 
     step = df['step'][i]
-    if (str(schedule_df['step_type'][step+1])).startswith("Do"):
-            do = str(schedule_df['step_type'][i])
-            do = do.replace("Do", "")
-            do = int(do)
-            done = False
-            while not done:
-                if (str(schedule_df['step_type'][do-1])).startswith("Do"):
-                    do = str(schedule_df['step_type'][do-1])
-                    do = do.replace("Do","")
-                    do = int(do)
-                    done = False
-                else:
-                    step = schedule_df['step_type'][do-1]
-                    done = True
     mode = schedule_df['step_mode'][step-1]
     mode_value = schedule_df['step_mode_value'][step-1]
     limit = schedule_df['step_limit'][step-1]
@@ -228,26 +223,29 @@ def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, dis
     if mode == 'Current':
         mode = 'current_ma'
         mode_value = mode_value * 1000
-        if not discharge_neg:
+        if discharge_neg:
             mode_value = -mode_value
+        if ((round(df[mode][i]) + char_tol) >= mode_value) or ((round(df[mode][i]) - char_tol) <= mode_value):
+            return validation_df
     elif mode == 'Voltage':
         mode = 'voltage_v'
+        if (round(df[mode][i], 1)) == mode_value:
+            return validation_df
     if not pd.isna(limit):
         if limit == 'Current':
             limit = 'current_ma'
             limit_value = limit_value * 1000
-            if not discharge_neg:
+            if discharge_neg:
                 limit_value = -limit_value
+            if ((round(df[limit][i]) + char_tol) >= limit_value) or ((round(df[limit][i]) - char_tol) <= limit_value):
+                return validation_df
         elif limit == 'Voltage':
             limit = 'voltage_v'
+            if (round(df[limit][i], 1)) == limit_value:
+                return validation_df
 
-    if ((df[mode][i] + 1) > mode_value) or ((df[mode][i] - 1) < mode_value):
-        return validation_df
-    elif ((df[limit][i] + 1) > limit_value) or ((df[limit][i] - 1) < limit_value):
-        return validation_df
-    else:
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - ' + mode + 'is at the wrong value'}, ignore_index=True)
-        return validation_df
+    validation_df = validation_df.append({'time':str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")), 'run': 'in progress', 'cell_num': str(cell_id), 'row_number': str(i), 'error': 'error - ' + str(mode) + ' is at the wrong value'}, ignore_index=True)
+    return validation_df
 
 def validation_check_max_step_num(validation_df, df, max_step, i, cell_id):
     """
@@ -373,7 +371,7 @@ def validation_check_rest(validation_df, df, i, cell_id):
     return validation_df
 
 
-def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, max_temp, discharge_neg, tol=3):
+def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, max_temp, discharge_neg, temp_tol=3, char_tol=2):
     """
     This is a wrapper function that validates the testdata against the schedule file.
     The sub-modules that are validated are: 
@@ -417,8 +415,11 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
     discharge_neg : boolean
         Set to True if the current was exported as negative during discharge steps.
 
-    tol : integer
+    temp_tol : integer
         Sets the tolerance between warning, error, and ABORT messages. Default is 3 degrees.
+        
+    char_tol : integer
+        Sets the tolerance between the current/discharging current values and the set value in the schedule file. Default is 2.
 
     Returns
     --------
@@ -442,11 +443,11 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
     
     There are 3 possibilities of error messages:
 
-    1. warning - temperature approaching the max! (current temperature + tol > max)
+    1. warning - temperature approaching the max! (current temperature + temp_tol > max)
 
     2. error - temperature has surpassed the max! (current temperature >= max)
 
-    3. ABORT - temperature is way too hot! (current temperature > max + tol)
+    3. ABORT - temperature is way too hot! (current temperature > max + temp_tol)
 
 
     Examples
@@ -462,15 +463,14 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
     for i in df.index: 
         if df['step'][i] in rest_steps:
             validation_df = validation_check_rest(validation_df, df, i, cell_id)
-        if df['step'][i] in charge_steps:
-            step = df['step'][i]
-            validation_df = validation_check_charging(validation_df, df, schedule_df, i, cell_id)
-        if df['step'][i] in discharge_steps:
-            validation_df = validation_check_discharging(validation_df, df, schedule_df, i, cell_id, discharge_neg)
-        if df['step'][i] in advance_steps:
+        elif df['step'][i] in charge_steps:
+            validation_df = validation_check_charging(validation_df, df, schedule_df, i, cell_id, char_tol)
+        elif df['step'][i] in discharge_steps:
+            validation_df = validation_check_discharging(validation_df, df, schedule_df, i, cell_id, discharge_neg, char_tol)
+        elif df['step'][i] in advance_steps:
             validation_df = validation_check_advanced_cycle(validation_df, df, i, cell_id)
         validation_df = validation_check_max_step_num(validation_df, df, max_step, i, cell_id)
-        validation_df = validation_check_max_temp(validation_df, df, max_temp, i, cell_id, tol)
+        validation_df = validation_check_max_temp(validation_df, df, max_temp, i, cell_id, temp_tol)
         if i != 0:
             validation_df = validation_check_time_interval(validation_df, df, time_interval, i, cell_id)
             validation_df = validation_check_temp_interval(validation_df, df, temp_interval, i, cell_id)

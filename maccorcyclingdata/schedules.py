@@ -118,27 +118,5 @@ def sort_scheduler_steps(schedule_df):
         if schedule_df['step_type'][i] == "End":
             end_steps.append(i+1)        
         max_step = schedule_df["step"].iloc[-1]
-        if (str(schedule_df['step_type'][i])).startswith("Do"):
-            do = str(schedule_df['step_type'][i])
-            do = do.replace("Do", "")
-            do = int(do)
-            done = False
-            while not done:
-                if (str(schedule_df['step_type'][do-1])).startswith("Do"):
-                    do = str(schedule_df['step_type'][do-1])
-                    do = do.replace("Do","")
-                    do = int(do)
-                    done = False
-                else:
-                    if schedule_df['step_type'][do-1] == "Rest":
-                        rest_steps.append(i+1)
-                    if schedule_df['step_type'][do-1] == "Charge":
-                        charge_steps.append(i+1)
-                    if schedule_df['step_type'][do-1] == "Discharge":
-                        discharge_steps.append(i+1)
-                    if schedule_df['step_type'][do-1] == "Advance Cycle":
-                        advance_steps.append(i+1)
-                    if schedule_df['step_type'][do-1] == "End":
-                        end_steps.append(i+1)
-                    done = True
+        
     return rest_steps, charge_steps, advance_steps, discharge_steps, end_steps, max_step
