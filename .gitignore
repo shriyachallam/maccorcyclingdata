@@ -1,0 +1,6 @@
+# Don't track content of these folders
+build/
+.ipynb_checkpoints/
+.vscode/
+maccorcyclingdata.egg-info/
+.readthedocs.yml/
