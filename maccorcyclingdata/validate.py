@@ -281,7 +281,7 @@ def validation_check_max_step_num(validation_df, df, max_step, i, cell_id):
     """
 
     if df['step'][i] > max_step:
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - this step number surpasses the steps in scheduler'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - this step number surpasses the steps in cycler schedule'}, ignore_index=True)
     return validation_df
 
 def validation_check_max_temp(validation_df, df, max_temp, i, cell_id, temp_tol=3):

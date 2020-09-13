@@ -131,11 +131,11 @@ The function will rename the columns to the following (in this order): 'step', '
 For all multiline steps (for example: steps with multiple options for the step it should go to depending on the result), this function will append those multiple lines into an array with each element being the value of each line. This allows for the function to keep each step to one line. 
 This function sets the datatype of the ``step`` and ``step_limit_value`` to integer and float respectively.
 
-The function returns a pandas dataframe of the cleaned scheduler.
+The function returns a pandas dataframe of the cleaned cycler schedule.
 
 The ``validate_test_data`` function
 -------------------------------------------
-The ``validate_test_data`` function validates the testdata against the scheduler.
+The ``validate_test_data`` function validates the testdata against the cycler schedule.
 
 Parameters of this function (in this order):
 
@@ -155,7 +155,7 @@ Parameters of this function (in this order):
 
 - temp_tol = when making sure the temperature doesn't exceed a certain amount, this function will return either a warning, error, or ABORT message. this input specifies the tolerance should these messages. This is an optional input, the default value is 3.
 
-- charg_tol = when checking whether the current matches the value specified in the scheduler, this input specifies how much tolerance (how much the current is allowed to waiver by). This is an optional input, the default value is 2.
+- charg_tol = when checking whether the current matches the value specified in the cycler schedule, this input specifies how much tolerance (how much the current is allowed to waiver by). This is an optional input, the default value is 2.
 
 The errors this function checks for:
 
