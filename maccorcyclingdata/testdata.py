@@ -115,7 +115,7 @@ def clean_maccor_df(df):
 
 def delete_cycle_steps(df, steps_to_delete, decrement=False):
     """
-    Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function
+    Given the testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions) and a list of integers (step numbers that you want to delete), this function
     will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers 
     
     Parameters
@@ -158,7 +158,7 @@ def delete_cycle_steps(df, steps_to_delete, decrement=False):
 
 def get_index_range(df, cyc_range, cycle_step_idx = []):
     """
-    Given the testdata dataframe, this function returns the index range for the specified cycle range, 
+    Given the testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions), this function returns the index range for the specified cycle range, 
     or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.
     
     Parameters
@@ -198,7 +198,7 @@ def get_index_range(df, cyc_range, cycle_step_idx = []):
 
 def get_cycle_data(df, Headings , cyc_range, cycle_step_idx=[]):
     """
-    This function gets the data specified in the "Headings" for each sample within the specified cyc_range.
+    Given the testdata df (from the import_maccor_data or import_multiple_csv_data functions), this function gets the data specified in the "Headings" for each sample within the specified cyc_range.
     
     Parameters
     -----------
@@ -244,7 +244,7 @@ def get_cycle_data(df, Headings , cyc_range, cycle_step_idx=[]):
 
 def get_num_cycles(df):
     """
-    Given the testdata dataframe, this function will return the number of cycles.
+    Given the testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions), this function will return the number of cycles.
     
     Parameters
     -----------

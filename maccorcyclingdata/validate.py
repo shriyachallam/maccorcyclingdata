@@ -13,7 +13,7 @@ def validation_check_time_interval(validation_df, df, time_interval, i, cell_id)
         The validation dataframe where any errors will be recorded
 
     df : pandas dataframe
-        The testdata dataframe
+        The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)
     
     time_interval : integer
         The time interval between data point. How often data should be collected.
@@ -50,7 +50,7 @@ def validation_check_temp_interval(validation_df, df, temp_interval, i, cell_id)
         The validation dataframe where any errors will be recorded
 
     df : pandas dataframe
-        The testdata dataframe
+        The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)
     
     temp_interval : integer
         The maximum temperature change allowed between two data points.
@@ -88,7 +88,7 @@ def validation_check_advanced_cycle(validation_df, df, i, cell_id):
         The validation dataframe where any errors will be recorded
 
     df : pandas dataframe
-        The testdata dataframe
+        The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)
 
     i : integer
         An integer of the index where you want to validate
@@ -122,10 +122,10 @@ def validation_check_charging(validation_df, df, schedule_df, i, cell_id, char_t
         The validation dataframe where any errors will be recorded
 
     df : pandas dataframe
-        The testdata dataframe
+        The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)
 
     schedule_df : pandas dataframe
-        The dataframe of the cleaned schedule file
+        The dataframe of the cleaned schedule file (from import_schedules function)
 
     i : integer
         An integer of the index where you want to validate
@@ -185,10 +185,10 @@ def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, dis
         The validation dataframe where any errors will be recorded
 
     df : pandas dataframe
-        The testdata dataframe
+        The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)
 
     schedule_df : pandas dataframe
-        The dataframe of the cleaned schedule file
+        The dataframe of the cleaned schedule file (from the import_schedules function)
 
     i : integer
         An integer of the index where you want to validate
@@ -257,7 +257,7 @@ def validation_check_max_step_num(validation_df, df, max_step, i, cell_id):
         The validation dataframe where any errors will be recorded
 
     df : pandas dataframe
-        The testdata dataframe
+        The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)
     
     max_step : integer
         The last step from the schedule file
@@ -294,7 +294,7 @@ def validation_check_max_temp(validation_df, df, max_temp, i, cell_id, temp_tol=
         The validation dataframe where any errors will be recorded
 
     df : pandas dataframe
-        The testdata dataframe
+        The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)
     
     max_temp : integer
         The threshold for the highest temperature allowed
@@ -346,7 +346,7 @@ def validation_check_rest(validation_df, df, i, cell_id):
         The validation dataframe where any errors will be recorded
 
     df : pandas dataframe
-        The testdata dataframe
+        The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)
 
     i : integer
         An integer of the index where you want to validate
@@ -395,10 +395,10 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
     Parameters
     -----------
     schedule_df : pandas dataframe
-        The dataframe of the cleaned schedule file
+        The dataframe of the cleaned schedule file (from import_schedules function)
 
     df : pandas dataframe
-        The testdata dataframe
+        The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)
     
     cell_id : integer
         The cell id of the testdata

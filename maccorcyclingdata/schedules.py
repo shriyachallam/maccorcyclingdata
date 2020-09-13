@@ -67,7 +67,7 @@ def import_schedules(file_path, file_name):
 
 def sort_scheduler_steps(schedule_df):
     """
-    Given the schedule_df (the df of the schedule file), this function will sort rest, charge, discharge, advance
+    Given the schedule_df (the df that was output by import_schedules function), this function will sort rest, charge, discharge, advance
     cycle, and end step numbers.
 
     Parameters
