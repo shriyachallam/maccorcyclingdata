@@ -259,11 +259,11 @@ The schedule should have columns in the following order (the names can be anythi
 <p>The function will rename the columns to the following (in this order): ‘step’, ‘step_type’, ‘step_mode’, ‘step_mode_value’, ‘step_limit’, ‘step_limit_value’, ‘step_end_type’, ‘step_end_type_op’, ‘step_end_type_value’, ‘goto_step’, ‘report_type’, ‘report_type_value’, ‘options’, ‘step_note’.</p>
 <p>For all multiline steps (for example: steps with multiple options for the step it should go to depending on the result), this function will append those multiple lines into an array with each element being the value of each line. This allows for the function to keep each step to one line.
 This function sets the datatype of the <code class="docutils literal notranslate"><span class="pre">step</span></code> and <code class="docutils literal notranslate"><span class="pre">step_limit_value</span></code> to integer and float respectively.</p>
-<p>The function returns a pandas dataframe of the cleaned scheduler.</p>
+<p>The function returns a pandas dataframe of the cleaned cycler schedule.</p>
 </div>
 <div class="section" id="the-validate-test-data-function">
 <h2>The <code class="docutils literal notranslate"><span class="pre">validate_test_data</span></code> function<a class="headerlink" href="#the-validate-test-data-function" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">validate_test_data</span></code> function validates the testdata against the scheduler.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">validate_test_data</span></code> function validates the testdata against the cycler schedule.</p>
 <p>Parameters of this function (in this order):</p>
 <ul class="simple">
 <li><p>schedule_df = the dataframe of the cleaned schedule file (from the <code class="docutils literal notranslate"><span class="pre">import_schedules</span></code> function)</p></li>
@@ -274,7 +274,7 @@ This function sets the datatype of the <code class="docutils literal notranslate
 <li><p>max_temp = the threshold for the highest temperature allowed (integer)</p></li>
 <li><p>discharge_neg = True if the current of the testdata was exported as negative during discharge steps (boolean)</p></li>
 <li><p>temp_tol = when making sure the temperature doesn’t exceed a certain amount, this function will return either a warning, error, or ABORT message. this input specifies the tolerance should these messages. This is an optional input, the default value is 3.</p></li>
-<li><p>charg_tol = when checking whether the current matches the value specified in the scheduler, this input specifies how much tolerance (how much the current is allowed to waiver by). This is an optional input, the default value is 2.</p></li>
+<li><p>charg_tol = when checking whether the current matches the value specified in the cycler schedule, this input specifies how much tolerance (how much the current is allowed to waiver by). This is an optional input, the default value is 2.</p></li>
 </ul>
 <p>The errors this function checks for:</p>
 <ul class="simple">

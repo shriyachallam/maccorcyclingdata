@@ -200,7 +200,7 @@
 <dl class="function">
 <dt id="maccorcyclingdata.testdata.delete_cycle_steps">
 <code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">delete_cycle_steps</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">steps_to_delete</em>, <em class="sig-param">decrement=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#delete_cycle_steps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.delete_cycle_steps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function
+<dd><p>Given the testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions) and a list of integers (step numbers that you want to delete), this function
 will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -228,7 +228,7 @@ will delete all rows from the dataframe that have a cycle step index that matche
 <dl class="function">
 <dt id="maccorcyclingdata.testdata.get_cycle_data">
 <code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">get_cycle_data</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">Headings</em>, <em class="sig-param">cyc_range</em>, <em class="sig-param">cycle_step_idx=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#get_cycle_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.get_cycle_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function gets the data specified in the “Headings” for each sample within the specified cyc_range.</p>
+<dd><p>Given the testdata df (from the import_maccor_data or import_multiple_csv_data functions), this function gets the data specified in the “Headings” for each sample within the specified cyc_range.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -256,7 +256,7 @@ will delete all rows from the dataframe that have a cycle step index that matche
 <dl class="function">
 <dt id="maccorcyclingdata.testdata.get_index_range">
 <code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">get_index_range</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">cyc_range</em>, <em class="sig-param">cycle_step_idx=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#get_index_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.get_index_range" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given the testdata dataframe, this function returns the index range for the specified cycle range,
+<dd><p>Given the testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions), this function returns the index range for the specified cycle range,
 or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -284,7 +284,7 @@ or if a cycle step index is passed, as subset of each cyle for only that specifi
 <dl class="function">
 <dt id="maccorcyclingdata.testdata.get_num_cycles">
 <code class="sig-prename descclassname">maccorcyclingdata.testdata.</code><code class="sig-name descname">get_num_cycles</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/testdata.html#get_num_cycles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.testdata.get_num_cycles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given the testdata dataframe, this function will return the number of cycles.</p>
+<dd><p>Given the testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions), this function will return the number of cycles.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p>
@@ -394,7 +394,7 @@ function will import and clean the schedule file and return it as a df.</p>
 <dl class="function">
 <dt id="maccorcyclingdata.schedules.sort_scheduler_steps">
 <code class="sig-prename descclassname">maccorcyclingdata.schedules.</code><code class="sig-name descname">sort_scheduler_steps</code><span class="sig-paren">(</span><em class="sig-param">schedule_df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/schedules.html#sort_scheduler_steps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.schedules.sort_scheduler_steps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given the schedule_df (the df of the schedule file), this function will sort rest, charge, discharge, advance
+<dd><p>Given the schedule_df (the df that was output by import_schedules function), this function will sort rest, charge, discharge, advance
 cycle, and end step numbers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -440,8 +440,8 @@ The sub-modules that are validated are:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>schedule_df</strong> (<em>pandas dataframe</em>) – The dataframe of the cleaned schedule file</p></li>
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>schedule_df</strong> (<em>pandas dataframe</em>) – The dataframe of the cleaned schedule file (from import_schedules function)</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)</p></li>
 <li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>
 <li><p><strong>time_interval</strong> (<em>integer</em>) – The maximum interval of how often the cycler should be recording data</p></li>
 <li><p><strong>temp_interval</strong> (<em>integer</em>) – The maximum interval of a temperature change</p></li>
@@ -491,7 +491,7 @@ Headers of the validation_df:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)</p></li>
 <li><p><strong>i</strong> (<em>integer</em>) – An integer of the index where you want to validate</p></li>
 <li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>
 </ul>
@@ -514,13 +514,13 @@ Headers of the validation_df:</p>
 <dl class="function">
 <dt id="maccorcyclingdata.validate.validation_check_charging">
 <code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validation_check_charging</code><span class="sig-paren">(</span><em class="sig-param">validation_df</em>, <em class="sig-param">df</em>, <em class="sig-param">schedule_df</em>, <em class="sig-param">i</em>, <em class="sig-param">cell_id</em>, <em class="sig-param">char_tol=2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validation_check_charging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validation_check_charging" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will validate the testdata against the charging steps by making sure the current is within 5 of the schedule file’s instructions</p>
+<dd><p>This function will validate the testdata against the charging steps by making sure the value of either the voltage or current matches with the value specfied in the scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
-<li><p><strong>schedule_df</strong> (<em>pandas dataframe</em>) – The dataframe of the cleaned schedule file</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)</p></li>
+<li><p><strong>schedule_df</strong> (<em>pandas dataframe</em>) – The dataframe of the cleaned schedule file (from import_schedules function)</p></li>
 <li><p><strong>i</strong> (<em>integer</em>) – An integer of the index where you want to validate</p></li>
 <li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>
 <li><p><strong>char_tol</strong> (<em>integer</em>) – Sets the tolerance between the current/discharging current values and the set value in the schedule file. Default is 2.</p></li>
@@ -544,13 +544,13 @@ Headers of the validation_df:</p>
 <dl class="function">
 <dt id="maccorcyclingdata.validate.validation_check_discharging">
 <code class="sig-prename descclassname">maccorcyclingdata.validate.</code><code class="sig-name descname">validation_check_discharging</code><span class="sig-paren">(</span><em class="sig-param">validation_df</em>, <em class="sig-param">df</em>, <em class="sig-param">schedule_df</em>, <em class="sig-param">i</em>, <em class="sig-param">cell_id</em>, <em class="sig-param">discharge_neg</em>, <em class="sig-param">char_tol=2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/maccorcyclingdata/validate.html#validation_check_discharging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maccorcyclingdata.validate.validation_check_discharging" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will validate the testdata against the discharging steps by making sure the current is negative</p>
+<dd><p>This function will validate the testdata against the discharging steps by making sure the value of either the voltage or current matches with the value specfied in the scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
-<li><p><strong>schedule_df</strong> (<em>pandas dataframe</em>) – The dataframe of the cleaned schedule file</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)</p></li>
+<li><p><strong>schedule_df</strong> (<em>pandas dataframe</em>) – The dataframe of the cleaned schedule file (from the import_schedules function)</p></li>
 <li><p><strong>i</strong> (<em>integer</em>) – An integer of the index where you want to validate</p></li>
 <li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>
 <li><p><strong>discharge_neg</strong> (<em>boolean</em>) – Set to True if the current is exported as negative during discharge steps.</p></li>
@@ -580,7 +580,7 @@ Headers of the validation_df:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)</p></li>
 <li><p><strong>max_step</strong> (<em>integer</em>) – The last step from the schedule file</p></li>
 <li><p><strong>i</strong> (<em>integer</em>) – An integer of the index where you want to validate</p></li>
 <li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>
@@ -609,7 +609,7 @@ Headers of the validation_df:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)</p></li>
 <li><p><strong>max_temp</strong> (<em>integer</em>) – The threshold for the highest temperature allowed</p></li>
 <li><p><strong>i</strong> (<em>integer</em>) – An integer of the index where you want to validate</p></li>
 <li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>
@@ -645,7 +645,7 @@ Headers of the validation_df:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)</p></li>
 <li><p><strong>i</strong> (<em>integer</em>) – An integer of the index where you want to validate</p></li>
 <li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>
 </ul>
@@ -673,7 +673,7 @@ Headers of the validation_df:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)</p></li>
 <li><p><strong>temp_interval</strong> (<em>integer</em>) – The maximum temperature change allowed between two data points.</p></li>
 <li><p><strong>i</strong> (<em>integer</em>) – An integer of the index where you want to validate</p></li>
 <li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>
@@ -702,7 +702,7 @@ Headers of the validation_df:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>validation_df</strong> (<em>pandas dataframe</em>) – The validation dataframe where any errors will be recorded</p></li>
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – The testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions)</p></li>
 <li><p><strong>time_interval</strong> (<em>integer</em>) – The time interval between data point. How often data should be collected.</p></li>
 <li><p><strong>i</strong> (<em>integer</em>) – An integer of the index where you want to validate</p></li>
 <li><p><strong>cell_id</strong> (<em>integer</em>) – The cell id of the testdata</p></li>

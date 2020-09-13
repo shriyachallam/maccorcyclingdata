@@ -154,6 +154,7 @@
   <h1>Source code for maccorcyclingdata.schedules</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
 <div class="viewcode-block" id="import_schedules"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.schedules.import_schedules">[docs]</a><span class="k">def</span> <span class="nf">import_schedules</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -183,6 +184,14 @@
 <span class="sd">    &gt;&gt;&gt; schedule_df = schedules.import_schedules(&#39;example_data/&#39;,&#39;schedule.csv&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; schedule_df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;file path must be a string&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;file name must be a string&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="o">+</span><span class="n">file_name</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotADirectoryError</span><span class="p">(</span><span class="s2">&quot;The path &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span> <span class="o">+</span> <span class="n">file_name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; not found&quot;</span><span class="p">)</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span> <span class="o">+</span> <span class="n">file_name</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span> <span class="c1">#delete the rows that are completely blank</span>
@@ -221,7 +230,7 @@
 
 <div class="viewcode-block" id="sort_scheduler_steps"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.schedules.sort_scheduler_steps">[docs]</a><span class="k">def</span> <span class="nf">sort_scheduler_steps</span><span class="p">(</span><span class="n">schedule_df</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given the schedule_df (the df of the schedule file), this function will sort rest, charge, discharge, advance</span>
+<span class="sd">    Given the schedule_df (the df that was output by import_schedules function), this function will sort rest, charge, discharge, advance</span>
 <span class="sd">    cycle, and end step numbers.</span>
 
 <span class="sd">    Parameters</span>
@@ -255,6 +264,15 @@
 <span class="sd">    &gt;&gt;&gt; rest_steps, charge_steps, advance_steps, discharge_steps, end_steps, max_step = sort_scheduler_steps(schedule_df)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">schedule_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;schedule_df input must be a pandas dataframe&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">schedule_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">14</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have 14 columns&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">schedule_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="s1">&#39;step_type&#39;</span><span class="p">,</span> <span class="s1">&#39;step_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;step_mode_value&#39;</span><span class="p">,</span> <span class="s1">&#39;step_limit&#39;</span><span class="p">,</span> <span class="s1">&#39;step_limit_value&#39;</span><span class="p">,</span> <span class="s1">&#39;step_end_type&#39;</span><span class="p">,</span> <span class="s1">&#39;step_end_type_op&#39;</span><span class="p">,</span> <span class="s1">&#39;step_end_type_value&#39;</span><span class="p">,</span> <span class="s1">&#39;goto_step&#39;</span><span class="p">,</span> <span class="s1">&#39;report_type&#39;</span><span class="p">,</span> <span class="s1">&#39;report_type_value&#39;</span><span class="p">,</span> <span class="s1">&#39;options&#39;</span><span class="p">,</span> <span class="s1">&#39;step_note&#39;</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have these columns: [&#39;step&#39;, &#39;step_type&#39;, &#39;step_mode&#39;, &#39;step_mode_value&#39;, &#39;step_limit&#39;, &#39;step_limit_value&#39;, &#39;step_end_type&#39;, &#39;step_end_type_op&#39;, &#39;step_end_type_value&#39;, &#39;goto_step&#39;, &#39;report_type&#39;, &#39;report_type_value&#39;, &#39;options&#39;, &#39;step_note&#39;]&quot;</span><span class="p">)</span>
+    
     <span class="n">rest_steps</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">charge_steps</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">advance_steps</span> <span class="o">=</span> <span class="p">[]</span>

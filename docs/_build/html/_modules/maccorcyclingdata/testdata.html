@@ -183,6 +183,17 @@
 <span class="sd">    &gt;&gt;&gt; df = testdata.import_maccor_data(&#39;example_data/&#39;, &#39;testdata.csv&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;file path must be a string&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;file name must be a string&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;header must be an integer&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="o">+</span><span class="n">file_name</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotADirectoryError</span><span class="p">(</span><span class="s2">&quot;The path &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span> <span class="o">+</span> <span class="n">file_name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; not found&quot;</span><span class="p">)</span>
     
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="o">+</span><span class="n">file_name</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">header</span><span class="p">))</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">clean_maccor_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
@@ -213,6 +224,11 @@
 <span class="sd">    &gt;&gt;&gt; mult_df = testdata.import_multiple_csv_data(&#39;example_data/multiple_csv/&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; mult_df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;file path must be a string&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotADirectoryError</span><span class="p">(</span><span class="s2">&quot;The path &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; not found&quot;</span><span class="p">)</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
     <span class="c1"># r=root, d=directories, f = files</span>
@@ -251,6 +267,12 @@
 <span class="sd">    &gt;&gt;&gt; df = testdata.clean_maccor_df(df)</span>
 <span class="sd">    &gt;&gt;&gt; df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;input must be a pandas dataframe&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">14</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe can have 14 columns max&quot;</span><span class="p">)</span>
     
     <span class="k">if</span> <span class="s1">&#39;Watt-hr&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Watt-hr&#39;</span><span class="p">])</span> 
@@ -269,7 +291,7 @@
 
 <div class="viewcode-block" id="delete_cycle_steps"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.delete_cycle_steps">[docs]</a><span class="k">def</span> <span class="nf">delete_cycle_steps</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">steps_to_delete</span><span class="p">,</span> <span class="n">decrement</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given the testdata dataframe and a list of integers (step numbers that you want to delete), this function</span>
+<span class="sd">    Given the testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions) and a list of integers (step numbers that you want to delete), this function</span>
 <span class="sd">    will delete all rows from the dataframe that have a cycle step index that matches any in the list of integers </span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
@@ -294,6 +316,21 @@
 <span class="sd">    &gt;&gt;&gt; del_df = testdata.delete_cycle_steps(df, [1], True)</span>
 <span class="sd">    &gt;&gt;&gt; del_df.head(5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;df input must be a pandas dataframe&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps_to_delete</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;steps_to_delete input must be a list&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decrement</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;decrement input must be a boolean&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have 10 columns&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">,</span> <span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="s1">&#39;test_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;step_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity_mah&#39;</span><span class="p">,</span> <span class="s1">&#39;current_ma&#39;</span><span class="p">,</span> <span class="s1">&#39;voltage_v&#39;</span><span class="p">,</span> <span class="s1">&#39;dpt_time&#39;</span><span class="p">,</span> <span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">,</span> <span class="s1">&#39;ev_temp&#39;</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have these columns: [&#39;cyc&#39;, &#39;step&#39;, &#39;test_time_s&#39;, &#39;step_time_s&#39;, &#39;capacity_mah&#39;, &#39;current_ma&#39;, &#39;voltage_v&#39;, &#39;dpt_time&#39;, &#39;thermocouple_temp_c&#39;, &#39;ev_temp&#39;]&quot;</span><span class="p">)</span>
+    
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">steps_to_delete</span><span class="p">:</span>
         <span class="n">to_be_deleted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">]</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">to_be_deleted</span><span class="p">)</span>
@@ -312,7 +349,7 @@
 
 <div class="viewcode-block" id="get_index_range"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.get_index_range">[docs]</a><span class="k">def</span> <span class="nf">get_index_range</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cyc_range</span><span class="p">,</span> <span class="n">cycle_step_idx</span> <span class="o">=</span> <span class="p">[]):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given the testdata dataframe, this function returns the index range for the specified cycle range, </span>
+<span class="sd">    Given the testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions), this function returns the index range for the specified cycle range, </span>
 <span class="sd">    or if a cycle step index is passed, as subset of each cyle for only that specific cycle step.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
@@ -337,11 +374,24 @@
 <span class="sd">    &gt;&gt;&gt; ind = testdata.get_cycle_data(df, [1, 3, 5], [12])</span>
 <span class="sd">    &gt;&gt;&gt; print(ind[:6])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;df input must be a pandas dataframe&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cyc_range</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;cyc_range input must be a list&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cycle_step_idx</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;cycle_step_index input must be a list&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have 10 columns&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">,</span> <span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="s1">&#39;test_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;step_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity_mah&#39;</span><span class="p">,</span> <span class="s1">&#39;current_ma&#39;</span><span class="p">,</span> <span class="s1">&#39;voltage_v&#39;</span><span class="p">,</span> <span class="s1">&#39;dpt_time&#39;</span><span class="p">,</span> <span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">,</span> <span class="s1">&#39;ev_temp&#39;</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have these columns: [&#39;cyc&#39;, &#39;step&#39;, &#39;test_time_s&#39;, &#39;step_time_s&#39;, &#39;capacity_mah&#39;, &#39;current_ma&#39;, &#39;voltage_v&#39;, &#39;dpt_time&#39;, &#39;thermocouple_temp_c&#39;, &#39;ev_temp&#39;]&quot;</span><span class="p">)</span>
     
     <span class="c1"># If we are passed a cycle step index, then we provide the indicies for only that step.</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cycle_step_idx</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">index_range</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="c1"># There is probably a better way to do this, but it works and the number of cycles is never that high</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cyc_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">cyc_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>  <span class="c1"># Need the &#39;+1&#39; so that we include the upper cycle.</span>
             <span class="n">index_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">index_range</span><span class="p">,</span>
                                        <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cycle_step_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">0</span><span class="p">][:])</span>
@@ -352,7 +402,7 @@
 
 <div class="viewcode-block" id="get_cycle_data"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.get_cycle_data">[docs]</a><span class="k">def</span> <span class="nf">get_cycle_data</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">Headings</span> <span class="p">,</span> <span class="n">cyc_range</span><span class="p">,</span> <span class="n">cycle_step_idx</span><span class="o">=</span><span class="p">[]):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function gets the data specified in the &quot;Headings&quot; for each sample within the specified cyc_range.</span>
+<span class="sd">    Given the testdata df (from the import_maccor_data or import_multiple_csv_data functions), this function gets the data specified in the &quot;Headings&quot; for each sample within the specified cyc_range.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
@@ -379,7 +429,24 @@
 <span class="sd">    &gt;&gt;&gt; data = testdata.get_cycle_data(df, [&#39;current_ma&#39;, &#39;voltage_v&#39;], [1, 3, 5], [12])</span>
 <span class="sd">    &gt;&gt;&gt; print(data[:6])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;df input must be a pandas dataframe&#39;</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Headings</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Headings input must be a list&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cyc_range</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;cycle_range input must be a list&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cycle_step_idx</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;cycle_step_index input must be a list&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have 10 columns&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">,</span> <span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="s1">&#39;test_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;step_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity_mah&#39;</span><span class="p">,</span> <span class="s1">&#39;current_ma&#39;</span><span class="p">,</span> <span class="s1">&#39;voltage_v&#39;</span><span class="p">,</span> <span class="s1">&#39;dpt_time&#39;</span><span class="p">,</span> <span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">,</span> <span class="s1">&#39;ev_temp&#39;</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have these columns: [&#39;cyc&#39;, &#39;step&#39;, &#39;test_time_s&#39;, &#39;step_time_s&#39;, &#39;capacity_mah&#39;, &#39;current_ma&#39;, &#39;voltage_v&#39;, &#39;dpt_time&#39;, &#39;thermocouple_temp_c&#39;, &#39;ev_temp&#39;]&quot;</span><span class="p">)</span>
+    
     <span class="c1"># Find the index range for the specified cycle(s)</span>
     <span class="n">index_range</span> <span class="o">=</span> <span class="n">get_index_range</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">cyc_range</span><span class="p">,</span> <span class="n">cycle_step_idx</span><span class="p">)</span>
     <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -398,7 +465,7 @@
 
 <div class="viewcode-block" id="get_num_cycles"><a class="viewcode-back" href="../../source/maccorcyclingdata.html#maccorcyclingdata.testdata.get_num_cycles">[docs]</a><span class="k">def</span> <span class="nf">get_num_cycles</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given the testdata dataframe, this function will return the number of cycles.</span>
+<span class="sd">    Given the testdata dataframe (from the import_maccor_data or import_multiple_csv_data functions), this function will return the number of cycles.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
@@ -419,7 +486,15 @@
 <span class="sd">    &gt;&gt;&gt; from maccorcyclingdata.testdata import get_num_cycles</span>
 <span class="sd">    &gt;&gt;&gt; get_num_cycles(df)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;df input must be a pandas dataframe&#39;</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have 10 columns&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">,</span> <span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="s1">&#39;test_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;step_time_s&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity_mah&#39;</span><span class="p">,</span> <span class="s1">&#39;current_ma&#39;</span><span class="p">,</span> <span class="s1">&#39;voltage_v&#39;</span><span class="p">,</span> <span class="s1">&#39;dpt_time&#39;</span><span class="p">,</span> <span class="s1">&#39;thermocouple_temp_c&#39;</span><span class="p">,</span> <span class="s1">&#39;ev_temp&#39;</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Pandas dataframe must have these columns: [&#39;cyc&#39;, &#39;step&#39;, &#39;test_time_s&#39;, &#39;step_time_s&#39;, &#39;capacity_mah&#39;, &#39;current_ma&#39;, &#39;voltage_v&#39;, &#39;dpt_time&#39;, &#39;thermocouple_temp_c&#39;, &#39;ev_temp&#39;]&quot;</span><span class="p">)</span>
+    
     <span class="n">number_of_cycles</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cyc&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">number_of_cycles</span> </div>
 
