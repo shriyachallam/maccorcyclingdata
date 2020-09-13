@@ -109,12 +109,12 @@ def validation_check_advanced_cycle(validation_df, df, i, cell_id):
     """
 
     if df['cyc'][i] != (df['cyc'][i-1] + 1):
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - the cycle did not advance properly'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - the cycle did not increase by 1 as expected'}, ignore_index=True)
     return validation_df
 
 def validation_check_charging(validation_df, df, schedule_df, i, cell_id, char_tol=2):
     """
-    This function will validate the testdata against the charging steps by making sure the current is within 5 of the schedule file's instructions
+    This function will validate the testdata against the charging steps by making sure the value of either the voltage or current matches with the value specfied in the scheduler.
 
     Parameters
     -----------
@@ -177,7 +177,7 @@ def validation_check_charging(validation_df, df, schedule_df, i, cell_id, char_t
 
 def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, discharge_neg, char_tol=2):
     """
-    This function will validate the testdata against the discharging steps by making sure the current is negative
+    This function will validate the testdata against the discharging steps by making sure the value of either the voltage or current matches with the value specfied in the scheduler.
 
     Parameters
     -----------
@@ -329,11 +329,11 @@ def validation_check_max_temp(validation_df, df, max_temp, i, cell_id, temp_tol=
     """
 
     if ((max_temp-temp_tol) <= (df['thermocouple_temp_c'][i]) <= (max_temp+temp_tol)):
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - temperature has surpassed the max!'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - temperature has surpassed the max of ' + str(max_temp) + '!'}, ignore_index=True)
     elif ((df['thermocouple_temp_c'][i]) > (max_temp+temp_tol)):
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'ABORT - temperature is way too hot!'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'ABORT - temperature is way too hot! It has far surpassed the max of ' + str(max_temp) + '!'}, ignore_index=True)
     elif ((max_temp-temp_tol) < (df['thermocouple_temp_c'][i])):
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'warning - temperature approaching the max!'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'warning - temperature approaching the max of ' + str(max_temp) + '!'}, ignore_index=True)
     return validation_df
 
 def validation_check_rest(validation_df, df, i, cell_id):
