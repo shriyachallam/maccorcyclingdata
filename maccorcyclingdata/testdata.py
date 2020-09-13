@@ -29,6 +29,17 @@ def import_maccor_data(file_path , file_name, header=0):
     >>> df = testdata.import_maccor_data('example_data/', 'testdata.csv')
     >>> df.head(5)
     """
+    if not isinstance(file_path, str):
+        raise TypeError('file path must be a string')
+
+    if not isinstance(file_name, str):
+        raise TypeError('file name must be a string')
+
+    if not isinstance(header, int):
+        raise TypeError('header must be an integer')
+
+    if not os.path.exists(file_path+file_name):
+        raise NotADirectoryError("The path " + str(file_path + file_name) + " not found")
     
     df = pd.read_csv(file_path+file_name, header =int(header))
     df = clean_maccor_df(df)
@@ -59,6 +70,11 @@ def import_multiple_csv_data(file_path):
     >>> mult_df = testdata.import_multiple_csv_data('example_data/multiple_csv/')
     >>> mult_df.head(5)
     """
+    if not isinstance(file_path, str):
+        raise TypeError('file path must be a string')
+
+    if not os.path.exists(file_path):
+        raise NotADirectoryError("The path " + str(file_path) + " not found")
 
     df = pd.DataFrame()
     # r=root, d=directories, f = files
@@ -97,6 +113,12 @@ def clean_maccor_df(df):
     >>> df = testdata.clean_maccor_df(df)
     >>> df.head(5)
     """
+
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError('input must be a pandas dataframe')
+    
+    if not len(df.columns) < 14:
+        raise IndexError("Pandas dataframe can have 14 columns max")
     
     if 'Watt-hr' in df.columns:
         df = df.drop(columns=['Watt-hr']) 
@@ -140,6 +162,21 @@ def delete_cycle_steps(df, steps_to_delete, decrement=False):
     >>> del_df = testdata.delete_cycle_steps(df, [1], True)
     >>> del_df.head(5)
     """
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError('df input must be a pandas dataframe')
+
+    if not isinstance(steps_to_delete, list):
+        raise TypeError('steps_to_delete input must be a list')
+
+    if not isinstance(decrement, bool):
+        raise TypeError('decrement input must be a boolean')
+    
+    if not len(df.columns) == 10:
+        raise IndexError("Pandas dataframe must have 10 columns")
+
+    if (df.columns.tolist() != ['cyc', 'step', 'test_time_s', 'step_time_s', 'capacity_mah', 'current_ma', 'voltage_v', 'dpt_time', 'thermocouple_temp_c', 'ev_temp']):
+        raise IndexError("Pandas dataframe must have these columns: ['cyc', 'step', 'test_time_s', 'step_time_s', 'capacity_mah', 'current_ma', 'voltage_v', 'dpt_time', 'thermocouple_temp_c', 'ev_temp']")
+    
     for x in steps_to_delete:
         to_be_deleted = df.index[df['step'] == x]
         df = df.drop(to_be_deleted)
@@ -183,11 +220,24 @@ def get_index_range(df, cyc_range, cycle_step_idx = []):
     >>> ind = testdata.get_cycle_data(df, [1, 3, 5], [12])
     >>> print(ind[:6])
     """
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError('df input must be a pandas dataframe')
+
+    if not isinstance(cyc_range, list):
+        raise TypeError('cyc_range input must be a list')
+
+    if not isinstance(cycle_step_idx, list):
+        raise TypeError('cycle_step_index input must be a list')
+
+    if not len(df.columns) == 10:
+        raise IndexError("Pandas dataframe must have 10 columns")
+
+    if (df.columns.tolist() != ['cyc', 'step', 'test_time_s', 'step_time_s', 'capacity_mah', 'current_ma', 'voltage_v', 'dpt_time', 'thermocouple_temp_c', 'ev_temp']):
+        raise IndexError("Pandas dataframe must have these columns: ['cyc', 'step', 'test_time_s', 'step_time_s', 'capacity_mah', 'current_ma', 'voltage_v', 'dpt_time', 'thermocouple_temp_c', 'ev_temp']")
     
     # If we are passed a cycle step index, then we provide the indicies for only that step.
     if len(cycle_step_idx) > 0:
         index_range = []
-        # There is probably a better way to do this, but it works and the number of cycles is never that high
         for i in range(cyc_range[0],cyc_range[1]+1):  # Need the '+1' so that we include the upper cycle.
             index_range = np.append( index_range,
                                        np.where((df['cyc'] == i) & (df["step"] == cycle_step_idx[0]))[0][:])
@@ -225,7 +275,24 @@ def get_cycle_data(df, Headings , cyc_range, cycle_step_idx=[]):
     >>> data = testdata.get_cycle_data(df, ['current_ma', 'voltage_v'], [1, 3, 5], [12])
     >>> print(data[:6])
     """
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError('df input must be a pandas dataframe')
 
+    if not isinstance(Headings, list):
+        raise TypeError('Headings input must be a list')
+
+    if not isinstance(cyc_range, list):
+        raise TypeError('cycle_range input must be a list')
+
+    if not isinstance(cycle_step_idx, list):
+        raise TypeError('cycle_step_index input must be a list')
+
+    if not len(df.columns) == 10:
+        raise IndexError("Pandas dataframe must have 10 columns")
+
+    if (df.columns.tolist() != ['cyc', 'step', 'test_time_s', 'step_time_s', 'capacity_mah', 'current_ma', 'voltage_v', 'dpt_time', 'thermocouple_temp_c', 'ev_temp']):
+        raise IndexError("Pandas dataframe must have these columns: ['cyc', 'step', 'test_time_s', 'step_time_s', 'capacity_mah', 'current_ma', 'voltage_v', 'dpt_time', 'thermocouple_temp_c', 'ev_temp']")
+    
     # Find the index range for the specified cycle(s)
     index_range = get_index_range(df,cyc_range, cycle_step_idx)
     np.set_printoptions(suppress=True)
@@ -265,7 +332,15 @@ def get_num_cycles(df):
     >>> from maccorcyclingdata.testdata import get_num_cycles
     >>> get_num_cycles(df)
     """
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError('df input must be a pandas dataframe')
 
+    if not len(df.columns) == 10:
+        raise IndexError("Pandas dataframe must have 10 columns")
+
+    if (df.columns.tolist() != ['cyc', 'step', 'test_time_s', 'step_time_s', 'capacity_mah', 'current_ma', 'voltage_v', 'dpt_time', 'thermocouple_temp_c', 'ev_temp']):
+        raise IndexError("Pandas dataframe must have these columns: ['cyc', 'step', 'test_time_s', 'step_time_s', 'capacity_mah', 'current_ma', 'voltage_v', 'dpt_time', 'thermocouple_temp_c', 'ev_temp']")
+    
     number_of_cycles = int(max(df['cyc'])) + 1
     return number_of_cycles 
 

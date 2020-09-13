@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 def import_schedules(file_path, file_name):
     """
@@ -29,6 +30,14 @@ def import_schedules(file_path, file_name):
     >>> schedule_df = schedules.import_schedules('example_data/','schedule.csv')
     >>> schedule_df.head(5)
     """
+    if not isinstance(file_path, str):
+        raise TypeError('file path must be a string')
+
+    if not isinstance(file_name, str):
+        raise TypeError('file name must be a string')
+
+    if not os.path.exists(file_path+file_name):
+        raise NotADirectoryError("The path " + str(file_path + file_name) + " not found")
 
     df = pd.read_csv(file_path + file_name)
     df = df.dropna(how='all') #delete the rows that are completely blank
@@ -101,6 +110,15 @@ def sort_scheduler_steps(schedule_df):
     >>> rest_steps, charge_steps, advance_steps, discharge_steps, end_steps, max_step = sort_scheduler_steps(schedule_df)
     """
 
+    if not isinstance(schedule_df, pd.DataFrame):
+        raise TypeError('schedule_df input must be a pandas dataframe')
+
+    if not len(schedule_df.columns) == 14:
+        raise IndexError("Pandas dataframe must have 14 columns")
+
+    if (schedule_df.columns.tolist() != ['step', 'step_type', 'step_mode', 'step_mode_value', 'step_limit', 'step_limit_value', 'step_end_type', 'step_end_type_op', 'step_end_type_value', 'goto_step', 'report_type', 'report_type_value', 'options', 'step_note']):
+        raise IndexError("Pandas dataframe must have these columns: ['step', 'step_type', 'step_mode', 'step_mode_value', 'step_limit', 'step_limit_value', 'step_end_type', 'step_end_type_op', 'step_end_type_value', 'goto_step', 'report_type', 'report_type_value', 'options', 'step_note']")
+    
     rest_steps = []
     charge_steps = []
     advance_steps = []
