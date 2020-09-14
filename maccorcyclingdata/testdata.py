@@ -238,11 +238,18 @@ def get_index_range(df, cyc_range, cycle_step_idx = []):
     # If we are passed a cycle step index, then we provide the indicies for only that step.
     if len(cycle_step_idx) > 0:
         index_range = []
-        for i in range(cyc_range[0],cyc_range[1]+1):  # Need the '+1' so that we include the upper cycle.
+        if len(cyc_range) > 1:
+            for i in range(cyc_range[0],cyc_range[1]+1):  # Need the '+1' so that we include the upper cycle.
+                index_range = np.append( index_range,
+                                        np.where((df['cyc'] == i) & (df["step"] == cycle_step_idx[0]))[0][:])
+        else: 
             index_range = np.append( index_range,
-                                       np.where((df['cyc'] == i) & (df["step"] == cycle_step_idx[0]))[0][:])
+                                    np.where((df['cyc'] == cyc_range[0]) & (df["step"] == cycle_step_idx[0]))[0][:])
     else:
-        index_range = np.where(np.logical_and(df['cyc'] >= cyc_range[0] , df['cyc']<= cyc_range[1] ))[0][:]
+        if len(cyc_range) > 1:
+            index_range = np.where(np.logical_and(df['cyc'] >= cyc_range[0] , df['cyc']<= cyc_range[1] ))[0][:]
+        else: 
+            index_range = np.where(np.logical_and(df['cyc'] >= cyc_range[0] , df['cyc']<= cyc_range[0] ))[0][:]
 
     return index_range
 

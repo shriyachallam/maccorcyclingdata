@@ -63,7 +63,7 @@ def validation_check_time_interval(validation_df, df, time_interval, i, cell_id)
         raise TypeError("cell_id must be an integer")
 
     if df['test_time_s'][i] > (df['test_time_s'][i-1] + time_interval):
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': ('anomaly - more than ' + str(time_interval) + ' seconds has passed since the last collected data')}, ignore_index=True)   
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': ('time interval anomaly - more than ' + str(time_interval) + ' seconds has passed since the last collected data')}, ignore_index=True)   
     
     return validation_df
 
@@ -127,7 +127,7 @@ def validation_check_temp_interval(validation_df, df, temp_interval, i, cell_id)
         raise TypeError("cell_id must be an integer")
 
     if (df['thermocouple_temp_c'][i] >= (df['thermocouple_temp_c'][i-1] + temp_interval)) or (df['thermocouple_temp_c'][i] <= (df['thermocouple_temp_c'][i-1] - temp_interval)):
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'anomaly - jump in temperature (more than ' + str(temp_interval) + ' degrees)'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'temp interval anomaly - jump in temperature (more than ' + str(temp_interval) + ' degrees)'}, ignore_index=True)
          
     return validation_df
 
@@ -185,7 +185,7 @@ def validation_check_advanced_cycle(validation_df, df, i, cell_id):
         raise TypeError("cell_id must be an integer")
 
     if df['cyc'][i] != (df['cyc'][i-1] + 1):
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - the cycle did not increase by 1 as expected'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'advance cycle error - the cycle did not increase by 1 as expected'}, ignore_index=True)
     return validation_df
 
 def validation_check_charging(validation_df, df, schedule_df, i, cell_id, char_tol=2):
@@ -267,24 +267,25 @@ def validation_check_charging(validation_df, df, schedule_df, i, cell_id, char_t
     if mode == 'Current':
         mode = 'current_ma'
         mode_value = mode_value * 1000
-        if ((round(df[mode][i]) + char_tol) >= mode_value) or ((round(df[mode][i]) - char_tol) <= mode_value):
+        if ((round(df[mode][i]) + char_tol) >= mode_value) and ((round(df[mode][i]) - char_tol) <= mode_value):
             return validation_df
     elif mode == 'Voltage':
         mode = 'voltage_v'
-        if (round(df[mode][i], 1)) == mode_value:
+        if (round(df[mode][i], 2)) == mode_value:
             return validation_df
     if not pd.isna(limit):
         if limit == 'Current':
             limit = 'current_ma'
             limit_value = limit_value * 1000
-            if ((round(df[limit][i]) + char_tol) >= limit_value) or ((round(df[limit][i]) - char_tol) <= limit_value):
+            if ((round(df[limit][i]) + char_tol) >= limit_value) and ((round(df[limit][i]) - char_tol) <= limit_value):
                 return validation_df
         elif limit == 'Voltage':
             limit = 'voltage_v'
-            if (round(df[limit][i], 1)) == limit_value:
+            if (round(df[limit][i], 2)) == limit_value:
+                print(round(df[limit][i], 2))
                 return validation_df
     
-    validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': str(cell_id), 'row_number': str(i), 'error': 'error - ' + str(mode) + ' is at the wrong value'}, ignore_index=True)
+    validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': str(cell_id), 'row_number': str(i), 'error': 'charging error - ' + str(mode) + 'or ' + str(limit) + ' is at the wrong value'}, ignore_index=True)
     return validation_df
 
 def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, discharge_neg, char_tol=2):
@@ -374,8 +375,8 @@ def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, dis
         mode = 'current_ma'
         mode_value = mode_value * 1000
         if discharge_neg:
-            mode_value = -mode_value
-        if ((round(df[mode][i]) + char_tol) >= mode_value) or ((round(df[mode][i]) - char_tol) <= mode_value):
+            mode_value = -(mode_value)
+        if ((round(df[mode][i]) + char_tol) >= mode_value) and ((round(df[mode][i]) - char_tol) <= mode_value):
             return validation_df
     elif mode == 'Voltage':
         mode = 'voltage_v'
@@ -387,14 +388,14 @@ def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, dis
             limit_value = limit_value * 1000
             if discharge_neg:
                 limit_value = -limit_value
-            if ((round(df[limit][i]) + char_tol) >= limit_value) or ((round(df[limit][i]) - char_tol) <= limit_value):
+            if ((round(df[limit][i]) + char_tol) >= limit_value) and ((round(df[limit][i]) - char_tol) <= limit_value):
                 return validation_df
         elif limit == 'Voltage':
             limit = 'voltage_v'
             if (round(df[limit][i], 1)) == limit_value:
                 return validation_df
 
-    validation_df = validation_df.append({'time':str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")), 'run': 'in progress', 'cell_num': str(cell_id), 'row_number': str(i), 'error': 'error - ' + str(mode) + ' is at the wrong value'}, ignore_index=True)
+    validation_df = validation_df.append({'time':str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")), 'run': 'in progress', 'cell_num': str(cell_id), 'row_number': str(i), 'error': 'discharging error - ' + str(mode) + ' or ' + str(limit) + ' is at the wrong value'}, ignore_index=True)
     return validation_df
 
 def validation_check_max_step_num(validation_df, df, max_step, i, cell_id):
@@ -457,7 +458,7 @@ def validation_check_max_step_num(validation_df, df, max_step, i, cell_id):
         raise TypeError("cell_id must be an integer")
 
     if df['step'][i] > max_step:
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - this step number surpasses the steps in cycler schedule'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'max step error - this step number surpasses the steps in cycler schedule'}, ignore_index=True)
     return validation_df
 
 def validation_check_max_temp(validation_df, df, max_temp, i, cell_id, temp_tol=3):
@@ -533,12 +534,12 @@ def validation_check_max_temp(validation_df, df, max_temp, i, cell_id, temp_tol=
     if not isinstance(cell_id, int):
         raise TypeError("cell_id must be an integer")
 
-    if ((max_temp-temp_tol) <= (df['thermocouple_temp_c'][i]) <= (max_temp+temp_tol)):
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - temperature has surpassed the max of ' + str(max_temp) + '!'}, ignore_index=True)
+    if ((max_temp) <= (df['thermocouple_temp_c'][i]) <= (max_temp+temp_tol)):
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'max temp error - temperature has surpassed the max of ' + str(max_temp) + '!'}, ignore_index=True)
     elif ((df['thermocouple_temp_c'][i]) > (max_temp+temp_tol)):
         validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'ABORT - temperature is way too hot! It has far surpassed the max of ' + str(max_temp) + '!'}, ignore_index=True)
     elif ((max_temp-temp_tol) < (df['thermocouple_temp_c'][i])):
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'warning - temperature approaching the max of ' + str(max_temp) + '!'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'max temp warning - temperature approaching the max of ' + str(max_temp) + '!'}, ignore_index=True)
     return validation_df
 
 def validation_check_rest(validation_df, df, i, cell_id):
@@ -595,7 +596,7 @@ def validation_check_rest(validation_df, df, i, cell_id):
         raise TypeError("cell_id must be an integer")
 
     if df['current_ma'][i] != 0:
-        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'error - current is not at 0 during rest step'}, ignore_index=True)
+        validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': cell_id, 'row_number': i, 'error': 'rest step error - current is not at 0 during rest step'}, ignore_index=True)
     return validation_df
 
 
@@ -668,6 +669,7 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
     Notes
     ------
     Depending on the size of your testdata and schedules, this function may take much longer to run.
+    For reference, the example in the jupyter notebook ran from 1:40pm-3:15pm for 901 cycles. Using timeit to time: 12min 3s ± 1min 56s per loop (mean ± std. dev. of 7 runs, 1 loop each)
     
     There are 3 possibilities of error messages:
 
@@ -676,7 +678,6 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
     2. error - temperature has surpassed the max! (current temperature >= max)
 
     3. ABORT - temperature is way too hot! (current temperature > max + temp_tol)
-
 
     Examples
     ---------
@@ -728,6 +729,10 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
     validation_df = pd.DataFrame(columns = column_names)
     rest_steps, charge_steps, advance_steps, discharge_steps, end_steps, max_step = sort_scheduler_steps(schedule_df)
     for i in df.index: 
+        validation_df = validation_check_max_temp(validation_df, df, max_temp, i, cell_id, temp_tol)
+        if i != 0:
+            validation_df = validation_check_time_interval(validation_df, df, time_interval, i, cell_id)
+            validation_df = validation_check_temp_interval(validation_df, df, temp_interval, i, cell_id)
         if df['step'][i] in rest_steps:
             validation_df = validation_check_rest(validation_df, df, i, cell_id)
         elif df['step'][i] in charge_steps:
@@ -736,12 +741,8 @@ def validate_test_data(schedule_df , df, cell_id, time_interval, temp_interval, 
             validation_df = validation_check_discharging(validation_df, df, schedule_df, i, cell_id, discharge_neg, char_tol)
         elif df['step'][i] in advance_steps:
             validation_df = validation_check_advanced_cycle(validation_df, df, i, cell_id)
-        max_step = int(max_step)
-        validation_df = validation_check_max_step_num(validation_df, df, max_step, i, cell_id)
-        validation_df = validation_check_max_temp(validation_df, df, max_temp, i, cell_id, temp_tol)
-        if i != 0:
-            validation_df = validation_check_time_interval(validation_df, df, time_interval, i, cell_id)
-            validation_df = validation_check_temp_interval(validation_df, df, temp_interval, i, cell_id)
+        elif df['step'][i] >= max_step:
+            validation_df = validation_check_max_step_num(validation_df, df, int(max_step), i, cell_id)
     if validation_df.empty:
         validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'run complete', 'cell_num': str(cell_id), 'row_number': '-', 'error': 'there are no errors'}, ignore_index=True)
         return validation_df
