@@ -365,10 +365,10 @@ def validation_check_discharging(validation_df, df, schedule_df, i, cell_id, dis
         raise TypeError("discharge_neg must be an boolean")
 
     step = df['step'][i]
-    mode = schedule_df['step_mode'][step-1]
-    mode_value = schedule_df['step_mode_value'][step-1]
-    limit = schedule_df['step_limit'][step-1]
-    limit_value = schedule_df['step_limit_value'][step-1]
+    mode = schedule_df['step_mode'][step+1]
+    mode_value = schedule_df['step_mode_value'][step+1]
+    limit = schedule_df['step_limit'][step+1]
+    limit_value = schedule_df['step_limit_value'][step+1]
 
     if mode == 'Current':
         mode = 'current_ma'
