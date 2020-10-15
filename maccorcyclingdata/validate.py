@@ -282,7 +282,6 @@ def validation_check_charging(validation_df, df, schedule_df, i, cell_id, char_t
         elif limit == 'Voltage':
             limit = 'voltage_v'
             if (round(df[limit][i], 2)) == limit_value:
-                print(round(df[limit][i], 2))
                 return validation_df
     
     validation_df = validation_df.append({'time':datetime.now().strftime("%d/%m/%Y %H:%M:%S"), 'run': 'in progress', 'cell_num': str(cell_id), 'row_number': str(i), 'error': 'charging error - ' + str(mode) + 'or ' + str(limit) + ' is at the wrong value'}, ignore_index=True)
