@@ -3,10 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Documentation for ``maccorcyclingdata``
-=========================================
-Note: This package is currently not up to date, so opened issues may not be answered.
-=====================================================================================
+Documentation for ``maccorcyclingdata`` - Note: This package is currently not up to date, so opened issues may not be answered.
+===============================================================================================================================
 
 .. toctree::
    :hidden:
