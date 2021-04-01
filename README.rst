@@ -1,7 +1,8 @@
 |docs|
 
 .. inclusion-marker-do-not-remove
-
+Note: This project is not currently being kept up to date, so opened issues may not be answered.
+================================================================================================
 Preparing MACCOR Data
 ======================
 
