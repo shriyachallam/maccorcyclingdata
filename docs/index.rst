@@ -5,6 +5,8 @@
 
 Documentation for ``maccorcyclingdata``
 =========================================
+Note: This package is currently not up to date, so opened issues may not be answered.
+=====================================================================================
 
 .. toctree::
    :hidden:
